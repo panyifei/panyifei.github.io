@@ -1,4 +1,6 @@
-## Commonjs规范
+[TOC]
+
+# Commonjs规范
 
 commonjs是服务器模块的规范，nodejs实现了规范
 
