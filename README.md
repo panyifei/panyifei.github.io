@@ -10,5 +10,8 @@
 ## Javascript框架设计读书笔记
 ### 
 
+## 工具使用
+### [Webstorm+Github的笔记环境搭建][2]
 
 [1]:https://github.com/panyifei/learning/blob/master/Commonjs,CMD,AMD和cortex介绍.md
+[2]:https://github.com/panyifei/learning/blob/master/Webstorm+Github的笔记环境搭建.md
