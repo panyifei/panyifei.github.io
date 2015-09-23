@@ -3,10 +3,10 @@
 
 		于是我们可以在页面上ajax获得数据，重绘页面，然后用户在点击倒退键时，还在这个页面上。因为我们在重绘页面的时候，调用一下pushSate为history增加了一条记录。
 		
-自己遵循commonjs写了一个小模块，提供了检验和调用的实现。
+自己遵循commonjs写了一个小模块，提供了检验和调用的实现，以下是代码的讲解以及提高的思路。
 		
-##检验：
-这里是去[Modernizr](https://modernizr.com/)找的检测方法的代码，因为直接属性检测问题比较大，例如android2.3浏览器支持这个pushState的方法，但是并不支持这个方法的行为...这里还用到了zepto
+##检验的借口：
+这个H5的API支持情况很好，但是坑还是很多的。从[caniuse](http://caniuse.com/#search=pushstate)上来看，支持程度很好，但是android的几个版本不支持有些尴尬。不过那几个版本非常小众。这里最终的解决是去[Modernizr](https://modernizr.com/)找的检测方法的代码，因为直接属性检测问题比较大，例如android2.3浏览器支持这个pushState的方法，但是并不支持这个方法的行为...这里还用到了zepto
 		
 ```
 var $ = require('zepto');
@@ -25,7 +25,7 @@ historyState.ifSupport = function(){
 
 ```
 
-##调用
+##方法调用的接口：
 实现思路就是将原来的层隐藏，加入一个新层覆盖上去，然后调用window.history.pushState加一条记录，返回的时候将原来的层清理，并将最开始的层显示出来，顺便清理了这个绑定。
 
 ```
