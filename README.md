@@ -9,6 +9,10 @@
 ### 啊
 ---
 
+##html5新特性研究以及使用
+##[history相关][4]
+---
+
 ## ECMAScript6学习
 ### [Promise以及各种异步的学习][3]
 ---
@@ -19,3 +23,4 @@
 [1]:https://github.com/panyifei/learning/blob/master/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/Webstorm+Github的笔记环境搭建.md
 [3]:https://github.com/panyifei/learning/blob/master/Promise以及各种异步的学习.md
+[4]:https://github.com/panyifei/learning/blob/master/history相关.md
