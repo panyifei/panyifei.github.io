@@ -5,7 +5,7 @@
 		
 自己遵循commonjs写了一个小模块，提供了检验和调用的实现，以下是代码的讲解以及提高的思路。
 		
-##检验的借口：
+##检验的接口：
 这个H5的API支持情况很好，但是坑还是很多的。从[caniuse](http://caniuse.com/#search=pushstate)上来看，支持程度很好，但是android的几个版本不支持有些尴尬。不过那几个版本非常小众。这里最终的解决是去[Modernizr](https://modernizr.com/)找的检测方法的代码，因为直接属性检测问题比较大，例如android2.3浏览器支持这个pushState的方法，但是并不支持这个方法的行为...这里还用到了zepto
 		
 ```

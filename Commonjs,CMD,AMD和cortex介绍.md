@@ -23,7 +23,34 @@ commonjs是服务器模块的规范，**nodejs**实现了规范
 ---
 
 ## AMD规范
-AMD是
+
+AMD是异步模块的定义，模块的加载不影响后面的语句，所有的依赖的语句，会被放在一个加载完才执行的回调函数中,AMD推崇`依赖前置`
+
+```
+require(['zepto'],function($){
+	$('body');
+});
+```
+参考了[阮一峰](http://www.ruanyifeng.com/blog/2012/10/asynchronous_module_definition.html)老师的文章
+
+---
+
+##Requirejs
+根据AMD实现了异步的加载，并且管理了**模块的依赖性**
+简单使用就是去官网下载下，然后data-main指定主入口模块
+
+主模块的代码遵循AMD：
+
+```
+require([],function(){})
+```
+加载的模块的写法：
+
+```
+define([],function(){})
+```
+
+参考了[阮一峰](http://www.ruanyifeng.com/blog/2012/11/require_js.html)老师的文章
 
 ---
 

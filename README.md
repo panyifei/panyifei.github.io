@@ -20,6 +20,9 @@
 ## 工具使用
 ### [Webstorm+Github的笔记环境搭建][2]
 
+## 寄语
+因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
+
 [1]:https://github.com/panyifei/learning/blob/master/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/Webstorm+Github的笔记环境搭建.md
 [3]:https://github.com/panyifei/learning/blob/master/Promise以及各种异步的学习.md
