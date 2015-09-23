@@ -71,5 +71,5 @@ define([],function(){})
 
 
 
-
+todo:CMD和seajs还没有研究
 todo:seajs和cortex是怎么保证在Domcontentloaded事件的时候发生的？
