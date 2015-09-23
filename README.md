@@ -6,11 +6,11 @@
 ---
 
 ## Javascript框架设计读书笔记
-### 啊
+### [种子模块][5]
 ---
 
 ##html5新特性研究以及使用
-##[history相关][4]
+### [history相关][4]
 ---
 
 ## ECMAScript6学习
@@ -27,3 +27,4 @@
 [2]:https://github.com/panyifei/learning/blob/master/Webstorm+Github的笔记环境搭建.md
 [3]:https://github.com/panyifei/learning/blob/master/Promise以及各种异步的学习.md
 [4]:https://github.com/panyifei/learning/blob/master/history相关.md
+[5]:https://github.com/panyifei/learning/blob/master/种子模块.md
