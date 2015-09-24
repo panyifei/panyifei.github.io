@@ -8,7 +8,7 @@
 ## 检验的接口：
 这个H5的API支持情况很好，但是坑还是很多的。从[caniuse](http://caniuse.com/#search=pushstate)上来看，支持程度很好，但是android的几个版本不支持有些尴尬。不过那几个版本非常小众。这里最终的解决是去[Modernizr](https://modernizr.com/)找的检测方法的代码，因为直接属性检测问题比较大，例如android2.3浏览器支持这个pushState的方法，但是并不支持这个方法的行为...这里还用到了zepto
 		
-```
+```javascript
 var $ = require('zepto');
 var historyState = {};
 historyState.ifSupport = function(){
@@ -22,15 +22,13 @@ historyState.ifSupport = function(){
     }
     return (window.history && 'pushState' in window.history);
 }
-
 ```
 
 ## 新生成页面调用的接口：
 实现思路就是将原来的层隐藏，加入一个新层覆盖上去，然后调用window.history.pushState加一条记录，返回的时候将原来的层清理，并将最开始的层显示出来，顺便清理了这个绑定。
 
-```
+```javascript
 /**
- *
  * @param   options     {required}  参数对象
         {
             hideDiv     {required}  需要隐藏的部分
@@ -68,12 +66,11 @@ historyState.newPage = function(options){
     }
 };
 module.exports = historyState;
-
 ```
 
 ## 简单的切换调用的借口
  
- ```
+```javascript
 /**
  * @param   options     {required}  参数对象
         {
