@@ -20,6 +20,7 @@
 
 ## 工具使用
 ### [Webstorm+Github的笔记环境搭建][2]
+### [Markdown使用心得][6]
 ---
 
 ## 寄语
@@ -30,3 +31,4 @@
 [3]:https://github.com/panyifei/learning/blob/master/Promise以及各种异步的学习.md
 [4]:https://github.com/panyifei/learning/blob/master/history相关.md
 [5]:https://github.com/panyifei/learning/blob/master/种子模块.md
+[6]:https://github.com/panyifei/learning/blob/master/Markdown使用心得.md
