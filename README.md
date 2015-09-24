@@ -14,7 +14,7 @@
 ### [history相关][4]
 ---
 
-## ECMAScript6学习
+## ECMAScript6
 ### [Promise以及各种异步的学习][3]
 ---
 
@@ -26,9 +26,9 @@
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
 
-[1]:https://github.com/panyifei/learning/blob/master/Commonjs,CMD,AMD和cortex介绍.md
-[2]:https://github.com/panyifei/learning/blob/master/Webstorm+Github的笔记环境搭建.md
-[3]:https://github.com/panyifei/learning/blob/master/Promise以及各种异步的学习.md
-[4]:https://github.com/panyifei/learning/blob/master/history相关.md
-[5]:https://github.com/panyifei/learning/blob/master/种子模块.md
-[6]:https://github.com/panyifei/learning/blob/master/Markdown使用心得.md
+[1]:https://github.com/panyifei/learning/blob/master/框架以及规范/Commonjs,CMD,AMD和cortex介绍.md
+[2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md
+[3]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Promise以及各种异步的学习.md
+[4]:https://github.com/panyifei/learning/blob/master/HTML5/history相关.md
+[5]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/种子模块.md
+[6]:https://github.com/panyifei/learning/blob/master/工具使用/Markdown使用心得.md
