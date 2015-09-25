@@ -12,6 +12,7 @@
 
 ##html5新特性研究以及使用
 [history相关][4]
+[hashchange事件][7]
 
 ## ECMAScript6
 [Promise以及各种异步的学习][3]
@@ -30,3 +31,4 @@
 [4]:https://github.com/panyifei/learning/blob/master/HTML5/history相关.md
 [5]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/种子模块.md
 [6]:https://github.com/panyifei/learning/blob/master/工具使用/Markdown使用心得.md
+[7]:https://github.com/panyifei/learning/blob/master/工具使用/hashchange事件.md

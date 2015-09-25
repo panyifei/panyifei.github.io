@@ -101,7 +101,7 @@ historyState.switchPage = function(options){
 };
 ```
 
-##不足
+## 不足
 模块设计有些问题，导致不能嵌套，而且不能点击前进键。
 
 因为点击即调用了popstate的绑定，如果想支持嵌套的话，得将popstate的绑定放到一个init的函数，这个初始化函数只调用一次就好。
@@ -109,3 +109,6 @@ historyState.switchPage = function(options){
 然后再通过改变url的参数来确定到了那个页面就可以支持前进了。
 
 这里给出思路，就不手动实现了。
+
+## 后言
+这个模块毕竟有兼容性问题，最后使用了hashchange来实现了，参见[hashchange事件](https://github.com/panyifei/learning/blob/master/工具使用/hashchange事件.md)。
