@@ -22,21 +22,33 @@
                     return;
                 }
                 self.showFlag = false;
-                document.documentElement.scrollTop = document.body.scrollTop =0;
                 $('body').append(self.parentEl);
+                $('html').addClass('fix-scroll');
                 $('body').addClass('fix-scroll');
+                self.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                //这句有个小的兼容问题，不设置的话，页面有几率不回到顶部
+                document.documentElement.scrollTop = document.body.scrollTop = 0;
             }else{
+                $('html').addClass('fix-scroll');
                 $('body').removeClass('fix-scroll');
                 self.el().empty();
                 self.parentEl.remove();
+                document.documentElement.scrollTop = self.scrollTop;
+                document.body.scrollTop = self.scrollTop;
             }
         });
     };
 ```
 
-- 注意这里我阻止了页面默认行为，然后手动滚到了顶部
+- 这里我阻止了页面默认行为，页面的滚动完全自己来控制，这样就会有烦人的兼容了
+
+- 通过切换hash可以触发window的hashchange事件
 
 - 把body元素固定住，不让他滚动，这是对原页面最小影响的做法了
+
+- 这里有个坑，本来chrome下开发运行的开开心心的，但是手机浏览器哪怕body设置了`overflow`也是可以滚动的，解决方式是给`html`也加上`overflow`
+
+- 但是使用`overflow`本身就有个坑，安卓2.3不支持这个属性，所以想做的话，得从外部传进一个iscroll
 
 ```javascript
     popPage.newPage = function(){
@@ -64,7 +76,7 @@
     module.exports = popPage;
 ```
 
-这里是生成的页面，然后还提供了一个close方法，可供外界关闭这个新页面，还提供了一个可以得到内部元素的指针。
+这里是生成的页面，然后还提供了一个close方法，可供外界关闭这个新页面，这里的close用`setTimeout`包住了，不然会有异步的问题。还提供了一个可以得到内部元素的指针。
 
 还得配合以下的css一起使用
 ```css

@@ -12,6 +12,7 @@
 
 ##html5新特性研究以及使用
 [history相关][4]
+
 [hashchange事件][7]
 
 ## ECMAScript6
