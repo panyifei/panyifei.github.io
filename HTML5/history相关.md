@@ -111,4 +111,4 @@ historyState.switchPage = function(options){
 这里给出思路，就不手动实现了。
 
 ## 后言
-这个模块毕竟有兼容性问题，最后使用了hashchange来实现了，参见[hashchange事件](https://github.com/panyifei/learning/blob/master/工具使用/hashchange事件.md)。
+这个模块毕竟有兼容性问题，最后使用了hashchange来实现了，参见[hashchange事件](https://github.com/panyifei/learning/blob/master/HTML5/hashchange事件.md)。

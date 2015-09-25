@@ -31,4 +31,4 @@
 [4]:https://github.com/panyifei/learning/blob/master/HTML5/history相关.md
 [5]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/种子模块.md
 [6]:https://github.com/panyifei/learning/blob/master/工具使用/Markdown使用心得.md
-[7]:https://github.com/panyifei/learning/blob/master/工具使用/hashchange事件.md
+[7]:https://github.com/panyifei/learning/blob/master/HTML5/hashchange事件.md
