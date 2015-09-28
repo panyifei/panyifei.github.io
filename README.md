@@ -24,8 +24,12 @@
 
 [Markdown使用心得][6]
 
+[Chrome,Sublime插件推荐][10]
+
+
 ## 浏览器兼容性以及移动端开发
 [浏览器兼容性][8]
+[移动开发相关][9]
 
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
@@ -38,3 +42,5 @@
 [6]:https://github.com/panyifei/learning/blob/master/工具使用/Markdown使用心得.md
 [7]:https://github.com/panyifei/learning/blob/master/HTML5/hashchange事件.md
 [8]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/浏览器兼容性.md
+[9]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/移动开发相关.md
+[10]:https://github.com/panyifei/learning/blob/master/工具使用/Chrome,Sublime插件推荐.md
