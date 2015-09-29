@@ -10,6 +10,8 @@
 
 [种子模块][5]
 
+[模块加载系统][11]
+
 ##html5新特性研究以及使用
 [history相关][4]
 
@@ -45,3 +47,4 @@
 [8]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/浏览器兼容性.md
 [9]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/移动开发相关.md
 [10]:https://github.com/panyifei/learning/blob/master/工具使用/Chrome,Sublime插件推荐.md
+[11]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/模块加载系统.md

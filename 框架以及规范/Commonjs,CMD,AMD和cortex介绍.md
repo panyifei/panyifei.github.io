@@ -1,7 +1,8 @@
 # Commonjs,CMD,AMD和cortex介绍
 
-## Commonjs规范
+这里只是一些入门级别的认识，深入一些的可查看我的阅读笔记[模块加载系统][]
 
+## Commonjs规范
 
 commonjs是服务器模块的规范，**nodejs**实现了规范
 
@@ -73,3 +74,6 @@ define([],function(){})
 
 todo:CMD和seajs还没有研究
 todo:seajs和cortex是怎么保证在Domcontentloaded事件的时候发生的？
+
+
+[1]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/模块加载系统.md
