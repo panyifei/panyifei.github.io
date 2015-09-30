@@ -13,33 +13,37 @@ popPage.init = function(iScroll,options){
     window.addEventListener('hashchange',function(event){
         event.preventDefault();
         if(location.hash == "#poppage"){
-            //如果是从前进键打开的，直接清hash
+            //前进键打开(ios)，直接清hash
             if(!self.showFlag){
                 location.hash = '';
                 return;
             }
             self.showFlag = false;
-            //下面这句位置提前，因为给body设置不能滑动可能会滚到到头部
+            //body设置overflow可能会滚到到头部，先保存
             self.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            //加上这句手机浏览器才能把body锁住，不然依旧能滑动
+            //安卓需要给body和html都加上才会锁住
             $('html').addClass('fix-scroll');
             $('body').addClass('fix-scroll');
-            //这句有个小的兼容问题，不设置的话，页面有几率不回到顶部
+            //小的兼容问题，不设置的页面有几率不回到顶部
             document.documentElement.scrollTop = document.body.scrollTop = 0;
             $('body').append(self.parentEl);
+            //android2.3 bug，不加setTimeout初始化iSroll失败
             setTimeout(function(){
-                //这里的改变class也得在setTimeout里面做，而且只能用transition，不能用animation
-                //animation   android2.3不支持，写分开一次改变一个属性还是不行
+                //class改变得在setTimeout里面
+                //animation   android2.3部分支持，测试无效，最后使用了transction
                 self.parentEl.addClass('from-right');
-                //这里有个android2.3的bug，不加上setTimeout可能不能初始化
-                new iScroll('user-control',options);
+                //判断iScroll是否传入
+                if(iScroll!=undefined){
+                    var options = options || {click:true};
+                    new iScroll(document.getElementById('user-control'),options);
+                }
             },0);
         }else{
+            //还原，清空
             $('html').removeClass('fix-scroll');
             $('body').removeClass('fix-scroll');
             self.el().empty();
-            self.parentEl.remove();
-            self.parentEl.removeClass('from-right');
+            self.parentEl.remove().removeClass('from-right');
             document.documentElement.scrollTop = self.scrollTop;
             document.body.scrollTop = self.scrollTop;
         }
@@ -47,15 +51,21 @@ popPage.init = function(iScroll,options){
 };
 ```
 
-- 这里我阻止了页面默认行为，页面的滚动完全自己来控制，这样就会有烦人的兼容了
+- 阻止了页面默认行为，页面的滚动自己来控制，不会有烦人的兼容
 
-- 通过切换hash可以触发window的hashchange事件
+- 切换hash触发window的hashchange事件
 
-- 把body元素固定住，不让他滚动，这是对原页面最小影响的做法了
+- body元素固定住，不让他滚动，原页面最小影响
 
-- 这里有个坑，本来chrome下开发运行的开开心心的，但是手机浏览器哪怕body设置了`overflow`也是可以滚动的，解决方式是给`html`也加上`overflow`
+- 手机浏览器哪怕body设置了`overflow`也是可以滚动的，解决方式是给`html`也加上`overflow`
 
-- 但是使用`overflow`本身就有个坑，安卓2.3不支持这个属性，所以想做的话，得从外部传进一个iscroll
+- 使用`overflow`有个坑，安卓2.3不支持这个属性，所以想做的话，从外部传进一个iscroll
+
+- 外部传入iscroll，为了兼容，我传入了元素`document.getElementById('user-control')`
+
+- iscroll对于新生成的元素需要写在settimeout里面
+
+- 动画选择使用transction，animation在安卓2.3支持不好
 
 ```javascript
     popPage.newPage = function(){
@@ -88,30 +98,42 @@ popPage.init = function(iScroll,options){
 还得配合以下的css一起使用
 
 ```css
-    .pop-page{
-        background-color: #fff;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: scroll;
-    }
-    .fix-scroll{
-        overflow:hidden; 
-    }
-    .user-control{
-        position: relative;
-        background-color: #fff;
-        width: 100%;
-        height: 100%;
-    }
-    .test{
-        position: relative;
-        background-color: #fff;
-        width: 100%;
-        height: 1000px;
-    }
+.pop-page{
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    margin:0px -20px 0px 20px;
+    opacity: 0.9;
+    transition:all 0.5s;
+    -moz-transition:all 0.5s; /* Firefox 4 */
+    -webkit-transition:all 0.5s; /* Safari and Chrome */
+    -o-transition:all 0.5s; /* Opera */
+}
+.from-right{
+    margin:0px 0px 0px 0px;
+    opacity: 1;
+}
+.fix-scroll{
+    position: absolute;
+    width: 100%;
+    height:100%;
+    overflow:hidden; 
+}
+.user-control{
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+}
 ```
 
 ## 总结
-这里是后退时将新页面销毁了，因为这样比较安全。但是这就意味着前进键回不去了，不是做不到支持前进键，而是不安全。
-这个模块在勐喆的帮助下修改了很多次，逐渐变得越来越抽象，而且对原页面无痛。支持情况很好，参见Caniuse网页。
+踩了无数的android2.3的坑。包括动画，overflow。
+
+后退时将新页面销毁了，因为这样比较安全。
+
+意味着前进键回不去了，不是做不到支持前进键，而是不安全。
+
+这个模块在勐喆的帮助下修改了很多次，逐渐变得越来越抽象，而且对原页面无痛。支持情况很好。
