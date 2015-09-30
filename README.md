@@ -30,6 +30,8 @@
 
 [photoshop简单使用][12]
 
+[Mac下虚拟机以及双系统][13]
+
 
 ## 浏览器兼容性以及移动端开发
 [浏览器兼容性][8]
@@ -51,3 +53,4 @@
 [10]:https://github.com/panyifei/learning/blob/master/工具使用/Chrome,Sublime插件推荐.md
 [11]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/模块加载系统.md
 [12]:https://github.com/panyifei/learning/blob/master/工具使用/photoshop简单使用.md
+[13]:https://github.com/panyifei/learning/blob/master/工具使用/Mac下虚拟机以及双系统.md

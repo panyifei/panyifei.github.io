@@ -5,39 +5,46 @@
 `hashchange`其实就是一个window的事件，在页面的hash被修改时会被触发。下面直接根据代码讲解吧。
 
 ```javascript
-
-    var $ = require('zepto');
-    var popPage = {};
-    popPage.init = function(){
-        var self = this;
-        location.hash = '';
-        self.showFlag = false;
-        self.parentEl = $('<div class="pop-page"><div class="user-control"></div></div>');
-        window.addEventListener('hashchange',function(event){
-            event.preventDefault();
-            if(location.hash == "#poppage"){
-                //如果是从前进键打开的，直接清hash
-                if(!self.showFlag){
-                    location.hash = '';
-                    return;
-                }
-                self.showFlag = false;
-                $('body').append(self.parentEl);
-                $('html').addClass('fix-scroll');
-                $('body').addClass('fix-scroll');
-                self.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                //这句有个小的兼容问题，不设置的话，页面有几率不回到顶部
-                document.documentElement.scrollTop = document.body.scrollTop = 0;
-            }else{
-                $('html').addClass('fix-scroll');
-                $('body').removeClass('fix-scroll');
-                self.el().empty();
-                self.parentEl.remove();
-                document.documentElement.scrollTop = self.scrollTop;
-                document.body.scrollTop = self.scrollTop;
+popPage.init = function(iScroll,options){
+    var self = this;
+    location.hash = '';
+    self.showFlag = false;
+    self.parentEl = $('<div class="pop-page"><div class="user-control" id="user-control"></div></div>');
+    window.addEventListener('hashchange',function(event){
+        event.preventDefault();
+        if(location.hash == "#poppage"){
+            //如果是从前进键打开的，直接清hash
+            if(!self.showFlag){
+                location.hash = '';
+                return;
             }
-        });
-    };
+            self.showFlag = false;
+            //下面这句位置提前，因为给body设置不能滑动可能会滚到到头部
+            self.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            //加上这句手机浏览器才能把body锁住，不然依旧能滑动
+            $('html').addClass('fix-scroll');
+            $('body').addClass('fix-scroll');
+            //这句有个小的兼容问题，不设置的话，页面有几率不回到顶部
+            document.documentElement.scrollTop = document.body.scrollTop = 0;
+            $('body').append(self.parentEl);
+            setTimeout(function(){
+                //这里的改变class也得在setTimeout里面做，而且只能用transition，不能用animation
+                //animation   android2.3不支持，写分开一次改变一个属性还是不行
+                self.parentEl.addClass('from-right');
+                //这里有个android2.3的bug，不加上setTimeout可能不能初始化
+                new iScroll('user-control',options);
+            },0);
+        }else{
+            $('html').removeClass('fix-scroll');
+            $('body').removeClass('fix-scroll');
+            self.el().empty();
+            self.parentEl.remove();
+            self.parentEl.removeClass('from-right');
+            document.documentElement.scrollTop = self.scrollTop;
+            document.body.scrollTop = self.scrollTop;
+        }
+    });
+};
 ```
 
 - 这里我阻止了页面默认行为，页面的滚动完全自己来控制，这样就会有烦人的兼容了
@@ -79,8 +86,8 @@
 这里是生成的页面，然后还提供了一个close方法，可供外界关闭这个新页面，这里的close用`setTimeout`包住了，不然会有异步的问题。还提供了一个可以得到内部元素的指针。
 
 还得配合以下的css一起使用
-```css
 
+```css
     .pop-page{
         background-color: #fff;
         position: absolute;
