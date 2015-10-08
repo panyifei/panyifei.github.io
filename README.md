@@ -18,8 +18,9 @@
 [hashchange事件][7]
 
 ## ECMAScript6
-[Promise以及各种异步的学习][3]
+[正则表达式][14]
 
+[Promise以及各种异步的学习][3]
 
 ## 工具使用
 [Webstorm+Github的笔记环境搭建][2]
@@ -31,7 +32,6 @@
 [photoshop简单使用][12]
 
 [Mac下虚拟机以及双系统][13]
-
 
 ## 浏览器兼容性以及移动端开发
 [浏览器兼容性][8]
@@ -54,3 +54,4 @@
 [11]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/模块加载系统.md
 [12]:https://github.com/panyifei/learning/blob/master/工具使用/photoshop简单使用.md
 [13]:https://github.com/panyifei/learning/blob/master/工具使用/Mac下虚拟机以及双系统.md
+[14]:https://github.com/panyifei/learning/blob/master/ECMAScript6/正则表达式.md
