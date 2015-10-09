@@ -38,6 +38,9 @@
 
 [移动开发相关][9]
 
+##其他技术
+[编码问题][15]
+
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
 
@@ -55,3 +58,4 @@
 [12]:https://github.com/panyifei/learning/blob/master/工具使用/photoshop简单使用.md
 [13]:https://github.com/panyifei/learning/blob/master/工具使用/Mac下虚拟机以及双系统.md
 [14]:https://github.com/panyifei/learning/blob/master/ECMAScript6/正则表达式.md
+[15]:https://github.com/panyifei/learning/blob/master/其他技术/编码问题.md
