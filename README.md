@@ -38,7 +38,10 @@
 
 [移动开发相关][9]
 
-##其他技术
+## JS代码库
+[输入框js验证函数][17]
+
+## 其他技术
 [编码问题][15]
 [小问题总结][16]
 
@@ -61,3 +64,4 @@
 [14]:https://github.com/panyifei/learning/blob/master/ECMAScript6/正则表达式.md
 [15]:https://github.com/panyifei/learning/blob/master/其他技术/编码问题.md
 [16]:https://github.com/panyifei/learning/blob/master/其他技术/小问题总结.md
+[17]:https://github.com/panyifei/learning/blob/master/JS代码库/输入框js验证函数.md
