@@ -5,7 +5,12 @@
 手机浏览器下保证7位数值的输入，包括小数点
 
 ## 代码解释
-直接在代码注释中
+
+```html
+    <input type="number" class="amount J-total-amount" autocomplete="off" maxlength="7">
+```
+
+配合js代码使用，就万无一失了，有详细的代码注释，主要是用了一些正则的检验
 
 ```javascript
         //单单监听input不能达到效果，边界的不一定可以搞定
