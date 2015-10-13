@@ -2,7 +2,7 @@
 
 ## 功能
 
-手机浏览器下保证7位数值的输入，包括小数点
+手机浏览器下`保证`7位数值的输入，包括小数点，这个的处理安全的过分了，因为边界情况太多了，无论是手机型号，还有输入法
 
 ## 代码解释
 
@@ -60,12 +60,14 @@
                 modified = true;
             }
             // 非法字符处理
+            // 将非数字，非.的用空字符串替换
             var mreg = /[^\d\.]/g;
             if (mreg.test(sanitized)) {
                 sanitized = sanitized.replace(mreg, '');
                 modified = true;
             }
             // 多小数点处理
+            // 这里的正则就是分组捕获了
             var preg = /(\d*\.\d*)\.(\d*)/g;
             while (preg.test(sanitized)) {
                 sanitized = sanitized.replace(preg, '$1$2');
@@ -77,6 +79,7 @@
                 sanitized = sanitized.replace(zreg, '$1');
             }
             // 小数点精度处理
+            // 这里的正则就是判断是否小数点有三位
             var floatEnd = sanitized.match(/\d*\.(\d{3,})/);
             if (floatEnd) {
                 floatEnd = floatEnd[1];

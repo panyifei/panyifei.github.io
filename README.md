@@ -44,6 +44,7 @@
 ## 其他技术
 [编码问题][15]
 [小问题总结][16]
+[Cookie，Session，Localstorage][18]
 
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
@@ -65,3 +66,4 @@
 [15]:https://github.com/panyifei/learning/blob/master/其他技术/编码问题.md
 [16]:https://github.com/panyifei/learning/blob/master/其他技术/小问题总结.md
 [17]:https://github.com/panyifei/learning/blob/master/JS代码库/输入框js验证函数.md
+[18]:https://github.com/panyifei/learning/blob/master/其他技术/Cookie，Session，Localstorage.md
