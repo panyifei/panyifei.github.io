@@ -43,7 +43,9 @@
 
 ## 其他技术
 [编码问题][15]
+
 [小问题总结][16]
+
 [Cookie，Session，Localstorage][18]
 
 ## 寄语
