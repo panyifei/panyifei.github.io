@@ -22,6 +22,8 @@
 
 [Promise以及各种异步的学习][3]
 
+[Generator函数] [19]
+
 ## 工具使用
 [Webstorm+Github的笔记环境搭建][2]
 
@@ -69,3 +71,4 @@
 [16]:https://github.com/panyifei/learning/blob/master/其他技术/小问题总结.md
 [17]:https://github.com/panyifei/learning/blob/master/JS代码库/输入框js验证函数.md
 [18]:https://github.com/panyifei/learning/blob/master/其他技术/Cookie，Session，Localstorage.md
+[19]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Generator函数.md
