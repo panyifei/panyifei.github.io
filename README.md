@@ -20,9 +20,9 @@
 ## ECMAScript6
 [正则表达式][14]
 
-[Promise以及各种异步的学习][3]
-
 [Generator函数] [19]
+
+[Promise以及各种异步的学习][3]
 
 ## 工具使用
 [Webstorm+Github的笔记环境搭建][2]
