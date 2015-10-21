@@ -308,20 +308,70 @@ m站两个模块，初始化的时候相互依赖，最后则是我的先初始�
 如果使用generator，可以模块1先初始化部分，此时交出控制权，让模块2进行初始化，然后再完成模块1的初始化，就可以不用事件来处理了。
 
 #### 应用场景
+#####异步操作的同步化表达
+把异步操作写在yield语句里面，在调用next的时候再向后执行，等于就是异步操作的回调可以用同步的方式写出来。
 
+```javascript
+function* loadUI() {
+  showLoadingScreen();
+  yield loadUIDataAsynchronously();
+ hideLoadingScreen();
+}
+var loader = loadUI();
+// 加载UI
+loader.next()
+// 卸载UI
+loader.next()
+```
 
+Ajax的异步操作同步化表达,和上面的一样，才callback里面调用next，于是generator函数就可以同步化来写了：
 
+```javascript
+function* main() {
+  var result = yield request("http://some.url");
+  var resp = JSON.parse(result);
+    console.log(resp.value);
+}
+function request(url) {
+  makeAjaxCall(url, function(response){
+    it.next(response);
+  });
+}
+var it = main();
+it.next();
+```
 
+这里还有个逐行读取文本的例子：
 
+```javascript
+function* numbers() {
+  let file = new FileReader("numbers.txt");
+  try {
+    while(!file.eof) {
+      yield parseInt(file.readLine(), 10);
+    }
+  } finally {
+    file.close();
+  }
+}
+```
 
+tudo:上面为什么要这么写?
+
+todo:还有两个应用....
 
 tudo:yield语句用作函数参数或赋值表达式的右边，可以不加括号?
 foo(yield 'a', yield 'b'); // OK
 let input = yield; // OK
+
 tudo:与Iterator接口的关系
+
 tudo:throw方法
+
 tudo:yield*命令的作用
-tudo:构造函数是fenerator函数
+
+tudo:构造函数是generator函数
+
 tudo:es7的generator函数推导
 
 
