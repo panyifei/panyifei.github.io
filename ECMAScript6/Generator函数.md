@@ -203,6 +203,113 @@ g.next() // { done: true, value: 7 }
 ```
 
 #### yield*语句
+在Generator内部，遍历调用另一个Generator函数。可以使用yield语句，等同于在函数内部多部署了一个for...of循环
+
+```javascript
+function* foo() {
+  yield 'a';
+  yield 'b';
+}
+function* bar() {
+  yield 'x';
+  yield* foo();
+  yield 'y';
+}
+for (let v of bar()){
+  console.log(v);
+}
+// "x"
+// "a"
+// "b"
+// "y"
+```
+
+被代理的generator函数有return语句的话，就可以向代理的函数返回数据:
+
+```javascript
+function *foo() {
+  yield 2;
+  yield 3;
+  return "foo";
+}
+function *bar() {
+  yield 1;
+  var v = yield *foo();
+  console.log( "v: " + v );
+  yield 4;
+}
+var it = bar();
+it.next()
+// {value: 1, done: false}
+it.next()
+// {value: 2, done: false}
+it.next()
+// {value: 3, done: false}
+it.next();
+// "v: foo"
+// {value: 4, done: false}
+it.next()
+// {value: undefined, done: true}
+```
+
+#### 对象属性的generator函数
+就是在作为对象的属性时，可以简写，以下的两种写法等价
+
+```javascript
+let obj = {
+  * myGeneratorMethod() {
+    ···
+  }，
+  myFunction: funciton* (){
+  }
+};
+```
+
+#### generator与状态机
+generator是实现状态机的最佳结构，不依赖任何变量，无公害，写法优雅
+
+```javascript
+var clock = function*(_) {
+  while (true) {
+    yield _;
+    console.log('Tick!');
+    yield _;
+    console.log('Tock!');
+  }
+};
+```
+
+#### generator与协程
+协程是程序运行的方式，可以单线程，可以多线程。
+
+###### 协程与子例程的差异
+
+一般的子例程采用传统的‘后进新出’的执行方式，只有当调用的子函数完全执行完毕的时候，返回来执行父函数。
+
+协程就是多个线程可以并行执行，但是只有线程或者函数处于正在运行的状态，其他都处于暂停态。线程之间交换执行权。这种并行执行，交换执行权的线程，就称为协程。
+
+从内存看，子例程就是只是用一个栈，而协程则是同时存在多个栈，但是只有一个栈是运行状态。以多占用内存为代价，实现多任务的并行。
+
+##### 协程与普通线程的差异
+
+同一时间可以有多个线程处于运行状态，但是协程只能有一个在运行。普通的线程是抢先式的，但是协程是合作式的，执行权由自己分配。
+
+协程的好处在于抛出错误的时候，可以找到原始的调用栈，而不至于像异步操作的回调一样，一旦出错，原始的调用栈早就结束。
+
+generator是es6对协程的实现，但属于不完全实现，是‘半协程’，只有generator的调用者才能把程序的执行权交还给generator函数，如果是完全执行的协程，任何函数都可以让暂停的协程继续执行。
+
+我们可以将多个需要相互协作的任务写成generator函数，他们之间使用yield语句交换控制权。
+
+##### 小思考
+这次遇到的问题感觉generator也提供了一个结局的方案：
+
+m站两个模块，初始化的时候相互依赖，最后则是我的先初始化，然后emit了一个自定义事件，然后在善成的模块初始化之后，在监听了这个事件。
+
+如果使用generator，可以模块1先初始化部分，此时交出控制权，让模块2进行初始化，然后再完成模块1的初始化，就可以不用事件来处理了。
+
+#### 应用场景
+
+
 
 
 
@@ -213,6 +320,12 @@ foo(yield 'a', yield 'b'); // OK
 let input = yield; // OK
 tudo:与Iterator接口的关系
 tudo:throw方法
+tudo:yield*命令的作用
+tudo:构造函数是fenerator函数
+tudo:es7的generator函数推导
+
+
+
 
 
 
