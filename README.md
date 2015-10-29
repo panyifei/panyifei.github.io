@@ -4,6 +4,8 @@
 ## 框架以及规范
 [Commonjs,CMD,AMD和cortex介绍][1]
 
+[React][20]
+
 
 ## Javascript框架设计读书笔记
 这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
@@ -72,3 +74,4 @@
 [17]:https://github.com/panyifei/learning/blob/master/JS代码库/输入框js验证函数.md
 [18]:https://github.com/panyifei/learning/blob/master/其他技术/Cookie，Session，Localstorage.md
 [19]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Generator函数.md
+[20]:https://github.com/panyifei/learning/blob/master/框架以及规范/React.md

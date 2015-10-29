@@ -10,11 +10,17 @@
     <input type="number" class="amount J-total-amount" autocomplete="off" maxlength="7">
 ```
 
-配合js代码使用，就万无一失了，有详细的代码注释，主要是用了一些正则的检验
+配合js代码使用，就万无一失了，有详细的代码注释，主要是用了一些正则的检验,这里还是有坑的...
 
 ```javascript
         //单单监听input不能达到效果，边界的不一定可以搞定
         self.inputSelectionSupported = $('input').hasOwnProperty('selectionStart');
+        //fix firefox 下面的小bug
+        if(/Firefox\/(\S+)/.test(window.navigator.userAgent)){
+            els.forEach(function(value,index,array){
+                array[index].type = 'text';
+            });
+        }
         inputs.on('input', function () {
             //input是在输入框改变更新了数值之后才出发
             sanitizeInput(this);
@@ -51,6 +57,9 @@
         var sanitizeInput = function (input) {
             var sanitized = input.value;
             if (sanitized.length === 0) {
+                //iosbug，直接点击文字的话会输入成功，拿不到input.value
+                //小米bug，上面的“-”也能直接输入成功，拿不到input.value
+                input.value = '';
                 return;
             }
             var modified = false;
@@ -77,6 +86,7 @@
             var zreg = /^0+(\d+)/;
             if (zreg.test(sanitized)) {
                 sanitized = sanitized.replace(zreg, '$1');
+                modified = true;
             }
             // 小数点精度处理
             // 这里的正则就是判断是否小数点有三位
