@@ -58,6 +58,8 @@
 ### Javascript高级程序设计
 [14章表单脚本][21]
 
+[17章错误处理与调试][23]
+
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
 
@@ -83,3 +85,4 @@
 [20]:https://github.com/panyifei/learning/blob/master/框架以及规范/React.md
 [21]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/14章表单脚本.md
 [22]:https://github.com/panyifei/learning/blob/master/其他技术/快捷键.md
+[23]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/17错误处理与调试.md
