@@ -45,6 +45,8 @@
 ## JS代码库
 [输入框js验证函数][17]
 
+[Chrome插件编写][25]
+
 ## 其他技术
 [编码问题][15]
 
@@ -89,3 +91,4 @@
 [22]:https://github.com/panyifei/learning/blob/master/其他技术/快捷键.md
 [23]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/17错误处理与调试.md
 [24]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/20JSON.md
+[25]:https://github.com/panyifei/learning/blob/master/JS代码库/Chrome插件编写.md
