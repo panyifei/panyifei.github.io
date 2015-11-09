@@ -28,3 +28,28 @@ JSON.stringify可以执行序列化，这个方法三个参数
 - 第一参：对象
 - 第二参：过滤器
 - 第三参：缩进情况
+
+如果二参是数组，那么序列化只会保留数组中列出的属性。
+
+```javascript
+var book = {
+    "title":"hah",
+    "name":"aa",
+    "beta":"a"
+};
+var jsonText = JSON.stringify(book,["name","beta"]);
+//"{"name":"aa","beta":"a"}"
+```
+
+如果二参是函数的话，也就是个筛选的函数
+
+```javascript
+var jsonText = JSON.stringify(book,function(key,value){
+    switch(key){
+        case "title":
+            return value;
+        case "name":
+            return 
+    }
+});
+```
