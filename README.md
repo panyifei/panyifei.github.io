@@ -64,6 +64,8 @@
 
 [20JSON][24]
 
+[21Ajax和Comet][26]
+
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会给出链接。
 
@@ -92,3 +94,4 @@
 [23]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/17错误处理与调试.md
 [24]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/20JSON.md
 [25]:https://github.com/panyifei/learning/blob/master/JS代码库/Chrome插件编写.md
+[26]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/21Ajax和Comet.md

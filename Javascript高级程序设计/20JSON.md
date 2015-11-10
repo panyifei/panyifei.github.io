@@ -1,7 +1,7 @@
 # 20JSON
 Json的语法可以是接下来的三种方式
 
-- 简单值，除了undefined不行，其他都可以
+- 简单值，除了undefined不行，其他都可以，null是可以的！！！！
 - 对象，就是个复杂类型嘛
 - 数组
 
@@ -47,9 +47,29 @@ var jsonText = JSON.stringify(book,["name","beta"]);
 var jsonText = JSON.stringify(book,function(key,value){
     switch(key){
         case "title":
-            return value;
+            return value;//这里会返回值
         case "name":
-            return 
+            return undefined;//这里就会直接忽略
+        case "beta":
+            return 111;//这里就是手动赋值了
+        default:
+            return value;//这句加上才能保证其他的正常返回
     }
 });
 ```
+
+第三参用来控制缩进和空白符
+- 比如4个字符，注意这里默认会加个换行符的，因为光缩进不换行也没有意义
+- 如果超过10个字符，会被设置为10的
+- 也可以用string，这个时候就会替代空格
+
+```javascript
+var jsonText = JSON.stringify(book,null,4);
+```
+
+可以在一个对象上改写toJSON方法，作为过滤器的补充。
+
+这里的顺序是先应用toJson方法，然后应用第二个参数的函数过滤器，然后序列化，然后应用第三个参数的格式化。
+
+#### 解析的选项
+JSON.parse()也是可以提供一个函数来作为还原函数，函数参数为key和value。
