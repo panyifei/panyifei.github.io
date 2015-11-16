@@ -105,6 +105,98 @@ xhr.onprogress = function(event){
 ```
 
 # 跨源资源共享
+## CORS(cross origin resource sharing)
+定义了在必须访问跨源资源时，浏览器和服务器如何沟通。
+
+思想是使用自定义的HTTP头部来决定请求或者响应是否成功。
+
+在发起请求时带一个Origin:http://www.baidu.com
+
+然后在后端返回的时候给一个Access-Control-Allow-Origin，里面可以是‘*’或者一个特定的网址。
+
+如果没有或者不符合的话，浏览器就会驳回请求。
+
+这里IE是推出了一个XDR对象，和XHR很类似。
+
+而其他的浏览器则是在原生的XHR上做了实现。
+
+
+## 图像Ping
+使用图像来发送请求是最简单的单项通信了,这个东西最适合来做监控或者说是打点了。因为无法得到服务器端的数据，只能发送GET请求
+
+```javascript
+var img = new Image();
+img.onload = img.onerror = function(){
+alert('done');
+}
+img.src = 'http://www.example.com/test?name=Nicholas';
+```
+
+## JSONP
+JSONP是通过动态加载一段js来做到的，就是先声明了一个function，插入到body中。
+
+把function的name交给后端，后端返回一段方法的调用，并且传入参数。
+
+浏览器接收到的实际上就是script，会直接调用那个申明好的方法。
+
+## Comet
+这个有长轮询和短轮询和流
+### 短轮询
+浏览器定时向服务器发送请求，然后不停地刷
+
+### 长轮询
+浏览器向服务器发送请求，服务器保持链接的打开，等到有数据传送的时候发送数据。
+
+浏览器接收好数据之后，再打开一个新的连接。
+
+    轮询的好处在于所有的浏览器都是支持的
+    
+### 流
+就是说整个的周期只使用一个HTTP请求，然后服务器保持链接打开，然后周期性的发送数据，然后xhr的readyState就会周期性的变成3了。
+
+如果是XHR实现的话，如下：
+
+```javascript
+xhr.onreadystatechange = function(){
+    var results;
+    if(xhr.readyState == 3){
+        result = xhr.responseText.subString(received);
+        received = reslult.length;
+        //然后处理最新的数据
+    }else if(xhr.readyState == 4){
+        //处理结束的任务
+    }
+}
+```
+
+### SSE API
+这个必须得是同源的，并且是个单向的连接，默认情况下，这个会保持与服务器的活动链接，如果断开了还会自动重连。
+
+响应的MIME类型是text/event-stream，是纯文本
+
+我们也可以使用event.close();来强行断开这个连接并且不再重连。
+
+```javascript
+var source = new EventSource('tesr.php');
+source.onmessage = function(event){
+    var data = event.data;
+}
+```
+
+## Web Socket
+
+- 在一个单独的持久链接上提供双全工，双向通信。
+- 创建后，会有HTTP请求发送到浏览器，取得服务器响应之后，连接会从http协议变成web sockets协议
+- 协议是自己定的，所以是ws:www.example.com
+
+
+
+
+
+
+
+
+tudo:跨源资源共享那里还有些问题。
 
 
 
