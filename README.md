@@ -6,6 +6,8 @@
 
 [React][20]
 
+[Angular][30]
+
 ## Javascript框架设计读书笔记
 这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
 
@@ -50,6 +52,8 @@
 [Koa,Co以及Express][27]
 
 [Koa以及react空白项目搭建][28]
+
+[Npm模块介绍][29]
 
 ## 其他技术
 [编码问题][15]
@@ -101,3 +105,5 @@
 [26]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/21Ajax和Comet.md
 [27]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa,Co以及Express.md
 [28]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa以及react空白项目搭建.md
+[29]:https://github.com/panyifei/learning/blob/master/Nodejs/Npm模块.md
+[30]:https://github.com/panyifei/learning/blob/master/框架以及规范/Angular.md
