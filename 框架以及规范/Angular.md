@@ -40,3 +40,6 @@ $scope.$on('$routeChangeSuccess', function() {
 这个很方便的实现了路由，不需要自己手写单页应用的路由了，只要照着文档申明好路由查找，然后通过ng-view来控制显示。
 
 如果想要自己手写的话，注意在popstate时设置自定义变量isHistroy为true。然后在进入页面并且isHistory为true时再把它置为false，才能算比较正常的路由。
+
+## ng-view
+这个注意将功能在各个controller里面拆分开，尽量不要写在maincontroller里面。尽量写在各自view的controller里面。

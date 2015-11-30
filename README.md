@@ -55,6 +55,8 @@
 
 [Npm模块介绍][29]
 
+[Forever源码阅读][31]
+
 ## 其他技术
 [编码问题][15]
 
@@ -107,3 +109,4 @@
 [28]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa以及react空白项目搭建.md
 [29]:https://github.com/panyifei/learning/blob/master/Nodejs/Npm模块.md
 [30]:https://github.com/panyifei/learning/blob/master/框架以及规范/Angular.md
+[31]:https://github.com/panyifei/learning/blob/master/Nodejs/Forever源码阅读.md
