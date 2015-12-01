@@ -42,10 +42,45 @@ todu:还没看
 
 `path-is-absolute`是用来判断传入的路径是不是绝对地址的，用来判断当前环境是windows还是linux。
 
+`flatiron`这个是用来配置并且创建app的，包括浏览器端的app，包括命令行端的，这里主要使用了命令行端的。
+
+`shush`这个是用来引入包含了注释的json的，这样引入的json可以包含`//`。
+
+`prettyjson`这个是用来在命令行输出比较好看的json的，也依赖了`colors`等等。
+
+`clone`这个是用来复制对象的。
+
+`object-assign`是用来赋值的，可以将对象的相同属性替换掉，现在作为es6的pollfill了。
+
+然后引用了lib下的forever文件。
+
+然后申明了帮助列表，通过flatiron初始化了app，申明了action，声明了action的参数。
+
+使用`flatiron`的方法将app的命令行参数以及帮助文档初始化。
+
+```
+app.use(flatiron.plugins.cli, {
+  argv: argvOptions,
+  usage: help
+});
+```
+
+然后申明了一个内部方法tryStart，用来转换路径，尝试唤起
+
+申明了一个updateConfig用来更新forever的配置
+
+申明了一个checkColumn来j检测name是否存在
+
+然后抛出了一个getOptions方法
+
+##### getOptions方法
+传入了file文件，先通过`path-is-absolute`来判断是不是绝对的路径，不是的话就通过path将路径拼装一下，使用process.cwd()得到路径。
 
 
 
-todu:还没看
+
+
+
 #### worker.js
 todu:还没看
 
