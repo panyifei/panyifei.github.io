@@ -28,8 +28,26 @@ npm是node的模块网站，模块太多，自己也能使用了一个记录一�
 ## object-assign
 这个是用来赋值的，可以将对象的相同属性替换掉，现在作为es6的pollfill了。
 
+## koa
+一个用来搭建nodejs项目的框架，拥有众多的中间件。是express原班人马编写。升级在于ES6，以及自由的中间件管理。
 
+## koa-static
+koa中间件，能够将项目的文件作为静态资源放出去，使用的时候要小心，将需要的静态资源放置出去。
 
+## koa-router
+koa中间件，是用来进行路由设置的。koa-route的替代品
+
+## koa-route
+koa中间件，用来管理路由
+
+## knex
+nodejs用来连接数据库的工具，支持的语法很全。
+
+## bookshelf
+是基于knex开发的连接器，在knex之上包装了一层对象的概念，并且在对象之间关联较大时使用起来更方便
+
+## express
+一个搭建nodejs项目的框架。
 
 
 
