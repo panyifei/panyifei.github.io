@@ -62,6 +62,28 @@ document.querySelectorAll = function(selectors) {
 ### querySelector
 就是调用querySelectorAll，然后返回第一个值就行了
 
-### 
+### getElementsByClassName
+类似的，调用上面的querySelectorAll，只要在前面替换个.就行了
+
+### Node 类型
+因为ie没有公布它的Node Type。所以这里添加了Node.ELEMENT_NODE这些。
+
+### DOMException
+与上面类似的，定义了DOMException的一些种类
+
+### Event
+重写了ie8以下的一些事件处理，包括通过attachevent来模拟addEventListener，通过detachEvent来模拟removeEventListener，这些ie9才支持
+
+```javascript
+[Window, HTMLDocument, Element].forEach(function(o) {
+      o.prototype.addEventListener = addEventListener;
+      o.prototype.removeEventListener = removeEventListener;
+    });
+```
+
+重写了这几个方法之后对window和element应用。
+
+
+
 
 
