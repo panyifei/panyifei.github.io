@@ -94,6 +94,20 @@ document.querySelectorAll = function(selectors) {
 
 注意这个方法在ES6下的shim比较复杂，因为在ES6下，一个字符串会返回`String.prototype`，而es5则会报错，不过这个方法支持的很好。参见[ES6支持](http://www.webbrowsercompatibility.com/es6/desktop/)
 
+### getOwnPropertyNames
+这个就是返回所有属于他自己的属性，实现就是在for in中运行一次Object.prototype.hasOwnProperty就可以了。
+这个polyfill有bug，不能cover下面的，参见[文档规范]()
+
+```javascript
+var arr = ['a', 'b', 'c'];
+console.log(Object.getOwnPropertyNames(arr).sort()); // logs '0,1,2,length'
+```
+
+因为他的写法是通过for in循环的，而length在array中是不可枚举的，已经提交了issue给作者。
+
+
+
+
 
 
 
