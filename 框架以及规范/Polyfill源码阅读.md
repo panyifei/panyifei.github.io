@@ -16,7 +16,7 @@ getBoundingClientRect这个方法得到这个元素的size并且相对于视图�
 
 这里对getBoundingClientRect方法在ie8下面没有width和height进行了休整。就是对ie8 window下的TextRectangle进行了defineProperties。将width和height进行了定义（这里的定义之所以使用defineProperties是因为这里定义了访问器属性，这个属性不能直接定义）。注意在新的浏览器里面，TextRectangle已经改名了。
 
-注意这里使用的defineProperties在ie 8以下并不支持，所以这个polyfill已经对这个方法进行了修整。这里只修正了ie8，就是循环调用了ie8支持的defineProperty而已。
+注意这里使用的defineProperties在ie 8以下并不支持，所以这个polyfill已经对这个方法进行了修整。就是循环调用了ie8支持的defineProperty而已，至于ie7以下不支持的defineProperty，会在下面进行分析。
 
 ```javascript
 Object.prototype.hasOwnProperty.call(properties, name)
@@ -96,7 +96,7 @@ document.querySelectorAll = function(selectors) {
 
 ### getOwnPropertyNames
 这个就是返回所有属于他自己的属性，实现就是在for in中运行一次Object.prototype.hasOwnProperty就可以了。
-这个polyfill有bug，不能cover下面的，参见[文档规范]()
+这个polyfill有bug，不能cover下面的，参见[mdn文档规范]()
 
 ```javascript
 var arr = ['a', 'b', 'c'];
@@ -104,6 +104,28 @@ console.log(Object.getOwnPropertyNames(arr).sort()); // logs '0,1,2,length'
 ```
 
 因为他的写法是通过for in循环的，而length在array中是不可枚举的，已经提交了issue给作者。
+
+### Object.create
+```javascript
+Object.create = function (prototype, properties) {
+    if (typeof prototype !== "object") { throw TypeError(); }
+    function Ctor() {}
+    Ctor.prototype = prototype;
+    var o = new Ctor();
+    if (prototype) { o.constructor = Ctor; }
+    if (properties !== undefined) {
+      if (properties !== Object(properties)) { throw TypeError(); }
+      Object.defineProperties(o, properties);
+    }
+    return o;
+  };
+```
+
+第一个参数是原型，第二个参数是property，这里比[mdn文档网站](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill)上的polyfill写的好。因为他敢用defineProperties，因为他自己敢实现。
+
+mdn上的直接循环赋值了第二个参数，所以那些writable，enumerable属性没法设定了，这里鸡贼的调用了defineProperties，但是具体实现还得看他的defineProperties怎么写的。
+
+这里把constructor赋值回去的做法已经被放弃了，浏览器都已经放弃这一步操作了....
 
 
 
