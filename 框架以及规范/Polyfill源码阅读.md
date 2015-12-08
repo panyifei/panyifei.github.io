@@ -83,6 +83,19 @@ document.querySelectorAll = function(selectors) {
 
 重写了这几个方法之后对window和element应用。
 
+### DOMTokenList
+这个东西就是一个接口，一个格式，元素的classList，rellist就是遵从的这个规范，就是以空格分开的一些字符串而已。这里就是为IE9以下重写了这个东西，提供了一个构造函数，并且使用defineProperty来提供那些toggle，add等等的方法。
+
+## es5
+### getPrototypeOf
+这个方法IE8以下不支持。
+
+实现就是在判断了`obj !== Object(obj)`也就是返回 `obj.__proto__  || obj.constructor.prototype || Object.prototype`,__proto__这个属性是一些浏览器自己的实现(google,safari,ff)的，不推荐使用。
+
+注意这个方法在ES6下的shim比较复杂，因为在ES6下，一个字符串会返回`String.prototype`，而es5则会报错，不过这个方法支持的很好。参见[ES6支持](http://www.webbrowsercompatibility.com/es6/desktop/)
+
+
+
 
 
 
