@@ -95,15 +95,18 @@ document.querySelectorAll = function(selectors) {
 注意这个方法在ES6下的shim比较复杂，因为在ES6下，一个字符串会返回`String.prototype`，而es5则会报错，不过这个方法支持的很好。参见[ES6支持](http://www.webbrowsercompatibility.com/es6/desktop/)
 
 ### getOwnPropertyNames
+IE8以下不支持。
+
 这个就是返回所有属于他自己的属性，实现就是在for in中运行一次Object.prototype.hasOwnProperty就可以了。
-这个polyfill有bug，不能cover下面的，参见[mdn文档规范]()
+
+这个polyfill有一些问题，不能cover下面的，参见[mdn文档规范]()
 
 ```javascript
 var arr = ['a', 'b', 'c'];
 console.log(Object.getOwnPropertyNames(arr).sort()); // logs '0,1,2,length'
 ```
 
-因为他的写法是通过for in循环的，而length在array中是不可枚举的，已经提交了issue给作者。
+因为他的写法是通过for in循环的，而length在array中是不可枚举的，作者表示除了原生的getOwnPropertyNames，其他没法拿到不可枚举的。
 
 ### Object.create
 ```javascript
@@ -121,12 +124,45 @@ Object.create = function (prototype, properties) {
   };
 ```
 
-第一个参数是原型，第二个参数是property，这里比[mdn文档网站](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill)上的polyfill写的好。因为他敢用defineProperties，因为他自己敢实现。
+第一个参数是原型，第二个参数是property，才开始还以为这里比[mdn文档网站](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill)上的polyfill写的好。因为他敢用defineProperties，结果后来才发现他也就支持了get，set和value。
 
-mdn上的直接循环赋值了第二个参数，所以那些writable，enumerable属性没法设定了，这里鸡贼的调用了defineProperties，但是具体实现还得看他的defineProperties怎么写的。
+mdn上的直接循环赋值了第二个参数，所以那些getter，setter，writable，enumerable属性没法设定了，这里鸡贼的调用了defineProperties，后面他的实现也只有getter和setter。
 
 这里把constructor赋值回去的做法已经被放弃了，浏览器都已经放弃这一步操作了....
 
+### Object.defineProperty
+```javascript
+(function() {
+  if (!Object.defineProperty ||
+      !(function () { try { Object.defineProperty({}, 'x', {}); return true; } catch (e) { return false; } } ())) {
+    var orig = Object.defineProperty;
+    Object.defineProperty = function (o, prop, desc) {
+      // In IE8 try built-in implementation for defining properties on DOM prototypes.
+      if (orig) { try { return orig(o, prop, desc); } catch (e) {} }
+      if (o !== Object(o)) { throw TypeError("Object.defineProperty called on non-object"); }
+      if (Object.prototype.__defineGetter__ && ('get' in desc)) {
+        Object.prototype.__defineGetter__.call(o, prop, desc.get);
+      }
+      if (Object.prototype.__defineSetter__ && ('set' in desc)) {
+        Object.prototype.__defineSetter__.call(o, prop, desc.set);
+      }
+      if ('value' in desc) {
+        o[prop] = desc.value;
+      }
+      return o;
+    };
+  }
+}());
+```
+
+因为IE8部分支持了这个方法（只支持DOM Object），所以这里的检测调用了一次，并用了个`try catch`来返回值。
+
+这里在能够使用IE8自带的情况下返回自带的。
+
+然后就是使用了两个已经被废弃的函数。`__defineGetter__`和`__defineSetter__`来操作访问器属性，但是那些enumerable，writable就不行了。
+
+### Object.defineProperties 
+这里就是对传入的properties进行for in，然后用hasOwnProperty检测一下。再调用上面的Object.defineProperty。
 
 
 
