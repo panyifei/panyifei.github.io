@@ -30,6 +30,8 @@
 [Promise以及各种异步的学习][3]
 
 ## 工具使用
+[Atom][34]
+
 [Webstorm+Github的笔记环境搭建][2]
 
 [Markdown使用心得][6]
@@ -116,3 +118,4 @@
 [31]:https://github.com/panyifei/learning/blob/master/Nodejs/Forever源码阅读.md
 [32]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs核心模块.md
 [33]:https://github.com/panyifei/learning/blob/master/框架以及规范/Polyfill源码阅读.md
+[34]:https://github.com/panyifei/learning/blob/master/工具使用/Atom.md

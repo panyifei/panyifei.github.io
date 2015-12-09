@@ -1,7 +1,7 @@
 # Polyfill源码阅读
 在勐喆的推荐下，开始看一些比较浅层次的源码，来加深对于规范的理解。看[polyfill](https://github.com/inexorabletash/polyfill)顺便可以看一下js的兼容，还可以了解一些不常用的API
 
-## CSSom
+## CSSOM
 ### getBoundingClientRect这个方法在ie8下的修正
 ```javascript
 if ('TextRectangle' in this && !('width' in TextRectangle.prototype)) {
@@ -161,14 +161,7 @@ mdn上的直接循环赋值了第二个参数，所以那些getter，setter，wr
 
 然后就是使用了两个已经被废弃的函数。`__defineGetter__`和`__defineSetter__`来操作访问器属性，但是那些enumerable，writable就不行了。
 
-### Object.defineProperties 
+### Object.defineProperties
 这里就是对传入的properties进行for in，然后用hasOwnProperty检测一下。再调用上面的Object.defineProperty。
 
-
-
-
-
-
-
-
-
+###
