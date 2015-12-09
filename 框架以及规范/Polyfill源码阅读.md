@@ -97,7 +97,7 @@ document.querySelectorAll = function(selectors) {
 ### getOwnPropertyNames
 IE8以下不支持。
 
-这个就是返回所有属于他自己的属性，实现就是在for in中运行一次Object.prototype.hasOwnProperty就可以了。
+这个就是返回所有属于他自己的属性，包括可枚举的和不可枚举的。实现就是在for in中运行一次Object.prototype.hasOwnProperty就可以了，当然这样不可枚举的就不行了。
 
 这个polyfill有一些问题，不能cover下面的，参见[mdn文档规范]()
 
@@ -164,4 +164,54 @@ mdn上的直接循环赋值了第二个参数，所以那些getter，setter，wr
 ### Object.defineProperties
 这里就是对传入的properties进行for in，然后用hasOwnProperty检测一下。再调用上面的Object.defineProperty。
 
-###
+### Object.keys
+返回的自己的可枚举的属性。
+
+这个就是标准的使用for in，再使用hasOwnProperty。
+
+`for in`会返回所有的可枚举的属性，包括原型链上的。
+
+### Function.prototype.bind
+```javascript
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function (o) {
+    if (typeof this !== 'function') { throw TypeError("Bind must be called on a function"); }
+    var slice = [].slice,
+        args = slice.call(arguments, 1),
+        self = this,
+        bound = function () {
+          return self.apply(this instanceof nop ? this : o,
+                            args.concat(slice.call(arguments)));
+        };
+
+    function nop() {}
+    if (self.prototype) {
+      // native functions don't have a prototype
+      nop.prototype = self.prototype;
+    }
+    nop.prototype = self.prototype;
+    bound.prototype = new nop();
+    return bound;
+  };
+}
+```
+
+这个写的挺帅气的，本来挺容易的。写这么复杂。
+
+- 判断typeof是因为一般情况下只有function可以执行这个，但是有人强行改变类型调用的话，这里就能阻止住。
+- 判断self.prototype，是因为原生的一些function是没有prototype的，这个有点意思。
+- 这里之所以用concat是因为bind返回的还是一个函数，需要支持他的参数
+- 这里为什么要绕一个大弯，是因为不想控制到原来的对象？？？tudo
+- 这里为什么要用三目运算符？我也想知道为什么。。。tudo
+
+
+
+
+
+
+
+
+
+
+
+overline
