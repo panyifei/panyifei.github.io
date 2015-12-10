@@ -10,7 +10,7 @@
 
 [Polyfill源码阅读][33]
 
-[Prototype,原型,继承.md][34]
+[Prototype,原型,继承][35]
 
 ## Javascript框架设计读书笔记
 这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
@@ -121,3 +121,4 @@
 [32]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs核心模块.md
 [33]:https://github.com/panyifei/learning/blob/master/框架以及规范/Polyfill源码阅读.md
 [34]:https://github.com/panyifei/learning/blob/master/工具使用/Atom.md
+[35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型,继承.md

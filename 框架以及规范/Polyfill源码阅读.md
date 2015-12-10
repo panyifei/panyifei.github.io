@@ -196,14 +196,13 @@ if (!Function.prototype.bind) {
 }
 ```
 
-这个写的挺帅气的，本来挺容易的。写这么复杂。
+这个方法直接抄的mozilla官网的，不过写的相当帅气，把一些边界情况考虑的相当完美了。
 
 - 判断typeof是因为一般情况下只有function可以执行这个，但是有人强行改变类型调用的话，这里就能阻止住。
 - 判断self.prototype，是因为原生的一些function是没有prototype的，这个有点意思。
-- 这里之所以用concat是因为bind返回的还是一个函数，需要支持他的参数
-- 这里为什么要绕一个大弯，是因为不想控制到原来的对象？？？tudo
-- 这里为什么要用三目运算符？我也想知道为什么。。。tudo
+- 这里之所以用concat是因为bind返回的还是一个函数，需要支持他调用时的参数
 
+至于这里为什么要绕一个大弯，因为他想要让bind方法适用于`new`，想让他作为一个constructor来应用，这里参见[stack_overflow](http://stackoverflow.com/questions/5774070/mozillas-bind-function-question/5774147#5774147),才开始百思不得其解，最后发现自己还是太年轻了，这里的写法都还是讲道理的。
 
 
 
