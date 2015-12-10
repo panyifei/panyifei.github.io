@@ -10,6 +10,8 @@
 
 [Polyfill源码阅读][33]
 
+[Prototype,原型,继承.md][34]
+
 ## Javascript框架设计读书笔记
 这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
 
