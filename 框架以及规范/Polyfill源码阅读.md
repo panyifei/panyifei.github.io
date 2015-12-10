@@ -198,6 +198,8 @@ if (!Function.prototype.bind) {
 
 这个方法直接抄的mozilla官网的，不过写的相当帅气，把一些边界情况考虑的相当完美了。
 
+这里的三目运算符本来百思不得其解的，最后参考了[stackoverflow](http://stackoverflow.com/questions/5774070/mozillas-bind-function-question/5774147#5774147)
+
 - 判断typeof是因为一般情况下只有function可以执行这个，但是有人强行改变类型调用的话，这里就能阻止住。
 - 判断self.prototype，是因为原生的一些function是没有prototype的，这个有点意思。
 - 这里之所以用concat是因为bind返回的还是一个函数，需要支持他调用时的参数
