@@ -13,5 +13,10 @@ Koa还有就是使用了ES6的[generator](https://github.com/panyifei/learning/b
 
 Koa的中间件很多，注意koa-static这个会把项目开放出去，使用的时候要只把静态资源放出去。不然风险很大。
 
-## Co
+### 中间件的运行
+koa的中间件也是通过app.use运行的，他是一个generator函数，在函数中调用yield next,会跳转到下一个中间件的执行，执行完成之后会顺着顺序逆流执行一遍所有中间件的yield next之后的东西。
 
+注意调用yield + 一个异步操作的时候，这个异步操作必须写成一个promise或者一个generator，这样koa就会使用co函数一直调用到这个异步的返回结果，这样在流程中就不用写到callback中，可以直接按照同步的来写~~这也是koa做的比较叼的地方。
+
+## Co
+就是一个遍历函数，将promise或者generator的异步函数一直执行到得到最后的结果再返回，这样就可以把本来放到异步中的方法按照同步的顺序来写。
