@@ -86,6 +86,8 @@
 
 [21Ajax和Comet][26]
 
+[22高级技巧][36]
+
 ## 寄语
 因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会尽量给出参考的链接。
 
@@ -124,3 +126,4 @@
 [33]:https://github.com/panyifei/learning/blob/master/框架以及规范/Polyfill源码阅读.md
 [34]:https://github.com/panyifei/learning/blob/master/工具使用/Atom.md
 [35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型,继承.md
+[36]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/22高级技巧.md
