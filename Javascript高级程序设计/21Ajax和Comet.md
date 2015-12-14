@@ -150,7 +150,7 @@ JSONP是通过动态加载一段js来做到的，就是先声明了一个functio
 浏览器接收好数据之后，再打开一个新的连接。
 
     轮询的好处在于所有的浏览器都是支持的
-    
+
 ### 流
 就是说整个的周期只使用一个HTTP请求，然后服务器保持链接打开，然后周期性的发送数据，然后xhr的readyState就会周期性的变成3了。
 
@@ -189,7 +189,26 @@ source.onmessage = function(event){
 - 创建后，会有HTTP请求发送到浏览器，取得服务器响应之后，连接会从http协议变成web sockets协议
 - 协议是自己定的，所以是ws:www.example.com
 
+web socket支持情况非常差，但是没有同源策略的限制，连不连接全依靠服务器端来识别。
 
+一旦尝试创建，会有一个readyState表示状态，想要关闭，可以在任何时候调用close方法。
+
+一旦打开了之后，就可以来send任何的数据，但是只能发送纯文本，所以必须先JSON.stringify才行。
+
+一旦受到消息，会触发onmessage方法。
+
+还有一些方法，比如open，eror，close会在相应地时刻触发。
+
+## 安全
+#### CSRF
+cross-site-request-forery 跨站点请求伪造
+
+注意改变get变成put，检查来源，检查cookie都不行
+
+可以的解决方法：
+
+- 以ssl来访问可以通过XHR请求的资源
+- 每次请求都得到附带响应算法的验证码
 
 
 
@@ -197,13 +216,4 @@ source.onmessage = function(event){
 
 
 tudo:跨源资源共享那里还有些问题。
-
-
-
-
-
-
-
-
-
-
+tudo:ssl是啥？

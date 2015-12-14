@@ -206,6 +206,8 @@ if (!Function.prototype.bind) {
 
 至于这里为什么要绕一个大弯，因为他想要让bind方法适用于`new`，想让他作为一个constructor来应用，这里参见[stack_overflow](http://stackoverflow.com/questions/5774070/mozillas-bind-function-question/5774147#5774147),才开始百思不得其解，最后发现自己还是太年轻了，这里的写法都还是讲道理的。
 
+### Array.isArray
+用来判断是不是array的
 
 
 
