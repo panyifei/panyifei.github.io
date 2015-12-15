@@ -212,6 +212,8 @@ if (!Function.prototype.bind) {
 就是通过原生的Object.prototype.toString.call([]) == '[object Array]'来判断的，其实也可以在判断了length是不是数字之后再看下length是不是可枚举的，因为原生的arry的length是不可枚举的。
 
 ### Array.prototype.indexOf和lastIndexof
+ie9以上才能用
+
 这里拿this.length的时候用了this.length >>> 0,这一句是位操作符，是针对数字的，功能是
 
 - 将所有的非数值转化为0
@@ -219,9 +221,16 @@ if (!Function.prototype.bind) {
 
 这样做太安全了，到底有没有价值也不知道。
 
-其他的就是很正常的实现，for循环进行比较，lastIndexOf类似
+在进行对比之前，还判断了`index in array`
 
-###
+其他的就是很正常的实现，for循环进行比较，lastIndexOf类似，只是换成了从后面查找而已
+
+### Array.prototype.every;some;foreach;map;filter;reduce;reduceRight
+ie9以上才能用
+
+正好复习了一下这几个函数的功能
+
+- every就是对数组的每一项执行传入的函数，如果所有的都返回true，才返回true，否则返回false。
 
 
 
