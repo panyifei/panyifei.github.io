@@ -207,7 +207,24 @@ if (!Function.prototype.bind) {
 至于这里为什么要绕一个大弯，因为他想要让bind方法适用于`new`，想让他作为一个constructor来应用，这里参见[stack_overflow](http://stackoverflow.com/questions/5774070/mozillas-bind-function-question/5774147#5774147),才开始百思不得其解，最后发现自己还是太年轻了，这里的写法都还是讲道理的。
 
 ### Array.isArray
-用来判断是不是array的
+用来判断是不是array的方法
+
+就是通过原生的Object.prototype.toString.call([]) == '[object Array]'来判断的，其实也可以在判断了length是不是数字之后再看下length是不是可枚举的，因为原生的arry的length是不可枚举的。
+
+### Array.prototype.indexOf和lastIndexof
+这里拿this.length的时候用了this.length >>> 0,这一句是位操作符，是针对数字的，功能是
+
+- 将所有的非数值转化为0
+- 将数值所有大于等于0的数取整数部分
+
+这样做太安全了，到底有没有价值也不知道。
+
+其他的就是很正常的实现，for循环进行比较，lastIndexOf类似
+
+###
+
+
+
 
 
 
