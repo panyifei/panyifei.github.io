@@ -228,9 +228,14 @@ ie9以上才能用
 ### Array.prototype.every;some;foreach;map;filter;reduce;reduceRight
 ie9以上才能用
 
-正好复习了一下这几个函数的功能
+正好复习了一下这几个函数的功能，写法没有什么特别之处，就是for循环进行call的调用
 
 - every就是对数组的每一项执行传入的函数，如果所有的都返回true，才返回true，否则返回false。
+- some就是数组中只要有一个符合就会返回true，否则返回false
+- foreach就是对每一项进行调用
+- map返回了一个新的数组，将数组每个元素执行方法得到的结果组成一个新数组返回回来
+- filter返回一个执行之后为true的数组，就是将每一个执行，如果为true就添加进结果
+
 
 
 
