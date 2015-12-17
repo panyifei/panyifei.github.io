@@ -76,6 +76,8 @@
 
 [快捷键][22]
 
+[Hybird框架理解][37]
+
 ## 读书笔记
 ### Javascript高级程序设计
 [14章表单脚本][21]
@@ -127,3 +129,4 @@
 [34]:https://github.com/panyifei/learning/blob/master/工具使用/Atom.md
 [35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型,继承.md
 [36]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/22高级技巧.md
+[37]:https://github.com/panyifei/learning/blob/master/其他技术/Hybird框架理解.md
