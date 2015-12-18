@@ -131,6 +131,6 @@
 [32]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs核心模块.md
 [33]:https://github.com/panyifei/learning/blob/master/框架以及规范/Polyfill源码阅读.md
 [34]:https://github.com/panyifei/learning/blob/master/工具使用/Atom.md
-[35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型,继承.md
+[35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型链,继承.md
 [36]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/22高级技巧.md
 [37]:https://github.com/panyifei/learning/blob/master/其他技术/Hybird框架理解.md

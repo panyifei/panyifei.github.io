@@ -236,7 +236,30 @@ ie9以上才能用
 - map返回了一个新的数组，将数组每个元素执行方法得到的结果组成一个新数组返回回来
 - filter返回一个执行之后为true的数组，就是将每一个执行，如果为true就添加进结果
 
+### Array.prototype.reduce和Array.prototype.reduceRight
+函数的功能是从左向右合并通过函数合并，传入的参数除了callback，还有一个初始项。
 
+两个的写法很正常，就是简单的实现而已。
+
+之所以比较长是因为做的很安全，各种检测，包括传入的是不是函数，调用的是不是array等。
+
+### String.prototype.trim
+这个比较简单，但是这边使用的是+号挺有意思的
+
+```javascript
+  String(this).replace(/^\s+|\s+$/g, '');
+```
+
+### Date.now和Date.prototype.toISOString
+Date的这两个居然还得IE9
+
+就是Number(new Date())
+
+而toISOString就是返回ISO格式的日期，类似于`2011-10-05T14:48:00.000Z`
+
+实现就是getUTCFullYear这种都支持的来拼装一下就行了
+
+### 到此es5的polyfill就看完了
 
 
 
