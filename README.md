@@ -1,7 +1,13 @@
-# learning
-学习前端的路上的每天的知识的整理，使用github来管理也是希望与大家分享并得到大家的纠正。有些学习新知识的时候自己的一些思考和疑问，会写在一些文底的自问自答当中。
+# Front-end-learning
+一个前端工程狮的日常，使用github来管理也是希望与大家分享并得到纠正。
 
-内容主要是js，包括js的一些规范，前端的兼容性问题，还有自己对于nodejs的一些实践，还有一些工具的使用介绍以及自己的阅读笔记。
+内容主要是：
+
+- js，包括js的一些规范以及一些源码的阅读
+- 前端的兼容性问题
+- 还有对于nodejs的一些实践以及理解
+- 还有一些工具的使用介绍
+- 以及自己的阅读笔记
 
 ## 框架以及规范
 [Commonjs,CMD,AMD和cortex介绍][1]
@@ -90,8 +96,6 @@
 
 [22高级技巧][36]
 
-## 寄语
-因为是学习笔记，所以难免有错误，希望得到大家的指正，所有在学习中引用到的老师们的文章，都会尽量给出参考的链接。
 
 [1]:https://github.com/panyifei/learning/blob/master/框架以及规范/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md

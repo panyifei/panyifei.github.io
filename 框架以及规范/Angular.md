@@ -1,6 +1,8 @@
 # Angular
 angular是个很好用的前端单页应用的框架，使用的双向数据绑定来控制显示。
 
+自己以前写过一个[扑克牌小游戏](https://github.com/panyifei/angular-poker),这里记录的是一些其他的理解。
+
 ## 设置directive触发enter键
 jade为
         input.input(ng-model="searchInput" ng-enter="search()" placeholder="keyword:ajax|name:jquery|author:ltebean")
