@@ -260,6 +260,8 @@ Date的这两个居然还得IE9
 实现就是getUTCFullYear这种都支持的来拼装一下就行了
 
 ### 到此es5的polyfill就看完了
+但是没有JSON的实现，JSON对象在IE7以下是没有用的，这里作者推荐使用[JSON-js](https://github.com/douglascrockford/JSON-js)。
+
 
 
 
