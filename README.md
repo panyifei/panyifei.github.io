@@ -73,6 +73,9 @@
 
 [Forever源码阅读][31]
 
+## 前端分享
+[2015届D2分享][38]
+
 ## 其他技术
 [编码问题][15]
 
@@ -134,3 +137,4 @@
 [35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型链,继承.md
 [36]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/22高级技巧.md
 [37]:https://github.com/panyifei/learning/blob/master/其他技术/Hybird框架理解.md
+[38]:https://github.com/panyifei/learning/blob/master/前端分享/2015届D2分享.md
