@@ -49,10 +49,8 @@ js语言是传值调用，他的thunk含义有些不同，js中，thunk函数替
 ```javascript
   //正常的readFile函数
   fs.readFile(fileName, callback);
-
   var readFileThunk = Thunk(fileName);
   readFileThunk(callback);
-
   //thunk版本的函数
   function Thunk(fileName){
     return function(callback){
@@ -76,7 +74,6 @@ js语言是传值调用，他的thunk含义有些不同，js中，thunk函数替
       }
     }
   }
-
   var readFileThunk = Thunk(fs.readFile);
   readFileThunk(fileA)(callback);
 ```
@@ -101,18 +98,22 @@ module.exports = thunkify;
 function thunkify(fn){
   assert('function' == typeof fn, 'function required');
   return function(){
+    //这里就是将所有的参数放进了一个新的数组，这里之所以不用[].slice。是因为有人在bluebird docs发现，如果直接这样泄露arguments，v8的一些优化的编译会被搁置，就会有性能上的损失。
     var args = new Array(arguments.length);
     var ctx = this;
     for(var i = 0; i < args.length; ++i) {
       args[i] = arguments[i];
     }
     return function(done){
+      //这里用called是为了标记只执行了一次，类似于promise的resolve和reject只能执行一次一样。
       var called;
       args.push(function(){
         if (called) return;
         called = true;
+        //因为arguments是一个list，必须得用apply才能在done传入。
         done.apply(null, arguments);
       });
+      //这里用个try catch，可以在执行失败时走一遍callback，传入err信息
       try {
         fn.apply(ctx, args);
       } catch (err) {
@@ -123,11 +124,55 @@ function thunkify(fn){
 };
 ```
 
+<img alt="不用slice处理arguments" width='300px' src="pics//pic1.jpg" />
+
+<img alt="为了使回调函数只执行一次" width='300px' src="pics//pic2.jpg" />
+
+## generator函数的流程管理
+包装成这样到底有个啥用场？用在了generator的流程管理
+
+```javascript
+var fs = require('fs');
+var thunkify = require('thunkify');
+var readFile = thunkify(fs.readFile);
+var gen = function* (){
+  var r1 = yield readFile('/etc/fstab');
+  console.log(r1.toString());
+  var r2 = yield readFile('/etc/shells');
+  console.log(r2.toString());
+};
+var g = gen();
+var r1 = g.next();
+r1.value(function(err, data){
+  if (err) throw err;
+  var r2 = g.next(data);
+  r2.value(function(err, data){
+    if (err) throw err;
+    g.next(data);
+  });
+});
+```
+
+就如同上面的，generator的执行过程实际上是将同一个回调函数，反复传入next的value结果中。这样我们就可以递归的来自动完成这个过程了。于是据诞生了基于thunk函数的执行器，也就是co了。
+
+## 最简单的co
+```javascipt
+function run(fn) {
+  var gen = fn();
+  function next(err, data) {
+    var result = gen.next(data);
+    if (result.done) return;
+    result.value(next);
+  }
+  next();
+}
+run(gen);
+```
 
 
-co的本质是thunk函数，帮我们不停地调用传入生成器的next函数，如果done为true的时候，代表迭代完成，会将值传给回调函数。
+
+co帮我们不停地调用传入生成器的next函数，如果done为true的时候，代表迭代完成，会将值传给回调函数。
 
 
 
 todu：有个好处是可以使用try catch来捕捉错误了？？？
-todu:Array.prototype.slice再去看一下？？？这里是将有length属性的对象转化为数组
