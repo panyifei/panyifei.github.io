@@ -124,9 +124,9 @@ function thunkify(fn){
 };
 ```
 
-<img alt="不用slice处理arguments" width='300px' src="pics//pic1.jpg" />
+<img alt="不用slice处理arguments" width='300px' src="pics//pic1.png" />
 
-<img alt="为了使回调函数只执行一次" width='300px' src="pics//pic2.jpg" />
+<img alt="为了使回调函数只执行一次" width='300px' src="pics//pic2.png" />
 
 ## generator函数的流程管理
 包装成这样到底有个啥用场？用在了generator的流程管理
