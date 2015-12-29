@@ -79,7 +79,7 @@ js语言是传值调用，他的thunk含义有些不同，js中，thunk函数替
 ```
 
 tj的thunkify源码
-```javascipt
+```javascript
 /**
  * Module dependencies.
  */
@@ -156,7 +156,7 @@ r1.value(function(err, data){
 就如同上面的，generator的执行过程实际上是将同一个回调函数，反复传入next的value结果中。这样我们就可以递归的来自动完成这个过程了。于是据诞生了基于thunk函数的执行器，也就是co了。
 
 ## 最简单的co
-```javascipt
+```javascript
 function run(fn) {
   var gen = fn();
   function next(err, data) {
@@ -196,7 +196,7 @@ var gen = function* (){
 
 然后手动执行下generator函数
 
-```javascipt
+```javascript
 var g = gen();
 g.next().value.then(function(data){
   g.next(data).value.then(function(data){
@@ -207,7 +207,7 @@ g.next().value.then(function(data){
 
 写一个自动执行器
 
-```javascipt
+```javascript
 function run(gen){
   var g = gen();
   function next(data){
@@ -225,10 +225,7 @@ function run(gen){
 
 下面的是co源码的逐行阅读，先把参照的一些图片列举出来
 
-### 图片3
-<img alt="处理es6模块的引入" width='700px' src="pics//pic3.png" />
-
-```javascipt
+```javascript
   //array原生的slice
   var slice = Array.prototype.slice;
   //这里写的这么古怪就只是想在es6的模块引入时更加舒服一些，参见上面的图片3
@@ -251,22 +248,25 @@ function run(gen){
     // 将所有的东西放到一个promise里面，来防止引起内存泄露错误的promise chaining。
     //tudo：看一下这个issue see https://github.com/tj/co/issues/180
     //https://github.com/promises-aplus/promises-spec/issues/179 看的我好累，完全没有看懂啊！！！
+    //总之不管怎样，他是把传进来的东西包装成了一个promise
     return new Promise(function(resolve, reject) {
+      //这里是判断下gen是不是函数，generators function执行之后是一个object
       if (typeof gen === 'function') gen = gen.apply(ctx, args);
+      //传入的不是generators函数，没有next，就直接resolve返回结果;这里是错误兼容而已，因为co就是基于generator的，传入其他的没有意义
       if (!gen || typeof gen.next !== 'function') return resolve(gen);
+      //主要就是走下面的onFulfilled方法，这个方法返回的是一个promise(resolve或者reject)
       onFulfilled();
-      /**
-       * @param {Mixed} res
-       * @return {Promise}
-       * @api private
-       */
+      //res是个mixed的东西，这个暂时不清楚，继续看
       function onFulfilled(res) {
         var ret;
         try {
+          //调用第一次next方法
           ret = gen.next(res);
         } catch (e) {
+          //出错了直接reject出去
           return reject(e);
         }
+        //将第一次的结果({done:true,value:{}})传入内部方法next
         next(ret);
       }
       /**
@@ -283,15 +283,9 @@ function run(gen){
         }
         next(ret);
       }
-      /**
-       * Get the next value in the generator,
-       * return a promise.
-       *
-       * @param {Object} ret
-       * @return {Promise}
-       * @api private
-       */
+      //循环得到next的结果，return的还是一个promise
       function next(ret) {
+        //如果done为true的话，代表执行结束，返回一个resolve的promise
         if (ret.done) return resolve(ret.value);
         var value = toPromise.call(ctx, ret.value);
         if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
@@ -418,7 +412,32 @@ function run(gen){
   }
 ```
 
+### 图片3
+<img alt="处理es6模块的引入" width='700px' src="pics//pic3.png" />
+
+### promise chaining导致的内存泄露
+这里只是源码的一个小注释，去看了不少东西
+
+阅读了https://github.com/tj/co/issues/180
+
+有人发现在一个无限循环的for循环里面使用co调用一个异步操作，会发生内存泄露
+
+有人推断是所有的promise都被连接了起来，阻止了gc的回收
+
+有人测试了基于thunk的v3，发现ok，v4发现内存泄露，并且使用工具发现确实是promise的问题
+
+死马说这事规范里的问题，bluebird和then/promise已经做出了修复，
+
+最后hax说是es6 spec “bug”
+
+接下来看一个[解决方案](http://stackoverflow.com/questions/15027192/how-do-i-stop-memory-leaks-with-recursive-javascript-promises)
+
+就是用一个promise从外面包裹住全部，为什么这样有用？？！！
+
+接下来阅读https://github.com/promises-aplus/promises-spec/issues/179
+
 
 
 
 todu：有个好处是可以使用try catch来捕捉错误了？？？
+todu：那个内存泄露的问题看不懂啊，操！！先不管了，要死了
