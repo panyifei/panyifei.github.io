@@ -287,6 +287,7 @@ function run(gen){
       function next(ret) {
         //如果done为true的话，代表执行结束，返回一个resolve的promise
         if (ret.done) return resolve(ret.value);
+        //既然还没执行完，就将ret.value转换成一个promise
         var value = toPromise.call(ctx, ret.value);
         if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
         return onRejected(new TypeError('You may only yield a function, promise, generator, array, or object, '
@@ -294,14 +295,9 @@ function run(gen){
       }
     });
   }
-  /**
-   * Convert a `yield`ed value into a promise.
-   *
-   * @param {Mixed} obj
-   * @return {Promise}
-   * @api private
-   */
+  //将yield后面的东西转化成一个promise
   function toPromise(obj) {
+    //如果不存在的话，直接返回，走最后的报错流程
     if (!obj) return obj;
     if (isPromise(obj)) return obj;
     if (isGeneratorFunction(obj) || isGenerator(obj)) return co.call(this, obj);

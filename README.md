@@ -20,13 +20,6 @@
 
 [Prototype,原型,继承][35]
 
-## Javascript框架设计读书笔记
-这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
-
-[种子模块][5]
-
-[模块加载系统][11]
-
 ##html5新特性研究以及使用
 [history相关][4]
 
@@ -38,19 +31,6 @@
 [Generator函数] [19]
 
 [Promise以及各种异步的学习][3]
-
-## 工具使用
-[Atom][34]
-
-[Webstorm+Github的笔记环境搭建][2]
-
-[Markdown使用心得][6]
-
-[Chrome,Sublime插件推荐][10]
-
-[photoshop简单使用][12]
-
-[Mac下虚拟机以及双系统][13]
 
 ## 浏览器兼容性以及移动端开发
 [浏览器兼容性][8]
@@ -78,17 +58,6 @@
 ## 前端分享
 [2015届D2分享][38]
 
-## 其他技术
-[编码问题][15]
-
-[小问题总结][16]
-
-[Cookie，Session，Localstorage][18]
-
-[快捷键][22]
-
-[Hybird框架理解][37]
-
 ## 读书笔记
 ### Javascript高级程序设计
 [14章表单脚本][21]
@@ -101,6 +70,38 @@
 
 [22高级技巧][36]
 
+### Javascript框架设计读书笔记
+这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
+
+[种子模块][5]
+
+[模块加载系统][11]
+
+## 其他技术
+[Freemarker分页][40]
+
+[编码问题][15]
+
+[小问题总结][16]
+
+[Cookie，Session，Localstorage][18]
+
+[快捷键][22]
+
+[Hybird框架理解][37]
+
+## 工具使用
+[Atom][34]
+
+[Webstorm+Github的笔记环境搭建][2]
+
+[Markdown使用心得][6]
+
+[Chrome,Sublime插件推荐][10]
+
+[photoshop简单使用][12]
+
+[Mac下虚拟机以及双系统][13]
 
 [1]:https://github.com/panyifei/learning/blob/master/框架以及规范/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md
@@ -141,3 +142,4 @@
 [37]:https://github.com/panyifei/learning/blob/master/其他技术/Hybird框架理解.md
 [38]:https://github.com/panyifei/learning/blob/master/前端分享/2015届D2分享.md
 [39]:https://github.com/panyifei/learning/blob/master/Nodejs/co.md
+[40]:https://github.com/panyifei/learning/blob/master/其他技术/Freemarker分页.md
