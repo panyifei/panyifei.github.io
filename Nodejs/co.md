@@ -299,20 +299,19 @@ function run(gen){
   function toPromise(obj) {
     //如果不存在的话，直接返回，走最后的报错流程
     if (!obj) return obj;
+    //判断传入的是不是promise，是的话直接返回
     if (isPromise(obj)) return obj;
+    //判断传入的是不是generator，或者generator function，是的话，继续调用co函数进行循环~
     if (isGeneratorFunction(obj) || isGenerator(obj)) return co.call(this, obj);
+    //如果就是个普通的thunk函数，也把他转化为promise
     if ('function' == typeof obj) return thunkToPromise.call(this, obj);
+    //如果是array或者object的话，也走相应地变换方法
     if (Array.isArray(obj)) return arrayToPromise.call(this, obj);
     if (isObject(obj)) return objectToPromise.call(this, obj);
+    //如果都不是，直接返回，走最后的报错流程
     return obj;
   }
-  /**
-   * Convert a thunk to a promise.
-   *
-   * @param {Function}
-   * @return {Promise}
-   * @api private
-   */
+  //这里将thunk转化成了promise，thunk就是调用的时候传入一个error和res的function，就在最外面包了个promise就行了
   function thunkToPromise(fn) {
     var ctx = this;
     return new Promise(function (resolve, reject) {
@@ -323,14 +322,8 @@ function run(gen){
       });
     });
   }
-  /**
-   * Convert an array of "yieldables" to a promise.
-   * Uses `Promise.all()` internally.
-   *
-   * @param {Array} obj
-   * @return {Promise}
-   * @api private
-   */
+  //这里的array转化为promise其实就是通过Promise.all来包裹，这个方法只接受promise的数组，并且装化为一个新的promise
+  //tudo:这里如何保证是平行执行的呢？？
   function arrayToPromise(obj) {
     return Promise.all(obj.map(toPromise, this));
   }
@@ -363,46 +356,24 @@ function run(gen){
       }));
     }
   }
-  /**
-   * Check if `obj` is a promise.
-   *
-   * @param {Object} obj
-   * @return {Boolean}
-   * @api private
-   */
+  //检查是否是promise，果然就是简单的判断他有没有then方法
   function isPromise(obj) {
     return 'function' == typeof obj.then;
   }
-  /**
-   * Check if `obj` is a generator.
-   *
-   * @param {Mixed} obj
-   * @return {Boolean}
-   * @api private
-   */
+  //这里判断是不是generator就是判断他的next和throw方法是不是function
   function isGenerator(obj) {
     return 'function' == typeof obj.next && 'function' == typeof obj.throw;
   }
-  /**
-   * Check if `obj` is a generator function.
-   *
-   * @param {Mixed} obj
-   * @return {Boolean}
-   * @api private
-   */
+  //判断是否是generatorFunction就是判断了他的constructor的name
   function isGeneratorFunction(obj) {
     var constructor = obj.constructor;
+    //这里是为了解决没有constructor的对象，比如Object.create(null)
     if (!constructor) return false;
+    //这里两种情况会返回true，一种是名字正确地，一种是他的prototype是generator
     if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) return true;
     return isGenerator(constructor.prototype);
   }
-  /**
-   * Check for plain object.
-   *
-   * @param {Mixed} val
-   * @return {Boolean}
-   * @api private
-   */
+   //就是通过constructor来判断是不是一个简单的对象
   function isObject(val) {
     return Object == val.constructor;
   }
