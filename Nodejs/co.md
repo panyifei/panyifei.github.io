@@ -228,7 +228,7 @@ function run(gen){
 ```javascript
   //array原生的slice
   var slice = Array.prototype.slice;
-  //这里写的这么古怪就只是想在es6的模块引入时更加舒服一些，参见上面的图片3
+  //这里写的这么古怪就只是想在es6的模块引入时更加舒服一些，参见下面的图片3
   module.exports = co['default'] = co.co = co;
   //将传入的generator函数包装成一个返回promise的方法
   //这是一个独立的方法，就是将传入的函数包装成了co执行前的形式
@@ -247,6 +247,7 @@ function run(gen){
     var args = slice.call(arguments, 1)
     // 将所有的东西放到一个promise里面，来防止引起内存泄露错误的promise chaining。
     //tudo：看一下这个issue see https://github.com/tj/co/issues/180
+    //参见下面的内存泄露的研究
     //https://github.com/promises-aplus/promises-spec/issues/179 看的我好累，完全没有看懂啊！！！
     //总之不管怎样，他是把传进来的东西包装成了一个promise
     return new Promise(function(resolve, reject) {
@@ -289,6 +290,8 @@ function run(gen){
         if (ret.done) return resolve(ret.value);
         //既然还没执行完，就将ret.value转换成一个promise
         var value = toPromise.call(ctx, ret.value);
+        //这一句就是最重要的循环了。再看一看看！！！！！！
+        //感觉第一次调用next的时候，done为true就完了呀，那里还有其他的事情咯...？？？？
         if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
         return onRejected(new TypeError('You may only yield a function, promise, generator, array, or object, '
           + 'but the following object was passed: "' + String(ret.value) + '"'));
@@ -324,17 +327,11 @@ function run(gen){
   }
   //这里的array转化为promise其实就是通过Promise.all来包裹，这个方法只接受promise的数组，并且装化为一个新的promise
   //tudo:这里如何保证是平行执行的呢？？
+  //参见下面的promise平行执行的研究
   function arrayToPromise(obj) {
     return Promise.all(obj.map(toPromise, this));
   }
-  /**
-   * Convert an object of "yieldables" to a promise.
-   * Uses `Promise.all()` internally.
-   *
-   * @param {Object} obj
-   * @return {Promise}
-   * @api private
-   */
+  //将一个object转化为promise，其实就是内部调用了promise.all方法而已
   function objectToPromise(obj){
     var results = new obj.constructor();
     var keys = Object.keys(obj);
@@ -402,6 +399,10 @@ function run(gen){
 就是用一个promise从外面包裹住全部，为什么这样有用？？！！
 
 接下来阅读https://github.com/promises-aplus/promises-spec/issues/179
+
+### promise的平行执行
+为什么会平行执行？？
+
 
 
 

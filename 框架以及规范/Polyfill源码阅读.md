@@ -26,7 +26,7 @@ Object.prototype.hasOwnProperty.call(properties, name)
 
 ```javascript
 var s = {};
-s === Object({}) //true
+s === Object(s) //true
 ```
 
 这里通过Object方法来判断传入的是不是一个object~这个写法有点意思。
@@ -261,11 +261,6 @@ Date的这两个居然还得IE9
 
 ### 到此es5的polyfill就看完了
 但是没有JSON的实现，JSON对象在IE7以下是没有用的，这里作者推荐使用[JSON-js](https://github.com/douglascrockford/JSON-js)。
-
-
-
-
-
 
 
 
