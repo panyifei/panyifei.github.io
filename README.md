@@ -43,7 +43,7 @@
 [Chrome插件编写][25]
 
 ## Nodejs
-[co][39]
+[Co源码以及与Koa的深入理解][39]
 
 [Koa以及Express][27]
 
@@ -141,5 +141,5 @@
 [36]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/22高级技巧.md
 [37]:https://github.com/panyifei/learning/blob/master/其他技术/Hybird框架理解.md
 [38]:https://github.com/panyifei/learning/blob/master/前端分享/2015届D2分享.md
-[39]:https://github.com/panyifei/learning/blob/master/Nodejs/co.md
+[39]:https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md
 [40]:https://github.com/panyifei/learning/blob/master/其他技术/Freemarker分页.md
