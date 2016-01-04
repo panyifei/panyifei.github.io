@@ -518,6 +518,9 @@ todu：那个内存泄露的问题看不懂啊，操！！先不管了，要死�
 
 
 本文引用：
+
 [http://segmentfault.com/a/1190000002783230](http://segmentfault.com/a/1190000002783230)
+
 [http://www.ruanyifeng.com/blog/2015/05/thunk.html](http://www.ruanyifeng.com/blog/2015/05/thunk.html)
+
 [http://www.cnblogs.com/axes/p/4683176.html](http://www.cnblogs.com/axes/p/4683176.html)
