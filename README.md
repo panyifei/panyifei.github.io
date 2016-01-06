@@ -56,7 +56,7 @@
 [Forever源码阅读][31]
 
 ## React
-[React][41]
+[React,Reduct实战][41]
 
 ## 前端分享
 [2015届D2分享][38]
@@ -146,4 +146,4 @@
 [38]:https://github.com/panyifei/learning/blob/master/前端分享/2015届D2分享.md
 [39]:https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md
 [40]:https://github.com/panyifei/learning/blob/master/其他技术/Freemarker分页.md
-[41]:https://github.com/panyifei/learning/blob/master/React/React.md
+[41]:https://github.com/panyifei/learning/blob/master/React/React,Reduct实战.md
