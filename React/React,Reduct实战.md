@@ -1,4 +1,4 @@
-## React,Reduct实战
+## React,Redux实战
 
 ###　触发自己的方法，对this.props进行访问
 需要先在constructor里面进行绑定
@@ -15,3 +15,8 @@
 ```html
   <div dangerouslySetInnerHTML={{__html: apiDetail}}></div>
 ```
+
+### action的处理过程
+action会触发reducer，然后通过reducer里面对action.type的判断来决定页面上this.props的值。这里的值可以由全局的state和action里面的data混合着返回。
+
+然后就会触发页面上`componentWillMount`的方法，进而对页面进行重绘。
