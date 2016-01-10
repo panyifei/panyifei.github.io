@@ -45,6 +45,8 @@
 ## Nodejs
 [Co源码以及与Koa的深入理解][39]
 
+[Koa源码][42]
+
 [Koa以及Express][27]
 
 [Koa以及react空白项目搭建][28]
@@ -56,7 +58,7 @@
 [Forever源码阅读][31]
 
 ## React
-[React,Reduct实战][41]
+[React,Redux实战][41]
 
 ## 前端分享
 [2015届D2分享][38]
@@ -146,4 +148,5 @@
 [38]:https://github.com/panyifei/learning/blob/master/前端分享/2015届D2分享.md
 [39]:https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md
 [40]:https://github.com/panyifei/learning/blob/master/其他技术/Freemarker分页.md
-[41]:https://github.com/panyifei/learning/blob/master/React/React,Reduct实战.md
+[41]:https://github.com/panyifei/learning/blob/master/React/React,Redux实战.md
+[42]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa源码.md
