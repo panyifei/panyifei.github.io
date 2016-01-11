@@ -12,14 +12,6 @@
 <img alt="debug使用" width='700px' src="pics//debug.png" />
 
  - events：然后引用了nodejs的内置模块events，将application的prototype设置了下
-
-```javascript
-//这样子就继承了事件流
-//然后下面的代码this.on('error',fn)来监听
-//this.emit就可以触发
-//tudo：cortex如何做到的事件流
-Object.setPrototypeOf(Application.prototype, Emitter.prototype);
-```
  - composition：外部模块，试验性质。是可以将传入的函数包装成一个promise的。
   - 主要是支持包括es7的async语法的，如果设置了this.experimental，就会使用这个来执行，否则的话使用co.wrap方法。
   - koalization是不是打开了experimental？
@@ -31,7 +23,7 @@ Object.setPrototypeOf(Application.prototype, Emitter.prototype);
  - cookies：外部模块，进行cookie的管理
  - accepts：外部模块，用来对请求头的accepts进行管理，处理
  - assert：外部模块，用来写单元测试的
- - stream：内置模块，好像是为了处理一些图片文件做的吗？tudo：再看一下
+ - stream：内置模块，用来处理流式的数据的
  - http：内置模块，用来createServer的
  - only：外部模块，用来返回一个新对象，包含只在传入的白名单中的属性
  - co：外部模块，前面已经研究过的模块，不再详细记录，参见[Co](https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md)
@@ -73,10 +65,13 @@ app是Application的原型对象。
 
 强行用emitter的原型来替换了application的原型。
 
+
 ```javascript
+//这样子就继承了事件流
+//然后下面的代码this.on('error',fn)来监听
+//this.emit就可以触发
+//tudo：cortex如何做到的事件流
 Object.setPrototypeOf(Application.prototype, Emitter.prototype);
-//这一句的具体使用上的好处是啥？
-//tudo：再看一下
 ```
 
 然后对app进行原型上的包装。
@@ -155,7 +150,36 @@ function respond() {
 ```
 
 ### 这里再顺便看一下koa-compose的代码
+代码非常精简，功能是将一堆generator的数组包装成嵌套的generator
 
+```javascript
+module.exports = compose;
+/**
+ * Compose `middleware` returning
+ * a fully valid middleware comprised
+ * of all those which are passed.
+ *
+ * @param {Array} middleware
+ * @return {Function}
+ * @api public
+ */
+
+function compose(middleware){
+  return function *(next){
+    if (!next) next = noop();
+
+    var i = middleware.length;
+
+    while (i--) {
+      next = middleware[i].call(this, next);
+    }
+
+    yield *next;
+  }
+}
+//私有方法
+function *noop(){}
+```
 
 本文借鉴了
 
