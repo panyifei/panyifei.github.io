@@ -1,22 +1,23 @@
 # Koa源码
 
-继着上文的[Co源码](https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md)，开始学习下Koa是怎么写的。我看的版本是1.1.2的。
+继着上文的[Co源码以及与Koa的深入理解](https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md)，开始学习下Koa是怎么写的。我看的版本是1.1.2的。
 
-## Koa究竟是个啥?
 从package.json里面看，Koa的入口是application.js，于是先看这个js。
 
-### application.js
+### application引用的模块
 先从最开始引入的一些模块开始理解。
 
  - debug：最开始引了一个外部的debug模块。这是个好东西，只要在运行的时候使用`DEBUG=..`就可以了进行代码的调试了，如下图，如果有多个的话可以用逗号分隔开。会有比较好看的风格，主要是用来替换console.log的，看上去更专业点。
 
 <img alt="debug使用" width='700px' src="pics//debug.png" />
 
- - events：然后引用了nodejs的内置模块events，然后做了件奇怪的事情，将application的prototype设置了下，没看懂。。。
-
-tudo：这里最后再回顾。。。
+ - events：然后引用了nodejs的内置模块events，将application的prototype设置了下
 
 ```javascript
+//这样子就继承了事件流
+//然后下面的代码this.on('error',fn)来监听
+//this.emit就可以触发
+//tudo：cortex如何做到的事件流
 Object.setPrototypeOf(Application.prototype, Emitter.prototype);
 ```
  - composition：外部模块，试验性质。是可以将传入的函数包装成一个promise的。
@@ -37,22 +38,125 @@ Object.setPrototypeOf(Application.prototype, Emitter.prototype);
 
 至此，使用的模块已经清楚，开始看下整个结构。
 
+### application的结构设计
+
 Application是被抛出去的总入口，是个`构造函数`，他的作用是
 
  - 区分传入的环境参数
  - 初始化存使用的中间件middleware，一个空数组。
  - 使用自己的包装过的3个内部代码来初始化上下文，req和res。
 
+```javascript
+function Application() {
+  //这一句的作用挺精髓的，因为application是一个构造函数，如果没有new调用的话，就return一个new的
+  //这里返回的是new Application，而不是new Application()，是不是有些奇怪，其实这两种写法在没有参数时没有区别，在有参数时，必须加上括号~
+  if (!(this instanceof Application)) return new Application;
+  //这句就是处理环境参数，默认为开发，代码里可以根据env的值来决定访问哪里的数据库，或者错误log的记录地点等等
+  this.env = process.env.NODE_ENV || 'development';
+  //被忽略的子域名位数，比如ppe.b.dianping.com,他的默认子域名就为['ppe','b']，如果设置为3，子域名就为['ppe']
+  //子域名到底有啥用？暂时不知道
+  //tudo：再看一下
+  this.subdomainOffset = 2;
+  //存中间件，下面的app.use方法直接push就好了
+  this.middleware = [];
+  //这个东西也不知道是啥。。
+  //tudo：X-Forwarded-Proto？？
+  this.proxy = false;
+  //这三个东西就是作者包装后的上下文，req，res
+  this.context = Object.create(context);
+  this.request = Object.create(request);
+  this.response = Object.create(response);
+}
+```
+
 app是Application的原型对象。
 
 强行用emitter的原型来替换了application的原型。
 
+```javascript
+Object.setPrototypeOf(Application.prototype, Emitter.prototype);
+//这一句的具体使用上的好处是啥？
+//tudo：再看一下
+```
+
 然后对app进行原型上的包装。
 
- - app.listen：来搭建server的
- - toJSON方法没有看懂存在的价值 tudo：再看一下
- - app.use：很清楚，就是往middleware里面push而已
+ - app.listen：来createServer的，将`this.callback`添加到了request事件上~注意是可以调用多次
+ - app.toJSON：公有方法，将他作为json输出时，会将subdomainOffset，proxy，env这几个值，好像并没有什么用..
+ - app.use：很清楚，就是往middleware里面push而已，如果没有打开试验选项experimental，就只能传入generator
  - app.callback：处理中间件并且进行返回的地方
  - app.createContext：私有方法，创建初始化的上下文
  - app.onerror：私有方法，默认的错误处理
  - respond：用来帮助返回的方法
+
+ 主要的执行就是app.callback了，这里对代码进行注释
+
+ ```javascript
+ app.callback = function(){
+   //如果打开了实验的接口，就可以使用es7的async,不然使用koa-compose来进行包装，然后再传给co
+   var fn = this.experimental
+     ? compose_es7(this.middleware)
+     : co.wrap(compose(this.middleware));
+   var self = this;
+   //看是否注册了错误事件，没有的话使用自身的onerror
+   if (!this.listeners('error').length) this.on('error', this.onerror);
+   return function(req, res){
+     res.statusCode = 404;
+     //在这里对上下文，以及req和res进行了包装
+     var ctx = self.createContext(req, res);
+     //注册一下这个是为了处理error
+     //为什么需要，tudo：在看一下
+     onFinished(res, ctx.onerror);
+     //然后执行那个co包装过的promise，成功的话执行respond方法，失败了执行this.onerror方法
+     fn.call(ctx).then(function () {
+       respond.call(ctx);
+     }).catch(ctx.onerror);
+   }
+ };
+ ```
+
+respond方法也挺有意思，注释一下
+
+```javascript
+
+function respond() {
+  if (false === this.respond) return;
+  var res = this.res;
+  //如果头部已经发送，或者不能写了，跳过
+  if (res.headersSent || !this.writable) return;
+  var body = this.body;
+  var code = this.status;
+  //如果是一些不需要返回体的code，比如204:没有内容，比如304:未修改)，直接返回
+  if (statuses.empty[code]) {
+    this.body = null;
+    return res.end();
+  }
+  //如果是head请求，返回一个length
+  //head请求允许请求某个资源的响应头，而不要真正的资源本身
+  if ('HEAD' == this.method) {
+    if (isJSON(body)) this.length = Buffer.byteLength(JSON.stringify(body));
+    return res.end();
+  }
+  //如果就是没有内容，就设置一个默认的返回
+  if (null == body) {
+    this.type = 'text';
+    body = this.message || String(code);
+    this.length = Buffer.byteLength(body);
+    return res.end(body);
+  }
+  //对不同的响应体进行判断并且返回
+  if (Buffer.isBuffer(body)) return res.end(body);
+  if ('string' == typeof body) return res.end(body);
+  if (body instanceof Stream) return body.pipe(res);
+  body = JSON.stringify(body);
+  this.length = Buffer.byteLength(body);
+  res.end(body);
+}
+```
+
+### 这里再顺便看一下koa-compose的代码
+
+
+本文借鉴了
+
+ - [loveky的博客](https://github.com/loveky/Blog/issues/3)
