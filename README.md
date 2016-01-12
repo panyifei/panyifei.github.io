@@ -82,6 +82,12 @@
 
 [模块加载系统][11]
 
+### 深入浅出nodejs
+这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记
+
+[node基础][43]
+
+
 ## 其他技术
 [Freemarker分页][40]
 
@@ -150,3 +156,4 @@
 [40]:https://github.com/panyifei/learning/blob/master/其他技术/Freemarker分页.md
 [41]:https://github.com/panyifei/learning/blob/master/React/React,Redux实战.md
 [42]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa源码.md
+[43]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/node基础.md
