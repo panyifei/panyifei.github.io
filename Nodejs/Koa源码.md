@@ -46,8 +46,7 @@ function Application() {
   //这句就是处理环境参数，默认为开发，代码里可以根据env的值来决定访问哪里的数据库，或者错误log的记录地点等等
   this.env = process.env.NODE_ENV || 'development';
   //被忽略的子域名位数，比如ppe.b.dianping.com,他的默认子域名就为['ppe','b']，如果设置为3，子域名就为['ppe']
-  //子域名到底有啥用？暂时不知道
-  //tudo：再看一下
+  //设置了这个值决定了我们在this.subdomains数组里面可以访问的值
   this.subdomainOffset = 2;
   //存中间件，下面的app.use方法直接push就好了
   this.middleware = [];
@@ -70,7 +69,7 @@ app是Application的原型对象。
 //这样子就继承了事件流
 //然后下面的代码this.on('error',fn)来监听
 //this.emit就可以触发
-//tudo：cortex如何做到的事件流
+//这里想到了点评张老师的cortex里面的模块class也支持implement events这个东西，然后就去看了下他是怎么在browser端支持emitter的，原来是引用了npm的一个模块events
 Object.setPrototypeOf(Application.prototype, Emitter.prototype);
 ```
 
@@ -100,7 +99,9 @@ Object.setPrototypeOf(Application.prototype, Emitter.prototype);
      //在这里对上下文，以及req和res进行了包装
      var ctx = self.createContext(req, res);
      //注册一下这个是为了处理error
-     //为什么需要，tudo：在看一下
+     //当error发生时，调用了context的onerror，里面emit了app的onerror，这样上面的this.onerror就可以被触发了。
+     //为什么这东西能够监听到res的error？？
+     //tudo：怎么做到的
      onFinished(res, ctx.onerror);
      //然后执行那个co包装过的promise，成功的话执行respond方法，失败了执行this.onerror方法
      fn.call(ctx).then(function () {
@@ -151,6 +152,7 @@ function respond() {
 
 ### 这里再顺便看一下koa-compose的代码
 代码非常精简，功能是将一堆generator的数组包装成嵌套的generator
+tudo:继续看，没看完呢。。。
 
 ```javascript
 module.exports = compose;
@@ -180,6 +182,11 @@ function compose(middleware){
 //私有方法
 function *noop(){}
 ```
+
+//如果想跳过某个中间件？？
+//return yield next
+//tudo
+
 
 本文借鉴了
 
