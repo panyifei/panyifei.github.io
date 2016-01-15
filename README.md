@@ -87,6 +87,8 @@
 
 [node基础][43]
 
+## 前端面试
+[前端基础知识][44]
 
 ## 其他技术
 [Freemarker分页][40]
@@ -157,3 +159,4 @@
 [41]:https://github.com/panyifei/learning/blob/master/React/React,Redux实战.md
 [42]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa源码.md
 [43]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/node基础.md
+[44]:https://github.com/panyifei/learning/blob/master/前端面试/前端基础知识.md
