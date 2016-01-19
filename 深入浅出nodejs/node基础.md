@@ -72,3 +72,110 @@ Node模块分为核心模块和用户编写的文件模块。
     所以小诀窍是，如果是.node和.json文件，最后带上扩展名，会加快速度。
 
 然后如果是目录分析和包的话，会找他的package.json，然后根据man属性的文件名进行定位，找不到则以index.js,index.json,index.node的顺序来找，再找不到，就找下一层，到根目录都找不到，就抛出异常。
+
+#### 模块编译
+其实是分文件的，`.node`就直接通过process.dlopen来加载，底层通过libuv兼容层来进行了封装，json文件就被JSON.parse了，其他的js文件其实就是进行了头尾包装，变成一种类似匿名函数的方式来保证作用域的隔离。
+
+包装之后的代码通过runInThisContext方法执行（类似于eval，不过有自己的上下文，不会污染全局）。
+
+这里倒是解决了那个问什么会存在exports和module.exports两个东西，并且直接调用`exports=a;`会出错的问题了。
+
+因为包装过的东西类似于
+
+```javascript
+(function(exports,require,module,__filename,__dirname){
+  exports.add = function(){}
+})
+```
+
+而exports是个形参，直接赋值会改变形参的引用，但是无法改变作用域外的值，所以要赋值的话给module.exports，这个迂回的方案不改变形参的引用。
+
+### 核心模块
+核心模块也分为C/C++编写和javascript编写的两部分，c的放在Node项目的src，js的放在lib中。
+
+#### 核心模块编译过程
+在编译所有c/c++之前，先得把js编译成c/c++。
+
+这里介绍了不少编写c语言模块的，只是不是很懂，将来找机会再看吧。
+
+基本上就是c负责了一些底层的模块来给上层的js调用。js核心模块也分为调用c的和只提供纯粹的功能，不与底层打交道的模块。
+
+### 包与Npm
+包的结构规范：
+
+ - package.json：包描述文件
+ - bin：用于存放可执行二进制文件的目录
+ - lib：放js代码的目录
+ - doc：放文档的目录
+ - test：存放单元测试用例的代码
+
+#### 包描述文件
+ - name：小写字母和数字
+ - descripton
+ - version
+ - keywords：用来帮助别人搜索的
+ - maintainers：维护者列表，npm根据该属性进行权限认证[{"name":"panyifei","email":"91@qq.com","web":"cc.com"}]
+ - contributors：贡献者列表，格式同上
+ - bugs：提交bug的邮件地址或者网页地址
+ - licenses：许可证列表
+ - repositories：源代码的位置
+ - dependences：依赖列表，这个比较关键
+ - homepage
+ - os：操作系统支持列表
+ - cpu：CPU架构的支持列表
+ - engine：支持的js的引擎列表
+ - builtin：是否是内建在底层系统的标准组件
+ - directories：包目录说明
+ - implements：实现的规范列表，标识实现了commonjs的那些规范
+ - scripts：脚本说明对象，包含了install，uninstall，test等等，这其实是个`钩子命令`，在执行install的时候，preinstall指向的会被先触发
+
+NPM实际实现多了4个：
+
+ - author：作者
+ - bin：这个字段设置了之后就可以作为命令行工具使用了
+ - main：模块引入方法require的时候，会优先检查这个字段，没有的话就去找index.js,index.node,index.json作为默认入口
+ - devDependencies：开发时需要的依赖
+
+NPM实际上是CommonJS包规范的一种实践。
+
+全局模式安装
+
+`npm install express -g`其实全局模式只是把包安装成为一个全局可用的可执行命令。
+
+npm install 后面可以放一个包含了package.json的本地文件或url地址。
+
+从非官方源下载
+
+npm install underscore --registry=http://registry.url
+
+如果以后都采用镜像的话，就
+
+npm config set registry http://registry.url
+
+#### 注册包仓库账号
+npm adduser
+
+注册完了之后就可以上传发布包了
+
+#### 发布包
+npm publish .
+
+#### 管理包的权限
+列出包的所有的拥有者
+
+ - npm owner ls refuseuse
+
+添加拥有者（删除自然是remove）
+
+ - npm owner add <user> <package>
+
+#### 分析当前路径能够拿到某个包
+直接npm ls可以分析路径
+
+### 前后端共用
+虽然执行环境很类似，但是前后端期望的东西不同，前端的瓶颈是带宽，后端的瓶颈是性能，如果后端页通过同步的形式加载的话，会问题比较严重，于是才有了AMD规范以及玉伯的CMD规范。
+
+#### AMD规范
+AMD需要define方法来申明一个模块，并且在申明的时候得将依赖都写进去。
+
+CMD的话就更类似Conmonjs了，使用的时候再进行require就行了。

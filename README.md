@@ -87,6 +87,8 @@
 
 [node基础][43]
 
+[异步IO,异步编程][45]
+
 ## 前端面试
 [前端基础知识][44]
 
@@ -160,3 +162,4 @@
 [42]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa源码.md
 [43]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/node基础.md
 [44]:https://github.com/panyifei/learning/blob/master/前端面试/前端基础知识.md
+[45]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/异步IO,异步编程.md
