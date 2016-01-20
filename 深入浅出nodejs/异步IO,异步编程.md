@@ -25,3 +25,12 @@ Linux下有那种理想的异步IO方式，AIO，但是有缺陷，无法利用�
 最终的结果就是nodejs通过libuv来运行在windows和linux系统上。
 
 注意我们时常的说Node是单线程的，但是其实仅仅只是js执行在单线程中而已，node中，内部完成IO任务的其实都是另有线程池的。
+
+### 非IO的异步API
+除了IO之外，还有些异步的API，分别是setTimeout，setInterval，setImmediate和process.nextTick
+
+一般浏览器端我们想要立即异步执行一个函数，就`setTimeout(function(){},0)`就行了，但是定时器需要动用红黑树，创建定时器对象和迭代，浪费性能。
+
+process.nextTick则是比较轻量的，直接将回调函数放入队列。
+
+setImmediate也是类似的，但是这个的优先级比process.nextTick要低，并且如果同时写两个的话，执行了一个之后，`会直接进行下一轮循环`，而不是继续执行。
