@@ -92,6 +92,8 @@
 ## 前端面试
 [前端基础知识][44]
 
+[面试被虐题][46]
+
 ## 其他技术
 [Freemarker分页][40]
 
@@ -163,3 +165,4 @@
 [43]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/node基础.md
 [44]:https://github.com/panyifei/learning/blob/master/前端面试/前端基础知识.md
 [45]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/异步IO,异步编程.md
+[46]:https://github.com/panyifei/learning/blob/master/前端面试/面试被虐题.md
