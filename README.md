@@ -20,6 +20,8 @@
 
 [Prototype,原型,继承][35]
 
+[Promise][46]
+
 ##html5新特性研究以及使用
 [history相关][4]
 
@@ -92,8 +94,6 @@
 ## 前端面试
 [前端基础知识][44]
 
-[面试被虐题][46]
-
 ## 其他技术
 [Freemarker分页][40]
 
@@ -165,4 +165,4 @@
 [43]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/node基础.md
 [44]:https://github.com/panyifei/learning/blob/master/前端面试/前端基础知识.md
 [45]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/异步IO,异步编程.md
-[46]:https://github.com/panyifei/learning/blob/master/前端面试/面试被虐题.md
+[46]:https://github.com/panyifei/learning/blob/master/框架以及规范/Promise.md
