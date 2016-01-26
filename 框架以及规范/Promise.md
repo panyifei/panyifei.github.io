@@ -122,3 +122,8 @@ function resolve(){
 ```
 
 因为promise只有3种状态，并且在完成或者失败之后不会再改变，所以加入状态
+
+
+参考：
+
+[PromiseA+的规范](https://promisesaplus.com/)

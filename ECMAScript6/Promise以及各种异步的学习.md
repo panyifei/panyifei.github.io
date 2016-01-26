@@ -277,4 +277,3 @@ tudo：stream模式是个啥？
 tudo:多个then在一起，其中一个出了错，剩下的还会执行吗？还是直接到catch的地方？
 tudo:如果不catch，是不是直接挂掉？catch里面的例子测试一下
 tudo:resovle方法如果有then的话会发生什么呢？
-tudo：Generator函数与Promise的结合
