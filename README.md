@@ -45,19 +45,19 @@
 [Chrome插件编写][25]
 
 ## Nodejs
-[Co源码以及与Koa的深入理解][39]
+ - [Npm模块介绍][29]
+### Nodejs框架模块
+ - KOA相关
+  - [Co源码以及与Koa的深入理解][39]
+  - [Koa源码][42]
+  - [Koa以及react空白项目搭建][28]
+  - [Koa以及Express][27]
 
-[Koa源码][42]
+### Nodejs普通模块
+ - [Forever源码阅读][31]
 
-[Koa以及Express][27]
-
-[Koa以及react空白项目搭建][28]
-
-[Npm模块介绍][29]
-
-[Nodejs核心模块][32]
-
-[Forever源码阅读][31]
+### Nodejs核心模块
+ - [Nodejs核心模块][32]
 
 ## React
 [React,Redux实战][41]
@@ -66,30 +66,18 @@
 [2015届D2分享][38]
 
 ## 读书笔记
-### Javascript高级程序设计
-[14章表单脚本][21]
-
-[17章错误处理与调试][23]
-
-[20JSON][24]
-
-[21Ajax和Comet][26]
-
-[22高级技巧][36]
-
-### Javascript框架设计读书笔记
-这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记
-
-[种子模块][5]
-
-[模块加载系统][11]
-
-### 深入浅出nodejs
-这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记
-
-[node基础][43]
-
-[异步IO,异步编程][45]
+ - Javascript高级程序设计
+  - [14章表单脚本][21]
+  - [17章错误处理与调试][23]
+  - [20JSON][24]
+  - [21Ajax和Comet][26]
+  - [22高级技巧][36]
+ - Javascript框架设计(这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记)
+  - [种子模块][5]
+  - [模块加载系统][11]
+ - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
+  - [node基础][43]
+  - [异步IO,异步编程][45]
 
 ## 前端面试
 [前端基础知识][44]
@@ -124,13 +112,13 @@
 [2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md
 [3]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Promise以及各种异步的学习.md
 [4]:https://github.com/panyifei/learning/blob/master/HTML5/history相关.md
-[5]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/种子模块.md
+[5]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript框架设计/种子模块.md
 [6]:https://github.com/panyifei/learning/blob/master/工具使用/Markdown使用心得.md
 [7]:https://github.com/panyifei/learning/blob/master/HTML5/hashchange事件.md
 [8]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/浏览器兼容性.md
 [9]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/移动开发相关.md
 [10]:https://github.com/panyifei/learning/blob/master/工具使用/Chrome,Sublime插件推荐.md
-[11]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/模块加载系统.md
+[11]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript框架设计/模块加载系统.md
 [12]:https://github.com/panyifei/learning/blob/master/工具使用/photoshop简单使用.md
 [13]:https://github.com/panyifei/learning/blob/master/工具使用/Mac下虚拟机以及双系统.md
 [14]:https://github.com/panyifei/learning/blob/master/ECMAScript6/正则表达式.md
@@ -140,29 +128,29 @@
 [18]:https://github.com/panyifei/learning/blob/master/其他技术/Cookie，Session，Localstorage.md
 [19]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Generator函数.md
 [20]:https://github.com/panyifei/learning/blob/master/框架以及规范/React.md
-[21]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/14章表单脚本.md
+[21]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/14章表单脚本.md
 [22]:https://github.com/panyifei/learning/blob/master/其他技术/快捷键.md
-[23]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/17错误处理与调试.md
-[24]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/20JSON.md
+[23]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/17错误处理与调试.md
+[24]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/20JSON.md
 [25]:https://github.com/panyifei/learning/blob/master/JS代码库/Chrome插件编写.md
-[26]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/21Ajax和Comet.md
-[27]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa以及Express.md
-[28]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa以及react空白项目搭建.md
+[26]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/21Ajax和Comet.md
+[27]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs框架模块/Koa以及Express.md
+[28]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs框架模块/Koa以及react空白项目搭建.md
 [29]:https://github.com/panyifei/learning/blob/master/Nodejs/Npm模块.md
 [30]:https://github.com/panyifei/learning/blob/master/框架以及规范/Angular.md
-[31]:https://github.com/panyifei/learning/blob/master/Nodejs/Forever源码阅读.md
-[32]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs核心模块.md
+[31]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs普通模块/Forever源码阅读.md
+[32]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs核心模块/Nodejs核心模块.md
 [33]:https://github.com/panyifei/learning/blob/master/框架以及规范/Polyfill源码阅读.md
 [34]:https://github.com/panyifei/learning/blob/master/工具使用/Atom.md
 [35]:https://github.com/panyifei/learning/blob/master/框架以及规范/Prototype,原型链,继承.md
-[36]:https://github.com/panyifei/learning/blob/master/Javascript高级程序设计/22高级技巧.md
+[36]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/22高级技巧.md
 [37]:https://github.com/panyifei/learning/blob/master/其他技术/Hybird框架理解.md
 [38]:https://github.com/panyifei/learning/blob/master/前端分享/2015届D2分享.md
-[39]:https://github.com/panyifei/learning/blob/master/Nodejs/Co源码以及与Koa的深入理解.md
+[39]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs框架模块/Co源码以及与Koa的深入理解.md
 [40]:https://github.com/panyifei/learning/blob/master/其他技术/Freemarker分页.md
 [41]:https://github.com/panyifei/learning/blob/master/React/React,Redux实战.md
-[42]:https://github.com/panyifei/learning/blob/master/Nodejs/Koa源码.md
-[43]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/node基础.md
+[42]:https://github.com/panyifei/learning/blob/master/Nodejs/Nodejs框架模块/Koa源码.md
+[43]:https://github.com/panyifei/learning/blob/master/读书笔记/深入浅出nodejs/node基础.md
 [44]:https://github.com/panyifei/learning/blob/master/前端面试/前端基础知识.md
-[45]:https://github.com/panyifei/learning/blob/master/深入浅出nodejs/异步IO,异步编程.md
+[45]:https://github.com/panyifei/learning/blob/master/读书笔记/深入浅出nodejs/异步IO,异步编程.md
 [46]:https://github.com/panyifei/learning/blob/master/框架以及规范/Promise.md
