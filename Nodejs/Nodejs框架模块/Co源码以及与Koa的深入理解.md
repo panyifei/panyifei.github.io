@@ -124,9 +124,9 @@ function thunkify(fn){
 };
 ```
 
-<img alt="不用slice处理arguments" width='700px' src=".//pics//pic1.png" />
+<img alt="不用slice处理arguments" width='700px' src="..//pics//pic1.png" />
 
-<img alt="为了使回调函数只执行一次" width='700px' src=".//pics//pic2.png" />
+<img alt="为了使回调函数只执行一次" width='700px' src="..//pics//pic2.png" />
 
 ## generator函数的回调流程管理
 包装成这样到底有个啥用场？用在了generator的流程管理
@@ -371,7 +371,7 @@ function run(gen){
 ```
 
 ### 图片3
-<img alt="处理es6模块的引入" width='700px' src=".//pics//pic3.png" />
+<img alt="处理es6模块的引入" width='700px' src="..//pics//pic3.png" />
 
 ### promise chaining导致的内存泄露
 这里只是源码的一个小注释，去看了不少东西
@@ -405,7 +405,7 @@ tudo:看一下nodejs的多线程？？
 co里面使用了这个属性，就可以针对某几个yield进行try catch，如果不进行处理，统一的会在后面的catch语句中`co(*fn).catch`找到。
 
 ### Koa执行的理解
-<img alt="洋葱模型" width='600px' src=".//pics//pic4.png" />
+<img alt="洋葱模型" width='600px' src="..//pics//pic4.png" />
 
 请求进来的时候会一次经过各个中间件进行执行，中间件之间的跳转是yield next，执行完了之后就会逆序执行。
 
@@ -511,7 +511,7 @@ trigger();
 tudo:啥叫链式的generator??
 
 #### Koa的运行顺序图
-<img alt="Koa的运行顺序" width='800px' src=".//pics//pic5.png" />
+<img alt="Koa的运行顺序" width='800px' src="..//pics//pic5.png" />
 
 这张图非常详细了，原来本身的respond，以及自己定义的一些中间件统一的会被整成一个generator，然后交给co来执行。
 

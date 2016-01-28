@@ -10,42 +10,33 @@
 - 以及自己的阅读笔记
 
 ## 框架以及规范
-[Commonjs,CMD,AMD和cortex介绍][1]
-
-[React][20]
-
-[Angular][30]
-
-[Polyfill源码阅读][33]
-
-[Prototype,原型,继承][35]
-
-[Promise][46]
+ - [Commonjs,CMD,AMD和cortex介绍][1]
+ - [React][20]
+ - [Angular][30]
+ - [Polyfill源码阅读][33]
+ - [Prototype,原型,继承][35]
+ - [Promise][46]
 
 ##html5新特性研究以及使用
-[history相关][4]
-
-[hashchange事件][7]
+ - [history相关][4]
+ - [hashchange事件][7]
 
 ## ECMAScript6
-[正则表达式][14]
-
-[Generator函数] [19]
-
-[Promise以及各种异步的学习][3]
+ - [正则表达式][14]
+ - [Generator函数][19]
+ - [Promise以及各种异步的学习][3]
 
 ## 浏览器兼容性以及移动端开发
-[浏览器兼容性][8]
-
-[移动开发相关][9]
+ - [浏览器兼容性][8]
+ - [移动开发相关][9]
 
 ## JS代码库
-[输入框js验证函数][17]
-
-[Chrome插件编写][25]
+ - [输入框js验证函数][17]
+ - [Chrome插件编写][25]
 
 ## Nodejs
  - [Npm模块介绍][29]
+
 ### Nodejs框架模块
  - KOA相关
   - [Co源码以及与Koa的深入理解][39]
@@ -83,30 +74,20 @@
 [前端基础知识][44]
 
 ## 其他技术
-[Freemarker分页][40]
-
-[编码问题][15]
-
-[小问题总结][16]
-
-[Cookie，Session，Localstorage][18]
-
-[快捷键][22]
-
-[Hybird框架理解][37]
+ - [Freemarker分页][40]
+ - [编码问题][15]
+ - [小问题总结][16]
+ - [Cookie，Session，Localstorage][18]
+ - [快捷键][22]
+ - [Hybird框架理解][37]
 
 ## 工具使用
-[Atom][34]
-
-[Webstorm+Github的笔记环境搭建][2]
-
-[Markdown使用心得][6]
-
-[Chrome,Sublime插件推荐][10]
-
-[photoshop简单使用][12]
-
-[Mac下虚拟机以及双系统][13]
+ - [Atom][34]
+ - [Webstorm+Github的笔记环境搭建][2]
+ - [Markdown使用心得][6]
+ - [Chrome,Sublime插件推荐][10]
+ - [photoshop简单使用][12]
+ - [Mac下虚拟机以及双系统][13]
 
 [1]:https://github.com/panyifei/learning/blob/master/框架以及规范/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md

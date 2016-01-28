@@ -9,7 +9,7 @@
 
  - debug：最开始引了一个外部的debug模块。这是个好东西，只要在运行的时候使用`DEBUG=..`就可以了进行代码的调试了，如下图，如果有多个的话可以用逗号分隔开。会有比较好看的风格，主要是用来替换console.log的，看上去更专业点。
 
-<img alt="debug使用" width='700px' src=".//pics//debug.png" />
+<img alt="debug使用" width='700px' src="..//pics//debug.png" />
 
  - events：然后引用了nodejs的内置模块events，将application的prototype设置了下
  - composition：外部模块，试验性质。是可以将传入的函数包装成一个promise的。
