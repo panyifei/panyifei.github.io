@@ -16,15 +16,14 @@
  - [Polyfill源码阅读][33]
  - [Prototype,原型,继承][35]
  - [Promise][46]
+ - HTML5
+  - [history相关][4]
+  - [hashchange事件][7]
+ - ES6
+  - [正则表达式][14]
+  - [Generator函数][19]
+  - [Promise以及各种异步的学习][3]
 
-##html5新特性研究以及使用
- - [history相关][4]
- - [hashchange事件][7]
-
-## ECMAScript6
- - [正则表达式][14]
- - [Generator函数][19]
- - [Promise以及各种异步的学习][3]
 
 ## 浏览器兼容性以及移动端开发
  - [浏览器兼容性][8]
@@ -60,9 +59,9 @@
  - Javascript高级程序设计
   - [14章表单脚本][21]
   - [17章错误处理与调试][23]
-  - [20JSON][24]
-  - [21Ajax和Comet][26]
-  - [22高级技巧][36]
+  - [20章JSON][24]
+  - [21章Ajax和Comet][26]
+  - [22章高级技巧][36]
  - Javascript框架设计(这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记)
   - [种子模块][5]
   - [模块加载系统][11]
@@ -91,23 +90,23 @@
 
 [1]:https://github.com/panyifei/learning/blob/master/框架以及规范/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md
-[3]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Promise以及各种异步的学习.md
-[4]:https://github.com/panyifei/learning/blob/master/HTML5/history相关.md
+[3]:https://github.com/panyifei/learning/blob/master/框架以及规范/ECMAScript6/Promise以及各种异步的学习.md
+[4]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/history相关.md
 [5]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript框架设计/种子模块.md
 [6]:https://github.com/panyifei/learning/blob/master/工具使用/Markdown使用心得.md
-[7]:https://github.com/panyifei/learning/blob/master/HTML5/hashchange事件.md
+[7]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/hashchange事件.md
 [8]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/浏览器兼容性.md
 [9]:https://github.com/panyifei/learning/blob/master/浏览器兼容性以及移动端开发/移动开发相关.md
 [10]:https://github.com/panyifei/learning/blob/master/工具使用/Chrome,Sublime插件推荐.md
 [11]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript框架设计/模块加载系统.md
 [12]:https://github.com/panyifei/learning/blob/master/工具使用/photoshop简单使用.md
 [13]:https://github.com/panyifei/learning/blob/master/工具使用/Mac下虚拟机以及双系统.md
-[14]:https://github.com/panyifei/learning/blob/master/ECMAScript6/正则表达式.md
+[14]:https://github.com/panyifei/learning/blob/master/框架以及规范/ECMAScript6/正则表达式.md
 [15]:https://github.com/panyifei/learning/blob/master/其他技术/编码问题.md
 [16]:https://github.com/panyifei/learning/blob/master/其他技术/小问题总结.md
 [17]:https://github.com/panyifei/learning/blob/master/JS代码库/输入框js验证函数.md
 [18]:https://github.com/panyifei/learning/blob/master/其他技术/Cookie，Session，Localstorage.md
-[19]:https://github.com/panyifei/learning/blob/master/ECMAScript6/Generator函数.md
+[19]:https://github.com/panyifei/learning/blob/master/框架以及规范/ECMAScript6/Generator函数.md
 [20]:https://github.com/panyifei/learning/blob/master/框架以及规范/React.md
 [21]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/14章表单脚本.md
 [22]:https://github.com/panyifei/learning/blob/master/其他技术/快捷键.md
