@@ -16,6 +16,7 @@
  - [Polyfill源码阅读][33]
  - [Prototype,原型,继承][35]
  - [Promise][46]
+ - [Semver规范][47]
  - HTML5
   - [history相关][4]
   - [hashchange事件][7]
@@ -134,3 +135,4 @@
 [44]:https://github.com/panyifei/learning/blob/master/前端面试/前端基础知识.md
 [45]:https://github.com/panyifei/learning/blob/master/读书笔记/深入浅出nodejs/异步IO,异步编程.md
 [46]:https://github.com/panyifei/learning/blob/master/框架以及规范/Promise.md
+[47]:https://github.com/panyifei/learning/blob/master/框架以及规范/Semver规范.md
