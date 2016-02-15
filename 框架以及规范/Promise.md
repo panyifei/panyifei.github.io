@@ -11,12 +11,12 @@
    - `value`是任何合法的js的值（包括undefined，thenable或者promise）
    - `exception`是一个被throw申明抛出的值
    - `reason`是一个指明了为什么promise被拒绝
- - 状态要求：
+ - 2.1 状态要求：
    - promise必须是在pending，fulfilled或者rejected之间的一种状态。
    - promise一旦从pending变成了fulfilled或则rejected，就不能再改变了。
    - promise变成fulfilled之后，必须有一个value，并且不能被改变
    - promise变成rejected之后，必须有一个reason，并且不能被改变
- - then方法的要求：
+ - 2.2 then方法的要求：
    - promise必须有个then方法来接触当前的或者最后的value或者reason
    - then方法接受两个参数，onFulfilled和onRejected，这两个都是可选的，如果传入的不是function的话，就会被忽略
    - 如果onFulfilled是一个函数，他必须在promise完成后被执行(不能提前)，并且value是第一个参数，并且不能被执行超过一次
@@ -24,10 +24,13 @@
    - onFulfilled或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(tudo:??)
    - onFulfilled或者onRejected必须作为function被执行(tudo:??)
    - then方法可能在同一个promise被调用多次，当promise被完成，所有的onFulfilled必须被顺序执行，onRejected也一样
-   - then方法必须也返回一个promise(tudo:??)
-    - 继续嵌套试一下
- - Promise的解决步骤
-   -
+   - then方法必须也返回一个promise(这个promise可以是原来的promise，实现必须申明什么情况下两者可以相等)promise2 = promise1.then(onFulfilled, onRejected);
+    - 如果onFulfilled和onRejected都返回一个value x，执行2.3Promise的解决步骤
+    - 如果onFulfilled和onRejected都抛出exception e，promise2必须被rejected同样的e
+    - 如果onFulfilled不是个function，且promise1 is fulfilled，promise2也会fulfilled，和promise1的值一样
+    - 如果onRejected不是个function，且promise1 is rejected，promise2也会rejected，理由和promise1一样
+ - 2.3Promise的解决步骤
+   - 这个就是
 
 
 
