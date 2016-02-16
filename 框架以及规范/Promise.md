@@ -24,7 +24,7 @@
    - then方法接受两个参数，onFulfilled和onRejected，这两个都是可选的，如果传入的不是function的话，就会被忽略
    - 如果onFulfilled是一个函数，他必须在promise完成后被执行(不能提前)，并且value是第一个参数，并且不能被执行超过一次
    - 如果onRejected是一个函数，他必须在promise拒绝后被执行(不能提前)，并且reason是第一个参数，并且不能被执行超过一次
-   - onFulfilled或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(就是要求onfulfilled和onrejected必须异步执行，必须在then方法被调用的那一轮事件循环之后的新执行栈执行，这里可以使用macro-task或者micro-task，这两个的区别参见)
+   - onFulfilled或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(就是要求onfulfilled和onrejected必须异步执行，必须在then方法被调用的那一轮事件循环之后的新执行栈执行，这里可以使用macro-task或者micro-task，这两个的区别参见[文章](https://github.com/panyifei/learning/blob/master/前端基础/Macro-task与Micro-task.md))
    - onFulfilled或者onRejected必须作为function被执行(就是说没有一个特殊的this，在严格模式中，this就是undefined，在粗糙的模式，就是global)
    - then方法可能在同一个promise被调用多次，当promise被完成，所有的onFulfilled必须被顺序执行，onRejected也一样
    - then方法必须也返回一个promise(这个promise可以是原来的promise，实现必须申明什么情况下两者可以相等)promise2 = promise1.then(onFulfilled, onRejected);
@@ -54,12 +54,9 @@
 
 如果promise产生了环形的嵌套，比如[[Resolve]](promise, thenable)最终唤起了[[Resolve]](promise, thenable)，那么实现建议且并不强求来发现这种循环，并且reject这个promise使用一个TypeError。
 
-
-
-
-
 ## 写一个promise
 想要写一个Promise，肯定得使用一个异步的函数，就拿setTimeout来做。
+这里参考了美团的一篇[技术博客](http://tech.meituan.com/promise-insight.html)
 
 ```javascript
 var p = new Promise(function(resolve){
@@ -133,7 +130,7 @@ function Promise(fn){
 }
 ```
 
-这里promise里面如果是同步的函数的话，fulfillCallbackList里面还是空的，所以可以加个setTimeout来将这个放到js的最后执行。就像这样
+这里promise里面如果是同步的函数的话，fulfillCallbackList里面还是空的，所以可以加个setTimeout来将这个放到js的最后执行。这里主要是参照了promiseA+的规范，就像这样
 
 ```javascript
 function resolve(){
@@ -145,9 +142,68 @@ function resolve(){
 }
 ```
 
-因为promise只有3种状态，并且在完成或者失败之后不会再改变，所以加入状态
+这时如果promise已经执行完了，我们再给promise注册then方法就怎么都不会执行了，这个不符合预期，所以才会加入状态这种东西。更新过的代码如下
 
+```javascript
+function Promise(fn){
+  //需要成功以及成功时的回调
+  var state = 'pending';
+  var fulfillCallbackList = [];
+  var rejectedCallbackList= [];
+  //一个实例的方法，用来注册异步事件
+  this.then = function(done ,fail){
+    switch(state){
+      case "pending":
+        fulfillCallbackList.push(done);
+        rejectedCallbackList.push(fail);
+        return this;
+        break;
+      case 'fulfilled':
+        done();
+        return this;
+        break;
+      case 'rejected':
+        fail();
+        return this;
+        break;
+    }
+  }
+  function resolve(){
+    state = "fulfilled";
+    setTimeout(function(){
+      fulfillCallbackList.forEach(function(fulfill){
+        fulfill();
+      });
+    },0);
+  }
+  function reject(){
+    state = "rejected";
+    setTimeout(function(){
+      rejectedCallbackList.forEach(function(fail){
+        fail();
+      });
+    },0);
+  }
+  fn(resolve,reject);
+}
+```
+
+现在的写法根本没有考虑异步返回的结果的传递，我们来加上结果的传递
+
+```javascript
+function resolve(newValue){
+  state = "fulfilled";
+  setTimeout(function(){
+    fulfillCallbackList.forEach(function(fulfill){
+      fulfill(newValue);
+    });
+  },0);
+}
+```
+
+但是这里的问题来了，我们的结果每次给的都是同一个的值，这里肯定要重新像个解决方法
 
 参考：
 
-[PromiseA+的规范](https://promisesaplus.com/)
+ - [PromiseA+的规范](https://promisesaplus.com/)
+ - http://tech.meituan.com/promise-insight.html
