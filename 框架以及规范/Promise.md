@@ -11,12 +11,14 @@
    - `value`是任何合法的js的值（包括undefined，thenable或者promise）
    - `exception`是一个被throw申明抛出的值
    - `reason`是一个指明了为什么promise被拒绝
- - 2.1 状态要求：
+
+### 2.1 状态要求：
    - promise必须是在pending，fulfilled或者rejected之间的一种状态。
    - promise一旦从pending变成了fulfilled或则rejected，就不能再改变了。
    - promise变成fulfilled之后，必须有一个value，并且不能被改变
    - promise变成rejected之后，必须有一个reason，并且不能被改变
- - 2.2 then方法的要求：
+
+### 2.2 then方法的要求：
    - promise必须有个then方法来接触当前的或者最后的value或者reason
    - then方法接受两个参数，onFulfilled和onRejected，这两个都是可选的，如果传入的不是function的话，就会被忽略
    - 如果onFulfilled是一个函数，他必须在promise完成后被执行(不能提前)，并且value是第一个参数，并且不能被执行超过一次
@@ -29,8 +31,19 @@
     - 如果onFulfilled和onRejected都抛出exception e，promise2必须被rejected同样的e
     - 如果onFulfilled不是个function，且promise1 is fulfilled，promise2也会fulfilled，和promise1的值一样
     - 如果onRejected不是个function，且promise1 is rejected，promise2也会rejected，理由和promise1一样
- - 2.3Promise的解决步骤
-   - 这个就是
+
+###2.3Promise的解决步骤
+ - 这个是将`promise`和一个值`x`作为输入的一个抽象操作。如果这个x是支持then的，他会尝试让promise接受x的状态；否则，他会用x的值来fullfill这个promise。运行这样一个东西，遵循以下的步骤
+  - 如果promise和x指向同一个对象，则reject这个promise使用TypeError。
+  - 如果x是一个promise，接受他的状态
+   - 如果x在pending，promise必须等待x的状态改变
+   - 如果x被fullfill，那么fullfill这个promise使用同一个value
+   - 如果x被reject，那么reject这个promise使用同一个理由
+  - 如果x是一个对象或者是个方法
+   - 如果x.then返回了错误，则reject这个promise使用错误。
+   - 如果then是一个方法，使用x为this，resolvePromise为一参，rejectPromise为二参，
+    - 如果resolvePromise被一个值y调用，那么运行[[Resolve]](promise, y)
+    - 如果rejectPromise被reason y调用，reject这个promise
 
 
 

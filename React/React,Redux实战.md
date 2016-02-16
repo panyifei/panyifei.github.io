@@ -20,3 +20,17 @@
 action会触发reducer，然后通过reducer里面对action.type的判断来决定页面上this.props的值。这里的值可以由全局的state和action里面的data混合着返回。
 
 然后就会触发页面上`componentWillMount`的方法，进而对页面进行重绘。
+
+### 在render里面可以将jsx先放在一个变量里
+我们在render绘画的时候，可能根据不同的情况return不同的结果，如下：
+
+```javascript
+  if(true){
+      button = <button className='blue'>从暂存恢复</button>;
+  }else{
+      button = <button className='blue disable'>从暂存恢复</button>;
+  }
+  return(
+    {button}
+  );
+```
