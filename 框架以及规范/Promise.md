@@ -5,7 +5,8 @@
  - 重新阅读了下A+的[规范](https://promisesaplus.com/):
    - promise代表了一个异步操作的最终结果，主要是通过then方法来注册成功以及失败的情况，
    - Promise/A+历史上说是实现了Promise/A的行为并且考虑了一些不足之处，他并不关心如何创建，完成，拒绝Promise，只考虑提供一个可协作的then方法。
- - 术语：
+
+### 术语：
    - `promise`是一个拥有符合上面的特征的then方法的对象或者方法。
    - `thenable`是定义了then方法的对象或者方法
    - `value`是任何合法的js的值（包括undefined，thenable或者promise）
@@ -23,16 +24,18 @@
    - then方法接受两个参数，onFulfilled和onRejected，这两个都是可选的，如果传入的不是function的话，就会被忽略
    - 如果onFulfilled是一个函数，他必须在promise完成后被执行(不能提前)，并且value是第一个参数，并且不能被执行超过一次
    - 如果onRejected是一个函数，他必须在promise拒绝后被执行(不能提前)，并且reason是第一个参数，并且不能被执行超过一次
-   - onFulfilled或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(tudo:??)
-   - onFulfilled或者onRejected必须作为function被执行(tudo:??)
+   - onFulfilled或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(就是要求onfulfilled和onrejected必须异步执行，必须在then方法被调用的那一轮事件循环之后的新执行栈执行，这里可以使用macro-task或者micro-task，这两个的区别参见)
+   - onFulfilled或者onRejected必须作为function被执行(就是说没有一个特殊的this，在严格模式中，this就是undefined，在粗糙的模式，就是global)
    - then方法可能在同一个promise被调用多次，当promise被完成，所有的onFulfilled必须被顺序执行，onRejected也一样
    - then方法必须也返回一个promise(这个promise可以是原来的promise，实现必须申明什么情况下两者可以相等)promise2 = promise1.then(onFulfilled, onRejected);
-    - 如果onFulfilled和onRejected都返回一个value x，执行2.3Promise的解决步骤
-    - 如果onFulfilled和onRejected都抛出exception e，promise2必须被rejected同样的e
-    - 如果onFulfilled不是个function，且promise1 is fulfilled，promise2也会fulfilled，和promise1的值一样
-    - 如果onRejected不是个function，且promise1 is rejected，promise2也会rejected，理由和promise1一样
+    - 如果`onFulfilled`和`onRejected`都返回一个value x，执行2.3Promise的解决步骤[[Resolve]](promise2, x)
+    - 如果`onFulfilled`和`onRejected`都抛出exception e，promise2必须被rejected同样的e
+    - 如果`onFulfilled`不是个function，且promise1 is fulfilled，promise2也会fulfilled，和promise1的值一样
+    - 如果`onRejected`不是个function，且promise1 is rejected，promise2也会rejected，理由和promise1一样
 
-###2.3Promise的解决步骤
+  这里不论promise1被完成还是被拒绝，promise2 都会被 resolve的，只有出现了一些异常才会被rejected
+
+###2.3Promise的解决步骤==[[Resolve]](promise2, x)
  - 这个是将`promise`和一个值`x`作为输入的一个抽象操作。如果这个x是支持then的，他会尝试让promise接受x的状态；否则，他会用x的值来fullfill这个promise。运行这样一个东西，遵循以下的步骤
   - 如果promise和x指向同一个对象，则reject这个promise使用TypeError。
   - 如果x是一个promise，接受他的状态
@@ -43,8 +46,13 @@
    - 如果x.then返回了错误，则reject这个promise使用错误。
    - 如果then是一个方法，使用x为this，resolvePromise为一参，rejectPromise为二参，
     - 如果resolvePromise被一个值y调用，那么运行[[Resolve]](promise, y)
-    - 如果rejectPromise被reason y调用，reject这个promise
+    - 如果rejectPromise被reason r，使用r来reject这个promise
+    - 如果resolvePromise和rejectPromise都被调用了，那么第一个被调用的有优先权，其他的beihulue
+    - 如果调用then方法得到了exception，如果上面的方法被调用了，则忽略，否则reject这个promise
+   - 如果then方法不是function，那么fullfill这个promise使用x
+  - 如果x不是一个对象或者方法，那么fullfill这个promise使用x
 
+如果promise产生了环形的嵌套，比如[[Resolve]](promise, thenable)最终唤起了[[Resolve]](promise, thenable)，那么实现建议且并不强求来发现这种循环，并且reject这个promise使用一个TypeError。
 
 
 
