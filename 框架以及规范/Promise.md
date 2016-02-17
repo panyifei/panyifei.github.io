@@ -193,15 +193,47 @@ function Promise(fn){
 ```javascript
 function resolve(newValue){
   state = "fulfilled";
+  var value = newValue;
   setTimeout(function(){
     fulfillCallbackList.forEach(function(fulfill){
-      fulfill(newValue);
+      value = fulfill(value);
     });
   },0);
 }
 ```
 
-但是这里的问题来了，我们的结果每次给的都是同一个的值，这里肯定要重新像个解决方法
+这样子我们就可以将then每次的结果交给后面的then了。但是我们的promise现在还不支持promise的链式写法。比如我们想要
+
+```javascript
+var p = new Promise(function(resolve){
+    setTimeout(function(){
+      resolve(12);
+    }, 100);
+});
+var p2 = new Promise(function(resolve){
+    setTimeout(function(){
+      resolve(42);
+    }, 100);
+});
+p.then(
+      function(name){
+        console.log(name);return 33;
+      }
+  )
+  .then(function(id){console.log(id)})
+  .then(p2)
+  .then(function(home){console.log(home)});
+```
+
+所以我们必须改下then方法。
+
+当then方法传入一般的函数的时候，我们目前的做法是将它推进了一个数组，然后return this来进行链式的调用，并且期望在resolve方法调用时执行这个数组。
+
+如果传入一个promise的话，我们先尝试继续推入数组中，在resolve的地方进行更改。
+
+
+
+
 
 参考：
 
