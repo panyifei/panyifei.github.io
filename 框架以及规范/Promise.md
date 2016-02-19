@@ -56,7 +56,6 @@
 
 ## 写一个promise
 想要写一个Promise，肯定得使用一个异步的函数，就拿setTimeout来做。
-这里参考了美团的一篇[技术博客](http://tech.meituan.com/promise-insight.html)
 
 ```javascript
 var p = new Promise(function(resolve){
@@ -65,6 +64,7 @@ var p = new Promise(function(resolve){
 p.then(function(){console.log('success')},function(){console.log('fail')});
 ```
 
+### 初步构建
 上面是个最简单的使用场景我们需要慢慢来构建
 
 ```javascript
@@ -82,38 +82,16 @@ function Promise(fn){
 }
 ```
 
-下面加入rejected状态的情况
-
-```javascript
-function Promise(fn){
-  //需要成功以及成功时的回调
-  var fulfillCallback,rejectedCallback;
-  //一个实例的方法，用来注册异步事件
-  this.then = function(done ,fail){
-    fulfillCallback = done;
-    rejectedCallback = fail;
-  }
-  function resolve(){
-    fulfillCallback();
-  }
-  function reject(){
-    rejectedCallback();
-  }
-  fn(resolve,reject);
-}
-```
-
+### 加入链式支持
 下面加入链式，成功回调以及失败的回调就得变成数组
 
 ```javascript
 function Promise(fn){
   //需要成功以及成功时的回调
   var fulfillCallbackList = [];
-  var rejectedCallbackList= [];
   //一个实例的方法，用来注册异步事件
   this.then = function(done ,fail){
     fulfillCallbackList.push(done);
-    rejectedCallbackList.push(fail);
     return this;
   }
   function resolve(){
@@ -121,12 +99,7 @@ function Promise(fn){
       fulfill();
     });
   }
-  function reject(){
-    rejectedCallbackList.forEach(function(fail){
-      fail();
-    });
-  }
-  fn(resolve,reject);
+  fn(resolve);
 }
 ```
 
@@ -142,6 +115,7 @@ function resolve(){
 }
 ```
 
+### 加入状态机制
 这时如果promise已经执行完了，我们再给promise注册then方法就怎么都不会执行了，这个不符合预期，所以才会加入状态这种东西。更新过的代码如下
 
 ```javascript
@@ -149,21 +123,15 @@ function Promise(fn){
   //需要成功以及成功时的回调
   var state = 'pending';
   var fulfillCallbackList = [];
-  var rejectedCallbackList= [];
   //一个实例的方法，用来注册异步事件
-  this.then = function(done ,fail){
+  this.then = function(done){
     switch(state){
       case "pending":
         fulfillCallbackList.push(done);
-        rejectedCallbackList.push(fail);
         return this;
         break;
       case 'fulfilled':
         done();
-        return this;
-        break;
-      case 'rejected':
-        fail();
         return this;
         break;
     }
@@ -176,18 +144,11 @@ function Promise(fn){
       });
     },0);
   }
-  function reject(){
-    state = "rejected";
-    setTimeout(function(){
-      rejectedCallbackList.forEach(function(fail){
-        fail();
-      });
-    },0);
-  }
-  fn(resolve,reject);
+  fn(resolve);
 }
 ```
 
+### 加上异步结果的传递
 现在的写法根本没有考虑异步返回的结果的传递，我们来加上结果的传递
 
 ```javascript
@@ -202,7 +163,8 @@ function resolve(newValue){
 }
 ```
 
-这样子我们就可以将then每次的结果交给后面的then了。但是我们的promise现在还不支持promise的链式写法。比如我们想要
+### 支持串行
+这样子我们就可以将then每次的结果交给后面的then了。但是我们的promise现在还不支持promise的串行写法。比如我们想要
 
 ```javascript
 var p = new Promise(function(resolve){
@@ -229,8 +191,160 @@ p.then(
 
 当then方法传入一般的函数的时候，我们目前的做法是将它推进了一个数组，然后return this来进行链式的调用，并且期望在resolve方法调用时执行这个数组。
 
-如果传入一个promise的话，我们先尝试继续推入数组中，在resolve的地方进行更改。
+最开始我是研究的美团工程师的[一篇博客](http://tech.meituan.com/promise-insight.html),到这里的时候发现他的解决方案比较跳跃，于是我就按照普通的正常思路先尝试了下：
 
+如果传入一个promise的话，我们先尝试继续推入数组中，在resolve的地方进行区分，发现是可行的，我先贴下示例代码，然后会有详细的注释。
+
+```javascript
+function Promise(fn){
+  //需要成功以及成功时的回调
+  var state = 'pending';
+  var fulfillCallbackList = [];
+  this.then = function(done){
+    switch(state){
+      case "pending":
+        fulfillCallbackList.push(done);
+        return this;
+        break;
+      case 'fulfilled':
+        done();
+        return this;
+        break;
+    }
+  }
+  function resolve(newValue){
+    state = "fulfilled";
+    setTimeout(function(){
+      var value = newValue;
+      //执行resolve时，我们会尝试将fulfillCallbackList数组中的值都执行一遍
+      //当遇到正常的回调函数的时候，就执行回调函数
+      //当遇到一个新的promise的时候，就将原fulfillCallbackList数组里的回调函数推入新的promise的fulfillCallbackList，以达到循环的目的
+      for (var i = 0;i<fulfillCallbackList.length;i++){
+        var temp = fulfillCallbackList[i](value)
+        if(temp instanceof Promise){
+            var newP =  temp;
+            for(i++;i<fulfillCallbackList.length;i++){
+                newP.then(fulfillCallbackList[i]);
+            }
+        }else{
+            value = temp;
+        }
+      }
+    },0);
+  }
+  fn(resolve);
+}
+var p = function (){
+    return new Promise(function(resolve){
+        setTimeout(function(){
+          resolve('p 的结果');
+        }, 100);
+    });
+}
+var p2 = function (input){
+    return new Promise(function(resolve){
+        setTimeout(function(){
+            console.log('p2拿到前面传入的值：' + input)
+            resolve('p2的结果');
+        }, 100);
+    });
+}
+p()
+.then(function(res){console.log('p的结果:' + res); return 'p then方法第一次返回'})
+.then(function(res){console.log('p第一次then方法的返回：'+res); return 'p then方法第二次返回'})
+.then(p2)
+.then(function(res){console.log('p2的结果：' + res)});
+```
+
+### 加入reject
+我按照正常思路这么写的时候发现出了点问题，因为按照最上面的规范。即使一个promise被rejected，他注册的then方法之后再注册的then方法会可能继续执行resolve的。即我们在then方法中为了链式返回的this的status是可能会被改变的，假设我们在实现中来改变(这一点其实并不推荐)。
+
+我直接贴实现的代码，还有注释作为讲解
+
+```javascript
+function Promise(fn){
+  //需要成功以及成功时的回调
+  var state = 'pending';
+  var fulfillCallbackList = [];
+  var rejectedCallbackList= [];
+  this.then = function(done ,fail){
+    switch(state){
+      case "pending":
+        fulfillCallbackList.push(done);
+        //每次如果没有推入fail方法，我也会推入一个null来占位
+        rejectedCallbackList.push(fail || null);
+        return this;
+        break;
+      case 'fulfilled':
+        done();
+        return this;
+        break;
+      case 'rejected':
+        fail();
+        return this;
+        break;
+    }
+  }
+  function resolve(newValue){
+    state = "fulfilled";
+    setTimeout(function(){
+      var value = newValue;
+      for (var i = 0;i<fulfillCallbackList.length;i++){
+        var temp = fulfillCallbackList[i](value)
+        if(temp instanceof Promise){
+            var newP =  temp;
+            for(i++;i<fulfillCallbackList.length;i++){
+                newP.then(fulfillCallbackList[i],rejectedCallbackList[i]);
+            }
+        }else{
+            value = temp;
+        }
+      }
+    },0);
+  }
+  function reject(newValue){
+    state = "rejected";
+    setTimeout(function(){
+      var value = newValue;
+      var tempRe = rejectedCallbackList[0](value);
+      //如果reject里面传入了一个promise，那么执行完此次的fail之后，将剩余的done和fail传入新的promise中
+      if(tempRe instanceof Promise){
+        var newP = tempRe;
+        for(i=1;i<fulfillCallbackList.length;i++){
+            newP.then(fulfillCallbackList[i],rejectedCallbackList[i]);
+        }
+      }else{
+        //如果不是promise，执行完当前的fail之后，继续执行doneList
+        value =  tempRe;
+        fulfillCallbackList.shift();
+        rejectedCallbackList.shift();
+        resolve(value);
+      }
+    },0);
+  }
+  fn(resolve,reject);
+}
+var p = function (){
+    return new Promise(function(resolve,reject){
+        setTimeout(function(){
+          reject('p 的结果');
+        }, 100);
+    });
+}
+var p2 = function (input){
+    return new Promise(function(resolve){
+        setTimeout(function(){
+            console.log('p2拿到前面传入的值：' + input)
+            resolve('p2的结果');
+        }, 100);
+    });
+}
+p()
+.then(function(res){console.log('p的结果:' + res); return 'p then方法第一次返回'},function(value){console.log(value);return 'p then方法第一次错误的返回'})
+.then(function(res){console.log('p第一次then方法的返回：'+res); return 'p then方法第二次返回'})
+.then(p2)
+.then(function(res){console.log('p2的结果：' + res)});
+```
 
 
 
