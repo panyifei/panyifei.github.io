@@ -88,14 +88,14 @@ function Promise(fn){
 ```javascript
 function Promise(fn){
   //需要成功以及成功时的回调
-  var fulfillCallbackList = [];
+  var doneList = [];
   //一个实例的方法，用来注册异步事件
   this.then = function(done ,fail){
-    fulfillCallbackList.push(done);
+    doneList.push(done);
     return this;
   }
   function resolve(){
-    fulfillCallbackList.forEach(function(fulfill){
+    doneList.forEach(function(fulfill){
       fulfill();
     });
   }
@@ -103,12 +103,12 @@ function Promise(fn){
 }
 ```
 
-这里promise里面如果是同步的函数的话，fulfillCallbackList里面还是空的，所以可以加个setTimeout来将这个放到js的最后执行。这里主要是参照了promiseA+的规范，就像这样
+这里promise里面如果是同步的函数的话，doneList里面还是空的，所以可以加个setTimeout来将这个放到js的最后执行。这里主要是参照了promiseA+的规范，就像这样
 
 ```javascript
 function resolve(){
   setTimeout(function(){
-    fulfillCallbackList.forEach(function(fulfill){
+    doneList.forEach(function(fulfill){
       fulfill();
     });
   },0);
@@ -122,12 +122,12 @@ function resolve(){
 function Promise(fn){
   //需要成功以及成功时的回调
   var state = 'pending';
-  var fulfillCallbackList = [];
+  var doneList = [];
   //一个实例的方法，用来注册异步事件
   this.then = function(done){
     switch(state){
       case "pending":
-        fulfillCallbackList.push(done);
+        doneList.push(done);
         return this;
         break;
       case 'fulfilled':
@@ -139,7 +139,7 @@ function Promise(fn){
   function resolve(){
     state = "fulfilled";
     setTimeout(function(){
-      fulfillCallbackList.forEach(function(fulfill){
+      doneList.forEach(function(fulfill){
         fulfill();
       });
     },0);
@@ -156,7 +156,7 @@ function resolve(newValue){
   state = "fulfilled";
   var value = newValue;
   setTimeout(function(){
-    fulfillCallbackList.forEach(function(fulfill){
+    doneList.forEach(function(fulfill){
       value = fulfill(value);
     });
   },0);
@@ -199,11 +199,11 @@ p.then(
 function Promise(fn){
   //需要成功以及成功时的回调
   var state = 'pending';
-  var fulfillCallbackList = [];
+  var doneList = [];
   this.then = function(done){
     switch(state){
       case "pending":
-        fulfillCallbackList.push(done);
+        doneList.push(done);
         return this;
         break;
       case 'fulfilled':
@@ -216,15 +216,15 @@ function Promise(fn){
     state = "fulfilled";
     setTimeout(function(){
       var value = newValue;
-      //执行resolve时，我们会尝试将fulfillCallbackList数组中的值都执行一遍
+      //执行resolve时，我们会尝试将doneList数组中的值都执行一遍
       //当遇到正常的回调函数的时候，就执行回调函数
-      //当遇到一个新的promise的时候，就将原fulfillCallbackList数组里的回调函数推入新的promise的fulfillCallbackList，以达到循环的目的
-      for (var i = 0;i<fulfillCallbackList.length;i++){
-        var temp = fulfillCallbackList[i](value)
+      //当遇到一个新的promise的时候，就将原doneList数组里的回调函数推入新的promise的doneList，以达到循环的目的
+      for (var i = 0;i<doneList.length;i++){
+        var temp = doneList[i](value)
         if(temp instanceof Promise){
             var newP =  temp;
-            for(i++;i<fulfillCallbackList.length;i++){
-                newP.then(fulfillCallbackList[i]);
+            for(i++;i<doneList.length;i++){
+                newP.then(doneList[i]);
             }
         }else{
             value = temp;
@@ -265,14 +265,14 @@ p()
 function Promise(fn){
   //需要成功以及成功时的回调
   var state = 'pending';
-  var fulfillCallbackList = [];
-  var rejectedCallbackList= [];
+  var doneList = [];
+  var failList= [];
   this.then = function(done ,fail){
     switch(state){
       case "pending":
-        fulfillCallbackList.push(done);
+        doneList.push(done);
         //每次如果没有推入fail方法，我也会推入一个null来占位
-        rejectedCallbackList.push(fail || null);
+        failList.push(fail || null);
         return this;
         break;
       case 'fulfilled':
@@ -289,12 +289,12 @@ function Promise(fn){
     state = "fulfilled";
     setTimeout(function(){
       var value = newValue;
-      for (var i = 0;i<fulfillCallbackList.length;i++){
-        var temp = fulfillCallbackList[i](value)
+      for (var i = 0;i<doneList.length;i++){
+        var temp = doneList[i](value);
         if(temp instanceof Promise){
             var newP =  temp;
-            for(i++;i<fulfillCallbackList.length;i++){
-                newP.then(fulfillCallbackList[i],rejectedCallbackList[i]);
+            for(i++;i<doneList.length;i++){
+                newP.then(doneList[i],failList[i]);
             }
         }else{
             value = temp;
@@ -306,18 +306,18 @@ function Promise(fn){
     state = "rejected";
     setTimeout(function(){
       var value = newValue;
-      var tempRe = rejectedCallbackList[0](value);
+      var tempRe = failList[0](value);
       //如果reject里面传入了一个promise，那么执行完此次的fail之后，将剩余的done和fail传入新的promise中
       if(tempRe instanceof Promise){
         var newP = tempRe;
-        for(i=1;i<fulfillCallbackList.length;i++){
-            newP.then(fulfillCallbackList[i],rejectedCallbackList[i]);
+        for(i=1;i<doneList.length;i++){
+            newP.then(doneList[i],failList[i]);
         }
       }else{
         //如果不是promise，执行完当前的fail之后，继续执行doneList
         value =  tempRe;
-        fulfillCallbackList.shift();
-        rejectedCallbackList.shift();
+        doneList.shift();
+        failList.shift();
         resolve(value);
       }
     },0);
@@ -345,9 +345,6 @@ p()
 .then(p2)
 .then(function(res){console.log('p2的结果：' + res)});
 ```
-
-
-
 
 参考：
 
