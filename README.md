@@ -15,7 +15,7 @@
  - [Angular][30]
  - [Polyfill源码阅读][33]
  - [Prototype,原型,继承][35]
- - [Promise][46]
+ - [Promise规范以及写一个Promise][46]
  - [Semver规范][47]
  - HTML5
   - [history相关][4]

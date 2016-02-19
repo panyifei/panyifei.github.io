@@ -1,4 +1,4 @@
-# Promise
+# Promise规范以及写一个Promise
 看了些promise的介绍，但是还是感觉不够深入，这个在解决异步问题上是一个很好的解决方案，所以详细看一下。
 
 ## Promise/A+规范：
@@ -70,20 +70,20 @@ p.then(function(){console.log('success')},function(){console.log('fail')});
 ```javascript
 function Promise(fn){
   //需要一个成功时的回调
-  var fulfillCallback;
+  var doneCallback;
   //一个实例的方法，用来注册异步事件
   this.then = function(done){
-    fulfillCallback = done;
+    doneCallback = done;
   }
   function resolve(){
-    fulfillCallback();
+    doneCallback();
   }
   fn(resolve);
 }
 ```
 
 ### 加入链式支持
-下面加入链式，成功回调以及失败的回调就得变成数组
+下面加入链式，成功回调的方法就得变成数组才能存储
 
 ```javascript
 function Promise(fn){
@@ -257,13 +257,12 @@ p()
 ```
 
 ### 加入reject
-我按照正常思路这么写的时候发现出了点问题，因为按照最上面的规范。即使一个promise被rejected，他注册的then方法之后再注册的then方法会可能继续执行resolve的。即我们在then方法中为了链式返回的this的status是可能会被改变的，假设我们在实现中来改变(这一点其实并不推荐)。
+我按照正常思路这么写的时候发现出了点问题，因为按照最上面的规范。即使一个promise被rejected，他注册的then方法之后再注册的then方法会可能继续执行resolve的。即我们在then方法中为了链式返回的this的status是可能会被改变的，假设我们在实现中来改变状态而不暴露出来(这其实一点并不推荐)。
 
 我直接贴实现的代码，还有注释作为讲解
 
 ```javascript
 function Promise(fn){
-  //需要成功以及成功时的回调
   var state = 'pending';
   var doneList = [];
   var failList= [];
