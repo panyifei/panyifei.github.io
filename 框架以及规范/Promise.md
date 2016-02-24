@@ -344,6 +344,79 @@ p()
 .then(p2)
 .then(function(res){console.log('p2的结果：' + res)});
 ```
+用图片展示一下思路的话可能会更清晰些：
+
+then方法的初始化过程很简单：
+
+<img alt="" width='500px' src="pics//my-then.png" />
+
+执行时的过程是这样的：
+
+<img alt="" width='500px' src="pics//my-resolve.png" />
+
+正常思路的解决方案基本就是这样了
+
+### 另外的套路
+看的一篇美团工程师的博文，解决思路是每次then方法返回的都是一个新的promise，这样其实对于规范来说是最准确的，因为这样子我们就不需要改变promise的状态了。
+
+```javascript
+function Promise(fn){
+    var state = 'pending';
+    var deferreds = [];
+    this.then = function(onFulfilled){
+        return new Promise(function(resolve){
+            handle({
+                onFulfilled: onFulfilled || null,
+                resolve: resolve
+            });
+        });
+    }
+    function resolve(newValue) {
+        if (newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
+            var then = newValue.then;
+            if (typeof then === 'function') {
+                then.call(newValue, resolve);
+                return;
+            }
+        }
+        state = 'fulfilled';
+        value = newValue;
+        setTimeout(function () {
+            deferreds.forEach(function (deferred) {
+                handle(deferred);
+            });
+        }, 0);
+    }
+    function handle(deferred) {
+        if (state === 'pending') {
+            deferreds.push(deferred);
+            return;
+        }
+        var ret = deferred.onFulfilled(value);
+        deferred.resolve(ret);
+    }
+    fn(resolve);
+}
+var p = function (){
+    return new Promise(function(resolve){
+        setTimeout(function(){
+          resolve('p 的结果');
+        }, 100);
+    });
+}
+p()
+.then(function(res){console.log('p的结果:' + res); return 'p then方法第一次返回'},function(value){console.log(value);return 'p then方法第一次错误的返回'})
+.then(function(res){console.log('p第一次then方法的返回：'+res); return 'p then方法第二次返回'})
+```
+
+这个思路就是说：
+
+ - 调用Promise a的then方法会创建一个Promise b,然后将参数fullfill和b的resolve方法作为对象推入a的deferreds数组中；
+ - 然后处理顺序就是遍历a的deferreds时，执行fullfill，然后调用b的resolve；
+ - 这样then如果传入的是一个执行之后是promise的方法，就在上一层resolve时再用.then方法包装一环；
+
+ 运行图像就像是这样的：
+
 
 参考：
 
