@@ -352,7 +352,7 @@ then方法的初始化过程很简单：
 
 执行时的过程是这样的：
 
-<img alt="" width='500px' src="pics//my-resolve.png" />
+<img alt="" width='700px' src="pics//my-resolve.png" />
 
 正常思路的解决方案基本就是这样了
 
@@ -415,7 +415,13 @@ p()
  - 然后处理顺序就是遍历a的deferreds时，执行fullfill，然后调用b的resolve；
  - 这样then如果传入的是一个执行之后是promise的方法，就在上一层resolve时再用.then方法包装一环；
 
- 运行图像就像是这样的：
+ then方法的运行图像就像是这样的：
+
+ <img alt="" width='600px' src="pics//m-then.png" />
+
+执行过程就像是下面这样：
+
+<img alt="" width='600px' src="pics//m-resolve.png" />
 
 
 参考：
