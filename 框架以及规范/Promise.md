@@ -21,16 +21,16 @@
 
 ### 2.2 then方法的要求：
    - promise必须有个then方法来接触当前的或者最后的value或者reason
-   - then方法接受两个参数，onFulfilled和onRejected，这两个都是可选的，如果传入的不是function的话，就会被忽略
-   - 如果onFulfilled是一个函数，他必须在promise完成后被执行(不能提前)，并且value是第一个参数，并且不能被执行超过一次
+   - then方法接受两个参数，done和onRejected，这两个都是可选的，如果传入的不是function的话，就会被忽略
+   - 如果done是一个函数，他必须在promise完成后被执行(不能提前)，并且value是第一个参数，并且不能被执行超过一次
    - 如果onRejected是一个函数，他必须在promise拒绝后被执行(不能提前)，并且reason是第一个参数，并且不能被执行超过一次
-   - onFulfilled或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(就是要求onfulfilled和onrejected必须异步执行，必须在then方法被调用的那一轮事件循环之后的新执行栈执行，这里可以使用macro-task或者micro-task，这两个的区别参见[文章](https://github.com/panyifei/learning/blob/master/前端基础/Macro-task与Micro-task.md))
-   - onFulfilled或者onRejected必须作为function被执行(就是说没有一个特殊的this，在严格模式中，this就是undefined，在粗糙的模式，就是global)
-   - then方法可能在同一个promise被调用多次，当promise被完成，所有的onFulfilled必须被顺序执行，onRejected也一样
-   - then方法必须也返回一个promise(这个promise可以是原来的promise，实现必须申明什么情况下两者可以相等)promise2 = promise1.then(onFulfilled, onRejected);
-    - 如果`onFulfilled`和`onRejected`都返回一个value x，执行2.3Promise的解决步骤[[Resolve]](promise2, x)
-    - 如果`onFulfilled`和`onRejected`都抛出exception e，promise2必须被rejected同样的e
-    - 如果`onFulfilled`不是个function，且promise1 is fulfilled，promise2也会fulfilled，和promise1的值一样
+   - done或者onRejected只能在执行上下文堆只包含了平台代码的时候执行(就是要求done和onrejected必须异步执行，必须在then方法被调用的那一轮事件循环之后的新执行栈执行，这里可以使用macro-task或者micro-task，这两个的区别参见[文章](https://github.com/panyifei/learning/blob/master/前端基础/Macro-task与Micro-task.md))
+   - done或者onRejected必须作为function被执行(就是说没有一个特殊的this，在严格模式中，this就是undefined，在粗糙的模式，就是global)
+   - then方法可能在同一个promise被调用多次，当promise被完成，所有的done必须被顺序执行，onRejected也一样
+   - then方法必须也返回一个promise(这个promise可以是原来的promise，实现必须申明什么情况下两者可以相等)promise2 = promise1.then(done, onRejected);
+    - 如果`done`和`onRejected`都返回一个value x，执行2.3Promise的解决步骤[[Resolve]](promise2, x)
+    - 如果`done`和`onRejected`都抛出exception e，promise2必须被rejected同样的e
+    - 如果`done`不是个function，且promise1 is fulfilled，promise2也会fulfilled，和promise1的值一样
     - 如果`onRejected`不是个function，且promise1 is rejected，promise2也会rejected，理由和promise1一样
 
   这里不论promise1被完成还是被拒绝，promise2 都会被 resolve的，只有出现了一些异常才会被rejected
@@ -362,11 +362,11 @@ then方法的初始化过程很简单：
 ```javascript
 function Promise(fn){
     var state = 'pending';
-    var deferreds = [];
-    this.then = function(onFulfilled){
+    var doneLists = [];
+    this.then = function(done){
         return new Promise(function(resolve){
             handle({
-                onFulfilled: onFulfilled || null,
+                done: done || null,
                 resolve: resolve
             });
         });
@@ -382,17 +382,17 @@ function Promise(fn){
         state = 'fulfilled';
         value = newValue;
         setTimeout(function () {
-            deferreds.forEach(function (deferred) {
+            doneLists.forEach(function (deferred) {
                 handle(deferred);
             });
         }, 0);
     }
     function handle(deferred) {
         if (state === 'pending') {
-            deferreds.push(deferred);
+            doneLists.push(deferred);
             return;
         }
-        var ret = deferred.onFulfilled(value);
+        var ret = deferred.done(value);
         deferred.resolve(ret);
     }
     fn(resolve);
@@ -411,8 +411,8 @@ p()
 
 这个思路就是说：
 
- - 调用Promise a的then方法会创建一个Promise b,然后将参数fullfill和b的resolve方法作为对象推入a的deferreds数组中；
- - 然后处理顺序就是遍历a的deferreds时，执行fullfill，然后调用b的resolve；
+ - 调用Promise a的then方法会创建一个Promise b,然后将参数done和b的resolve方法作为对象推入a的doneLists数组中；
+ - 然后处理顺序就是遍历a的doneLists时，执行done，然后调用b的resolve；
  - 这样then如果传入的是一个执行之后是promise的方法，就在上一层resolve时再用.then方法包装一环；
 
  then方法的运行图像就像是这样的：
@@ -421,8 +421,10 @@ p()
 
 执行过程就像是下面这样：
 
-<img alt="" width='600px' src="pics//m-resolve.png" />
+<img alt="" width='800px' src="pics//m-resolve.png" />
 
+### 其他的思路
+tudo:待定
 
 参考：
 
