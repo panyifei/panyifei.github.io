@@ -73,6 +73,7 @@
 ## 前端基础
 [前端基础知识][44]
 [Macro-task与Micro-task][48]
+[setTimeout][49]
 
 ## 其他技术
  - [Freemarker分页][40]
@@ -138,3 +139,4 @@
 [46]:https://github.com/panyifei/learning/blob/master/框架以及规范/Promise.md
 [47]:https://github.com/panyifei/learning/blob/master/框架以及规范/Semver规范.md
 [48]:https://github.com/panyifei/learning/blob/master/前端基础/Macro-task与Micro-task.md
+[49]:https://github.com/panyifei/learning/blob/master/前端基础/setTimeout.md
