@@ -35,7 +35,7 @@
 
   这里不论promise1被完成还是被拒绝，promise2 都会被 resolve的，只有出现了一些异常才会被rejected
 
-###2.3Promise的解决步骤==[[Resolve]](promise2, x)
+### 2.3Promise的解决步骤==[[Resolve]](promise2, x)
  - 这个是将`promise`和一个值`x`作为输入的一个抽象操作。如果这个x是支持then的，他会尝试让promise接受x的状态；否则，他会用x的值来fullfill这个promise。运行这样一个东西，遵循以下的步骤
   - 如果promise和x指向同一个对象，则reject这个promise使用TypeError。
   - 如果x是一个promise，接受他的状态
