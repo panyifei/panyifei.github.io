@@ -71,9 +71,9 @@
   - [异步IO,异步编程][45]
 
 ## 前端基础
-[前端基础知识][44]
-[Macro-task与Micro-task][48]
-[setTimeout][49]
+ - [前端基础知识][44]
+ - [Macro-task与Micro-task][48]
+ - [setTimeout][49]
 
 ## 其他技术
  - [Freemarker分页][40]
