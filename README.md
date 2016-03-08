@@ -58,6 +58,7 @@
 
 ## 读书笔记
  - Javascript高级程序设计
+  - [6章面向对象的程序设计][51]
   - [14章表单脚本][21]
   - [17章错误处理与调试][23]
   - [20章JSON][24]
@@ -143,3 +144,4 @@
 [48]:https://github.com/panyifei/learning/blob/master/前端基础/Macro-task与Micro-task.md
 [49]:https://github.com/panyifei/learning/blob/master/前端基础/setTimeout.md
 [50]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/精华以及基础.md
+[51]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/6章面向对象的程序设计.md
