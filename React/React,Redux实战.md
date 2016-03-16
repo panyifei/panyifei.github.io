@@ -34,3 +34,10 @@ action会触发reducer，然后通过reducer里面对action.type的判断来决�
     {button}
   );
 ```
+
+### 方法的执行顺序
+componentWillMount是在开始渲染之前
+
+componentDidMount是在开始渲染之后
+
+componentDidUpdate是在更新之后

@@ -78,6 +78,8 @@
  - [Macro-task与Micro-task][48]
  - [setTimeout][49]
  - [CSS性能][52]
+ - [页面渲染过程][53]
+ - [CSS布局][54]
 
 ## 其他技术
  - [Freemarker分页][40]
@@ -147,3 +149,5 @@
 [50]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/精华以及基础.md
 [51]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/6章面向对象的程序设计.md
 [52]:https://github.com/panyifei/learning/blob/master/前端基础/CSS性能.md
+[53]:https://github.com/panyifei/learning/blob/master/前端基础/页面渲染过程.md
+[54]:https://github.com/panyifei/learning/blob/master/前端基础/CSS布局.md
