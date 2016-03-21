@@ -38,10 +38,10 @@ setTimeout(function(){
 
 #### 作用域的问题
 ```javascript
-var x=12;
-var time= function(a){console.log(x);console.log(a)}
+var x = 12;
+var time = function(a){console.log(x);console.log(a)}
 function aa(){
-  var x =13;
+  var x = 13;
   setTimeout(function(a){console.log(x);console.log(a)},100,12);
   setTimeout(time,100,12);
 }
