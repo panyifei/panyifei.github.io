@@ -78,6 +78,7 @@
  - [前端基础知识][44]
  - [Macro-task与Micro-task][48]
  - [setTimeout][49]
+ - [throttle和debounce][56]
  - [CSS性能][52]
  - [页面渲染过程][53]
  - [CSS布局][54]
@@ -153,3 +154,4 @@
 [53]:https://github.com/panyifei/learning/blob/master/前端基础/页面渲染过程.md
 [54]:https://github.com/panyifei/learning/blob/master/前端基础/CSS布局.md
 [55]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/继承与数组.md
+[56]:https://github.com/panyifei/learning/blob/master/前端基础/throttle和debounce.md
