@@ -57,19 +57,21 @@
 [2015届D2分享][38]
 
 ## 读书笔记
- - Javascript高级程序设计
+ - Javascript高级程序设计(23章还没看，直接先看24章了)
   - [6章面向对象的程序设计][51]
   - [14章表单脚本][21]
   - [17章错误处理与调试][23]
   - [20章JSON][24]
   - [21章Ajax和Comet][26]
   - [22章高级技巧][36]
+  - [24最佳实践][57]
  - Javascript框架设计(这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记)
   - [种子模块][5]
   - [模块加载系统][11]
  - Javascript语言精粹
    - [精华以及基础][50]
    - [继承与数组][55]
+   - [正则表达式与方法][58]
  - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
   - [node基础][43]
   - [异步IO,异步编程][45]
@@ -155,3 +157,5 @@
 [54]:https://github.com/panyifei/learning/blob/master/前端基础/CSS布局.md
 [55]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/继承与数组.md
 [56]:https://github.com/panyifei/learning/blob/master/前端基础/throttle和debounce.md
+[57]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/24最佳实践.md
+[58]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/正则表达式与方法.md
