@@ -81,6 +81,7 @@
  - [Macro-task与Micro-task][48]
  - [setTimeout][49]
  - [throttle和debounce][56]
+ - [JS性能][59]
  - [CSS性能][52]
  - [页面渲染过程][53]
  - [CSS布局][54]
@@ -159,3 +160,4 @@
 [56]:https://github.com/panyifei/learning/blob/master/前端基础/throttle和debounce.md
 [57]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/24最佳实践.md
 [58]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/正则表达式与方法.md
+[59]:https://github.com/panyifei/learning/blob/master/前端基础/JS性能.md
