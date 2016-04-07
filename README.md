@@ -74,6 +74,7 @@
    - [正则表达式与方法][58]
  - 高性能Javascript
   - [前言，加载与执行][60]
+  - [数据存取与DOM编程][61]
  - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
   - [node基础][43]
   - [异步IO,异步编程][45]
@@ -164,3 +165,4 @@
 [58]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/正则表达式与方法.md
 [59]:https://github.com/panyifei/learning/blob/master/前端基础/JS性能.md
 [60]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/前言，加载与执行.md
+[61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/数据存取与DOM编程.md
