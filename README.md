@@ -75,6 +75,7 @@
  - 高性能Javascript
   - [前言，加载与执行][60]
   - [数据存取与DOM编程][61]
+  - [DOM编程与算法流程控制][62]
  - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
   - [node基础][43]
   - [异步IO,异步编程][45]
@@ -88,6 +89,7 @@
  - [CSS性能][52]
  - [页面渲染过程][53]
  - [CSS布局][54]
+ - [Web Workers][63]
 
 ## 其他技术
  - [Freemarker分页][40]
@@ -166,3 +168,5 @@
 [59]:https://github.com/panyifei/learning/blob/master/前端基础/JS性能.md
 [60]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/前言，加载与执行.md
 [61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/数据存取与DOM编程.md
+[62]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/DOM编程与算法流程控制.md
+[63]:https://github.com/panyifei/learning/blob/master/前端基础/Web Workers.md
