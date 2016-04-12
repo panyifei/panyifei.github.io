@@ -89,7 +89,7 @@
  - [CSS性能][52]
  - [页面渲染过程][53]
  - [CSS布局][54]
- - [Web Workers][63]
+ - [Web-Workers][63]
 
 ## 其他技术
  - [Freemarker分页][40]
@@ -169,4 +169,4 @@
 [60]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/前言，加载与执行.md
 [61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/数据存取与DOM编程.md
 [62]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/DOM编程与算法流程控制.md
-[63]:https://github.com/panyifei/learning/blob/master/前端基础/Web Workers.md
+[63]:https://github.com/panyifei/learning/blob/master/前端基础/Web-Workers.md
