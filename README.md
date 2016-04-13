@@ -10,7 +10,6 @@
 - 以及自己的阅读笔记
 
 ## 框架以及规范
- - [Commonjs,CMD,AMD和cortex介绍][1]
  - [React][20]
  - [Angular][30]
  - [Polyfill源码阅读][33]
@@ -20,10 +19,14 @@
  - HTML5
   - [history相关][4]
   - [hashchange事件][7]
+  - [Web-Workers][63]
  - ES6
   - [正则表达式][14]
   - [Generator函数][19]
   - [Promise以及各种异步的学习][3]
+ - 模块引入
+  - [Commonjs,CMD,AMD和cortex介绍][1]
+
 
 
 ## 浏览器兼容性以及移动端开发
@@ -89,7 +92,6 @@
  - [CSS性能][52]
  - [页面渲染过程][53]
  - [CSS布局][54]
- - [Web-Workers][63]
 
 ## 其他技术
  - [Freemarker分页][40]
@@ -107,7 +109,7 @@
  - [photoshop简单使用][12]
  - [Mac下虚拟机以及双系统][13]
 
-[1]:https://github.com/panyifei/learning/blob/master/框架以及规范/Commonjs,CMD,AMD和cortex介绍.md
+[1]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Commonjs,CMD,AMD和cortex介绍.md
 [2]:https://github.com/panyifei/learning/blob/master/工具使用/Webstorm+Github的笔记环境搭建.md
 [3]:https://github.com/panyifei/learning/blob/master/框架以及规范/ECMAScript6/Promise以及各种异步的学习.md
 [4]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/history相关.md
@@ -169,4 +171,5 @@
 [60]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/前言，加载与执行.md
 [61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/数据存取与DOM编程.md
 [62]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/DOM编程与算法流程控制.md
-[63]:https://github.com/panyifei/learning/blob/master/前端基础/Web-Workers.md
+[63]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/Web-Workers.md
+[64]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs源码阅读.md
