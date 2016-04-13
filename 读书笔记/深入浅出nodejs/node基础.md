@@ -42,7 +42,9 @@ Node借鉴Commonjs的Modules规范实现了一套非常易用的模块系统。
 
  - 模块定义
 
-上下文提供了一个exports对象来导出当前模块的方法或者变量。还有一个module对象代表模块自身。exports是module的属性，通过将方法挂载到exports对象上作为属性即可定义导出。
+上下文提供了一个exports对象来导出当前模块的方法或者变量。还有一个module对象代表模块自身。还有一个exports是module的属性，通过将方法挂载到exports对象上作为属性即可定义导出。
+
+这里应该这么理解。exports = module.exports ;module.exports是真实的要输出的东西，所以如果改变exports对象的执行，exports对象就没用了。
 
  - 模块标识
 
