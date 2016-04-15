@@ -97,7 +97,7 @@ require(['domready!'], function (doc){
 ```
 
 ### 写一个require
-在阅读源码之前，先试着实现一把。
+在阅读源码之前，先试着实现一把。[链接](https://github.com/panyifei/Front-end-learning/tree/master/Demo)
 
 
 参考：

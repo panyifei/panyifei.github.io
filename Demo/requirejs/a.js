@@ -1,5 +1,5 @@
 define('a',[],function(){
     return function(){
-        console.log(22);
+        console.log("我是a");
     };
 });
