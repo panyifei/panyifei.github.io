@@ -96,6 +96,9 @@ require(['domready!'], function (doc){
 });
 ```
 
+### 写一个require
+在阅读源码之前，先试着实现一把。
+
 
 参考：
 
