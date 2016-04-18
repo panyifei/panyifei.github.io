@@ -99,6 +99,25 @@ require(['domready!'], function (doc){
 ### 写一个require
 在阅读源码之前，先试着实现一把。[链接](https://github.com/panyifei/Front-end-learning/tree/master/Demo)
 
+先实现data-main的主入口，很简单就是新建了一个script，然后加载data-mian的申明
+
+```javascript
+var scripts = document.getElementsByTagName('script');
+var sLength = scripts.length;
+var mainJs;
+for(var i=0;i<sLength;i++){
+    var name = scripts[i].getAttribute("data-main");
+    if(name){
+        mainJs = name;
+    }
+}
+var mainScript = document.createElement('script');
+mainScript.src = mainJs;
+document.body.appendChild(mainScript);
+```
+
+然后就是声明define方法，我最开始的时候使用的是onload来通知，这样子可以解决一层的依赖。就是如果main依赖了a和b，是可以的。但是如果b依赖了c，这种方法就失败了。
+
 ```javascript
 //allModule用来保存所有加载的模块
 var allModule = {};
@@ -130,21 +149,82 @@ var define = function(id,array,cb){
         allModule[id] = cb();
     }
 };
-var scripts = document.getElementsByTagName('script');
-var sLength = scripts.length;
-var mainJs;
-for(var i=0;i<sLength;i++){
-    var name = scripts[i].getAttribute("data-main");
-    if(name){
-        mainJs = name;
-    }
-}
-var mainScript = document.createElement('script');
-mainScript.src = mainJs;
-document.body.appendChild(mainScript);
 ```
 
-重新修改了一次
+于是我不用onload来通知，选择在不依赖其他的模块调用完成时来进行通知，并且引用过他的模块尝试执行callback，如果这个模块所需要的都加载完了就可以执行。一层层的向上通知。
+
+```javascript
+//allModule用来保存所有加载的模块
+var allModule = {};
+//主要的define方法
+function _registerModule(id,dependence,father){
+    if(!allModule[id]){
+        allModule[id]= {};
+        var newModule = allModule[id];
+        newModule.func = undefined;//模块的结果
+        newModule.dependence = dependence;//依赖的模块
+        newModule.dependenceLoadNum = 0;//已经依赖的模块
+        newModule.finishLoad = function(){};//完成load之后触发的方法
+        if(father){
+            if(newModule.referrer){
+                newModule.referrer.push(father);
+            }else{
+                newModule.referrer = [];//被引用到的模块
+                newModule.referrer.push(father);
+            }
+        }
+    }else{
+        var newModule = allModule[id];
+        if(father){
+            newModule.referrer.push(father);
+        }
+        if(dependence){
+            newModule.dependence = dependence;
+            newModule.dependenceLoadNum = 0;
+        }
+    }
+}
+var define = function(id,array,cb){
+    _registerModule(id,array,'',cb);
+    array.forEach(function(value,index,array){
+        _registerModule(array[index],[],id,cb);
+    });
+    var thisModule = allModule[id];
+    if(array.length > 0){
+        array.forEach(function(value,index,array){
+            var tempScript = document.createElement('script');
+            tempScript.src = array[index]+'.js';
+            document.body.appendChild(tempScript);
+        })
+        thisModule.finishLoad = _finish;
+    }else{
+        thisModule.func = cb();
+        _refererFinish();
+    }
+    function _finish(){
+        thisModule.dependenceLoadNum++;
+        if(thisModule.dependenceLoadNum == thisModule.dependence.length){
+            var modules =[];
+            for(var x = 0 ; x < array.length; x++){
+                modules[x] = allModule[array[x]].func;
+            }
+            thisModule.func = cb.apply(null ,modules);
+        }
+        _refererFinish();
+    }
+    function _refererFinish(){
+        if(thisModule.referrer){
+            thisModule.referrer.forEach(function(value,index,array){
+                allModule[array[index]].finishLoad();
+            });
+        }
+    }
+};
+```
+
+这样子基本实现了API，现在再看下requirejs是如何做的。
+
+### 看源码
 
 
 

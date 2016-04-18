@@ -3,27 +3,28 @@ var allModule = {};
 //主要的define方法
 function _registerModule(id,dependence,father){
     if(!allModule[id]){
-        allModule[id]={};
-        allModule[id].id = id;
-        allModule[id].func = undefined;
-        allModule[id].dependence = dependence;
-        allModule[id].dependenceLoadNum = 0;
-        allModule[id].finishLoad = function(){};
+        allModule[id]= {};
+        var newModule = allModule[id];
+        newModule.func = undefined;
+        newModule.dependence = dependence;
+        newModule.dependenceLoadNum = 0;
+        newModule.finishLoad = function(){};
         if(father){
-            if(allModule[id].referrer){
-                allModule[id].referrer.push(father);
+            if(newModule.referrer){
+                newModule.referrer.push(father);
             }else{
-                allModule[id].referrer = [];
-                allModule[id].referrer.push(father);
+                newModule.referrer = [];
+                newModule.referrer.push(father);
             }
         }
     }else{
+        var newModule = allModule[id];
         if(father){
-            allModule[id].referrer.push(father);
+            newModule.referrer.push(father);
         }
         if(dependence){
-            allModule[id].dependence = dependence;
-            allModule[id].dependenceLoadNum = 0;
+            newModule.dependence = dependence;
+            newModule.dependenceLoadNum = 0;
         }
     }
 }
@@ -35,34 +36,32 @@ var define = function(id,array,cb){
     array.forEach(function(value,index,array){
         _registerModule(array[index],[],id,cb);
     });
-
-    var length = array.length;
-    if(length > 0){
+    var thisModule = allModule[id];
+    if(array.length > 0){
         array.forEach(function(value,index,array){
             var tempScript = document.createElement('script');
             tempScript.src = array[index]+'.js';
             document.body.appendChild(tempScript);
         })
-        allModule[id].finishLoad = finish;
-        function finish(){
-            allModule[id].dependenceLoadNum++;
-            if(allModule[id].dependenceLoadNum == allModule[id].dependence.length){
-                var modules =[];
-                for(var x = 0 ; x<array.length;x++){
-                    modules[x] = allModule[array[x]].func;
-                }
-                allModule[id].func = cb.apply(null ,modules);
-            }
-            if(allModule[id].referrer){
-                allModule[id].referrer.forEach(function(value,index,array){
-                    allModule[array[index]].finishLoad();
-                });
-            }
-        }
+        thisModule.finishLoad = _finish;
     }else{
-        allModule[id].func = cb();
-        if(allModule[id].referrer){
-            allModule[id].referrer.forEach(function(value,index,array){
+        thisModule.func = cb();
+        _refererFinish();
+    }
+    function _finish(){
+        thisModule.dependenceLoadNum++;
+        if(thisModule.dependenceLoadNum == thisModule.dependence.length){
+            var modules =[];
+            for(var x = 0 ; x < array.length; x++){
+                modules[x] = allModule[array[x]].func;
+            }
+            thisModule.func = cb.apply(null ,modules);
+        }
+        _refererFinish();
+    }
+    function _refererFinish(){
+        if(thisModule.referrer){
+            thisModule.referrer.forEach(function(value,index,array){
                 allModule[array[index]].finishLoad();
             });
         }
