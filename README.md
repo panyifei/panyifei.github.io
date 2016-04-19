@@ -26,8 +26,8 @@
   - [Promise以及各种异步的学习][3]
  - 模块引入
   - [Commonjs,CMD,AMD和cortex介绍][1]
-
-
+  - [Requirejs学习以及实现][64]
+  - [Requirejs源码阅读][65]
 
 ## 浏览器兼容性以及移动端开发
  - [浏览器兼容性][8]
@@ -172,4 +172,5 @@
 [61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/数据存取与DOM编程.md
 [62]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/DOM编程与算法流程控制.md
 [63]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/Web-Workers.md
-[64]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs介绍以及源码阅读.md
+[64]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs学习以及实现.md
+[65]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs源码阅读.md
