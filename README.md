@@ -16,6 +16,7 @@
  - [Prototype,原型,继承][35]
  - [Promise规范以及写一个Promise][46]
  - [Semver规范][47]
+ - [TypeScript][66]
  - HTML5
   - [history相关][4]
   - [hashchange事件][7]
@@ -28,6 +29,7 @@
   - [Commonjs,CMD,AMD和cortex介绍][1]
   - [Requirejs学习以及实现][64]
   - [Requirejs源码阅读][65]
+
 
 ## 浏览器兼容性以及移动端开发
  - [浏览器兼容性][8]
@@ -174,3 +176,4 @@
 [63]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/Web-Workers.md
 [64]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs学习以及实现.md
 [65]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs源码阅读.md
+[66]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/TypeScript.md
