@@ -83,6 +83,7 @@ getModule是得到了得到了context.module的实例，然后调用了init方�
 
 重看，一步步看！！
 
+//硬看代码太难受了，先看些别的
 
 
 

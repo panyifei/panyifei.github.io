@@ -30,7 +30,6 @@
   - [Requirejs学习以及实现][64]
   - [Requirejs源码阅读][65]
 
-
 ## 浏览器兼容性以及移动端开发
  - [浏览器兼容性][8]
  - [移动开发相关][9]
@@ -79,8 +78,10 @@
    - [正则表达式与方法][58]
  - 高性能Javascript
   - [前言，加载与执行][60]
-  - [数据存取与DOM编程][61]
-  - [DOM编程与算法流程控制][62]
+  - [2章数据存取][61]
+  - [3,4章DOM编程与算法流程控制][62]
+  - [5章字符串与正则表达式][67]
+  - [6章快速响应的用户界面][68]
  - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
   - [node基础][43]
   - [异步IO,异步编程][45]
@@ -171,9 +172,11 @@
 [58]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript语言精粹/正则表达式与方法.md
 [59]:https://github.com/panyifei/learning/blob/master/前端基础/JS性能.md
 [60]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/前言，加载与执行.md
-[61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/数据存取与DOM编程.md
-[62]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/DOM编程与算法流程控制.md
+[61]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/2章数据存取.md
+[62]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/3,4章DOM编程与算法流程控制.md
 [63]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/Web-Workers.md
 [64]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs学习以及实现.md
 [65]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs源码阅读.md
 [66]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/TypeScript.md
+[67]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/5章字符串和正则表达式.md
+[68]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/6章快速响应的用户界面.md
