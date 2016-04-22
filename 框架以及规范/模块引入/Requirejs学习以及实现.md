@@ -230,14 +230,12 @@ var define = function(id,array,cb){
 ```javascript
 //allModule用来保存所有加载的模块
 var allModule = [];
-//主要的define方法
 function Module(id,dependence){
     this.func = undefined;
     this.dependence = dependence;
     this.dependenceLoadNum = 0;
     this.handlers = {};
 }
-
 Module.prototype={
     on:function(name,handler){
         this.handlers[name] = handler;
@@ -258,38 +256,41 @@ function _registerModule(id,dependence){
             allModule[id].dependenceLoadNum = 0;
         }
     }
+    dependence.forEach(function(value){
+        _registerModule(value,[]);
+    });
 }
 //cb为加载完了执行的方法
 var define = function(id,array,cb){
+    //注册相关的模块
     _registerModule(id,array);
-    array.forEach(function(value,index,array){
-        _registerModule(array[index],[]);
-    });
     var thisModule = allModule[id];
     if(array.length > 0){
-        array.forEach(function(value,index,array){
-            thisModule.on('finish' + array[index],function(){
+        array.forEach(function(value){
+            thisModule.on('finish' + value,function(){
                 _finish();
+                _notifyModule();
             });
             var tempScript = document.createElement('script');
-            tempScript.src = array[index]+'.js';
+            tempScript.src = value+'.js';
             document.body.appendChild(tempScript);
         })
     }else{
         thisModule.func = cb();
-        allModule.forEach(function(value,index,array){
-            array[index].emit('finish' + id);
-        });
+        _notifyModule();
     }
     function _finish(){
         thisModule.dependenceLoadNum++;
         if(thisModule.dependenceLoadNum == thisModule.dependence.length){
             var modules =[];
-            for(var x = 0 ; x < array.length; x++){
-                modules[x] = allModule[array[x]].func;
-            }
+            array.forEach(function(value,index){
+                modules[index] = allModule[value].func;
+            })
             thisModule.func = cb.apply(null ,modules);
         }
+    }
+    //通知全局的模块加载完毕
+    function _notifyModule(){
         allModule.forEach(function(value,index,array){
             array[index].emit('finish' + id);
         });
@@ -297,7 +298,7 @@ var define = function(id,array,cb){
 };
 ```
 
-这样子的话，define一个模块的时候就会注册一个事件的监听器，然后在执行完了时候就会进行全局的触发，通知了每一个模块这个模块加载好了。于是注册过这个事件的模块就会触发finish方法。这样子最大的好处是进行了一次解耦，代价是会进行全局的广播的形式来通知。其实我们如果用promise来做的话，可以更好的管理状态，但是为了兼容性没有去尝试。
+这样子的话，define模块的时候就会注册依赖模块的监听器。然后在依赖的模块执行完了时候就会进行全局的触发_notifyModule，通知每一个模块这个模块加载OK。于是注册过这个事件的模块就会触发_finish方法。这样子最大的好处是进行了一次解耦，代价是会进行全局的广播的形式来通知。其实我们如果用promise来做的话，可以更好的管理状态，但是为了兼容性没有去尝试。
 
 
 参考：

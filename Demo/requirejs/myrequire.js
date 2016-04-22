@@ -1,6 +1,5 @@
 //allModule用来保存所有加载的模块
 var allModule = [];
-//主要的define方法
 function Module(id,dependence){
     this.func = undefined;
     this.dependence = dependence;
@@ -29,39 +28,43 @@ function _registerModule(id,dependence){
             allModule[id].dependenceLoadNum = 0;
         }
     }
+    dependence.forEach(function(value){
+        _registerModule(value,[]);
+    });
 }
 
 //cb为加载完了执行的方法
 var define = function(id,array,cb){
+    //注册相关的模块
     _registerModule(id,array);
-    array.forEach(function(value,index,array){
-        _registerModule(array[index],[]);
-    });
+
     var thisModule = allModule[id];
     if(array.length > 0){
-        array.forEach(function(value,index,array){
-            thisModule.on('finish' + array[index],function(){
+        array.forEach(function(value){
+            thisModule.on('finish' + value,function(){
                 _finish();
+                _notifyModule();
             });
             var tempScript = document.createElement('script');
-            tempScript.src = array[index]+'.js';
+            tempScript.src = value+'.js';
             document.body.appendChild(tempScript);
         })
     }else{
         thisModule.func = cb();
-        allModule.forEach(function(value,index,array){
-            array[index].emit('finish' + id);
-        });
+        _notifyModule();
     }
     function _finish(){
         thisModule.dependenceLoadNum++;
         if(thisModule.dependenceLoadNum == thisModule.dependence.length){
             var modules =[];
-            for(var x = 0 ; x < array.length; x++){
-                modules[x] = allModule[array[x]].func;
-            }
+            array.forEach(function(value,index){
+                modules[index] = allModule[value].func;
+            })
             thisModule.func = cb.apply(null ,modules);
         }
+    }
+    //通知全局的模块加载完毕
+    function _notifyModule(){
         allModule.forEach(function(value,index,array){
             array[index].emit('finish' + id);
         });
