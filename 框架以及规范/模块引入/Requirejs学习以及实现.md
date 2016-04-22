@@ -185,9 +185,9 @@ function _registerModule(id,dependence,father){
     }
 }
 var define = function(id,array,cb){
-    _registerModule(id,array,'',cb);
+    _registerModule(id,array,'');
     array.forEach(function(value,index,array){
-        _registerModule(array[index],[],id,cb);
+        _registerModule(array[index],[],id);
     });
     var thisModule = allModule[id];
     if(array.length > 0){
@@ -223,6 +223,81 @@ var define = function(id,array,cb){
 ```
 
 这样子实现了一个精简版的API，准备再看下requirejs是如何做的。
+
+## 优化
+在勐喆的指导下进行了一次简单的逻辑优化，因为在现在的实现中，每个模块都既存了依赖的列表，以及被依赖到的列表。可以通过事件监听的形式进行一次解耦。也就是模块不再需要知道谁依赖了他，通过注册事件的形式来通知。
+
+```javascript
+//allModule用来保存所有加载的模块
+var allModule = [];
+//主要的define方法
+function Module(id,dependence){
+    this.func = undefined;
+    this.dependence = dependence;
+    this.dependenceLoadNum = 0;
+    this.handlers = {};
+}
+
+Module.prototype={
+    on:function(name,handler){
+        this.handlers[name] = handler;
+    },
+    emit:function(name){
+        if(this.handlers[name]){
+            this.handlers[name]();
+        }
+    }
+}
+function _registerModule(id,dependence){
+    var i  = allModule.length;
+    if(!allModule[id]){
+        allModule[i++] = allModule[id]= new Module(id,dependence);
+    }else{
+        if(dependence){
+            allModule[id].dependence = dependence;
+            allModule[id].dependenceLoadNum = 0;
+        }
+    }
+}
+//cb为加载完了执行的方法
+var define = function(id,array,cb){
+    _registerModule(id,array);
+    array.forEach(function(value,index,array){
+        _registerModule(array[index],[]);
+    });
+    var thisModule = allModule[id];
+    if(array.length > 0){
+        array.forEach(function(value,index,array){
+            thisModule.on('finish' + array[index],function(){
+                _finish();
+            });
+            var tempScript = document.createElement('script');
+            tempScript.src = array[index]+'.js';
+            document.body.appendChild(tempScript);
+        })
+    }else{
+        thisModule.func = cb();
+        allModule.forEach(function(value,index,array){
+            array[index].emit('finish' + id);
+        });
+    }
+    function _finish(){
+        thisModule.dependenceLoadNum++;
+        if(thisModule.dependenceLoadNum == thisModule.dependence.length){
+            var modules =[];
+            for(var x = 0 ; x < array.length; x++){
+                modules[x] = allModule[array[x]].func;
+            }
+            thisModule.func = cb.apply(null ,modules);
+        }
+        allModule.forEach(function(value,index,array){
+            array[index].emit('finish' + id);
+        });
+    }
+};
+```
+
+这样子的话，define一个模块的时候就会注册一个事件的监听器，然后在执行完了时候就会进行全局的触发，通知了每一个模块这个模块加载好了。于是注册过这个事件的模块就会触发finish方法。这样子最大的好处是进行了一次解耦，代价是会进行全局的广播的形式来通知。其实我们如果用promise来做的话，可以更好的管理状态，但是为了兼容性没有去尝试。
 
 
 参考：

@@ -81,9 +81,11 @@ getModule是得到了得到了context.module的实例，然后调用了init方�
 
 然后依次执行了enable--check--fetch--load--req.load，然后才真正的在页面中插入DOM了，然后给load方法绑定了onScriptLoad。然后调用了completeLoad方法。
 
-重看，一步步看！！
+总结一下
 
-//硬看代码太难受了，先看些别的
+ - define会把module推入到globalDefQueue中，
+ - 项目里面有个setTimeout执行intakeDefines，里面就会takeGlobalQueue会把globalDefQueue里面的值取出到context的的闭包内的变量defQueue中，会一个个取出来执行callGetModule来得到模块。
+ - 他的实现很糟啊，居然在不停地轮询checkloaded。
 
 
 

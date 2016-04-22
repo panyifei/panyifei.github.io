@@ -1,52 +1,57 @@
 //allModule用来保存所有加载的模块
-var allModule = {};
+var allModule = [];
 //主要的define方法
-function _registerModule(id,dependence,father){
+function Module(id,dependence){
+    this.func = undefined;
+    this.dependence = dependence;
+    this.dependenceLoadNum = 0;
+    this.handlers = {};
+}
+
+Module.prototype={
+    on:function(name,handler){
+        this.handlers[name] = handler;
+    },
+    emit:function(name){
+        if(this.handlers[name]){
+            this.handlers[name]();
+        }
+    }
+}
+
+function _registerModule(id,dependence){
+    var i  = allModule.length;
     if(!allModule[id]){
-        allModule[id]= {};
-        var newModule = allModule[id];
-        newModule.func = undefined;
-        newModule.dependence = dependence;
-        newModule.dependenceLoadNum = 0;
-        newModule.finishLoad = function(){};
-        if(father){
-            if(newModule.referrer){
-                newModule.referrer.push(father);
-            }else{
-                newModule.referrer = [];
-                newModule.referrer.push(father);
-            }
-        }
+        allModule[i++] = allModule[id]= new Module(id,dependence);
     }else{
-        var newModule = allModule[id];
-        if(father){
-            newModule.referrer.push(father);
-        }
         if(dependence){
-            newModule.dependence = dependence;
-            newModule.dependenceLoadNum = 0;
+            allModule[id].dependence = dependence;
+            allModule[id].dependenceLoadNum = 0;
         }
     }
 }
 
 //cb为加载完了执行的方法
-//func为执行完了的方法
 var define = function(id,array,cb){
-    _registerModule(id,array,'',cb);
+    _registerModule(id,array);
     array.forEach(function(value,index,array){
-        _registerModule(array[index],[],id,cb);
+        _registerModule(array[index],[]);
     });
     var thisModule = allModule[id];
     if(array.length > 0){
         array.forEach(function(value,index,array){
+            thisModule.on('finish' + array[index],function(){
+                _finish();
+            });
             var tempScript = document.createElement('script');
             tempScript.src = array[index]+'.js';
             document.body.appendChild(tempScript);
         })
-        thisModule.finishLoad = _finish;
     }else{
         thisModule.func = cb();
-        _refererFinish();
+        allModule.forEach(function(value,index,array){
+            array[index].emit('finish' + id);
+        });
     }
     function _finish(){
         thisModule.dependenceLoadNum++;
@@ -57,14 +62,9 @@ var define = function(id,array,cb){
             }
             thisModule.func = cb.apply(null ,modules);
         }
-        _refererFinish();
-    }
-    function _refererFinish(){
-        if(thisModule.referrer){
-            thisModule.referrer.forEach(function(value,index,array){
-                allModule[array[index]].finishLoad();
-            });
-        }
+        allModule.forEach(function(value,index,array){
+            array[index].emit('finish' + id);
+        });
     }
 };
 
