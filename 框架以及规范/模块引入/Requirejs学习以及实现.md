@@ -300,6 +300,45 @@ var define = function(id,array,cb){
 
 这样子的话，define模块的时候就会注册依赖模块的监听器。然后在依赖的模块执行完了时候就会进行全局的触发_notifyModule，通知每一个模块这个模块加载OK。于是注册过这个事件的模块就会触发_finish方法。这样子最大的好处是进行了一次解耦，代价是会进行全局的广播的形式来通知。其实我们如果用promise来做的话，可以更好的管理状态，但是为了兼容性没有去尝试。
 
+## 再次优化
+上面全局通知的代价有些高，看完源码之后才发现，其实事件可以绑定在dependence的模块上面，这样就不用全局通知了。
+
+```javascript
+//cb为加载完了执行的方法
+var define = function(id,array,cb){
+    //注册相关的模块
+    _registerModule(id,array);
+    var thisModule = allModule[id];
+    if(array.length > 0){
+        array.forEach(function(value){
+            //给所有依赖的模块绑定好事件
+            allModule[value].on('finish',function(){
+                _finish();
+            })
+            var tempScript = document.createElement('script');
+            tempScript.src = value+'.js';
+            document.body.appendChild(tempScript);
+        })
+    }else{
+        thisModule.func = cb();
+        thisModule.emit('finish');
+    }
+    function _finish(){
+        thisModule.dependenceLoadNum++;
+        if(thisModule.dependenceLoadNum == thisModule.dependence.length){
+            var modules =[];
+            array.forEach(function(value,index){
+                modules[index] = allModule[value].func;
+            })
+            thisModule.func = cb.apply(null ,modules);
+        }
+        //继续向上层触发
+        thisModule.emit('finish');
+    }
+};
+```
+
+这次的优化就改了define方法，去掉了全局的通知。
 
 参考：
 

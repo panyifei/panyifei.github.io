@@ -1447,7 +1447,7 @@ var requirejs, require, define;
                         //Some defines could have been added since the
                         //require call, collect them.
                         intakeDefines();
-
+                        console.log(deps);
                         requireMod = getModule(makeModuleMap(null, relMap));
 
                         //Store if map config should be applied to this require

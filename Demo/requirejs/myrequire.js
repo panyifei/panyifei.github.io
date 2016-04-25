@@ -41,17 +41,16 @@ var define = function(id,array,cb){
     var thisModule = allModule[id];
     if(array.length > 0){
         array.forEach(function(value){
-            thisModule.on('finish' + value,function(){
+            allModule[value].on('finish',function(){
                 _finish();
-                _notifyModule();
-            });
+            })
             var tempScript = document.createElement('script');
             tempScript.src = value+'.js';
             document.body.appendChild(tempScript);
         })
     }else{
         thisModule.func = cb();
-        _notifyModule();
+        thisModule.emit('finish');
     }
     function _finish(){
         thisModule.dependenceLoadNum++;
@@ -62,12 +61,8 @@ var define = function(id,array,cb){
             })
             thisModule.func = cb.apply(null ,modules);
         }
-    }
-    //通知全局的模块加载完毕
-    function _notifyModule(){
-        allModule.forEach(function(value,index,array){
-            array[index].emit('finish' + id);
-        });
+        //继续向上层触发
+        thisModule.emit('finish');
     }
 };
 
