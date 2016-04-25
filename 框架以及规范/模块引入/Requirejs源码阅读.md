@@ -24,7 +24,7 @@ var requirejs, require, define;
 
 这里函数执行的比较复杂，我花了一些时间花了一个图：
 
-<img alt="requirejs实现整理" width='800px' src="pics//requirejs.jpg" />
+<img alt="requirejs实现整理" width='800px' src="pics//requirejs.png" />
 
 图里面其实已经画的很详细了
 
