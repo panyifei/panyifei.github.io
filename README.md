@@ -95,6 +95,7 @@
  - [CSS性能][52]
  - [页面渲染过程][53]
  - [CSS布局][54]
+ - [关于this][69]
 
 ## 其他技术
  - [Freemarker分页][40]
@@ -180,3 +181,4 @@
 [66]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/TypeScript.md
 [67]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/5章字符串和正则表达式.md
 [68]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/6章快速响应的用户界面.md
+[69]:https://github.com/panyifei/learning/blob/master/前端基础/关于this.md
