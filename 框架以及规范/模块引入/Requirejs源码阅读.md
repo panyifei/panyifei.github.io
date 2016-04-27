@@ -33,6 +33,7 @@ var requirejs, require, define;
  - define函数实际上往全局的队列推入
  - 模块加载好了会执行onScriptLoad方法，然后进行一层层的事件通知(注意事件是绑在依赖的模块上的，出发后，执行父模块的回调，然后再emit调用父模块的回调)
  - 内部还是有轮询在检测是否加载完的，我个人认为这是在处理error事件，因为整体的执行并不依赖于这个轮询
+ - 他内部支持commonjs的方式其实就是用个正则表达式来进行检索，然后推入deps正常加载而已。就是个形式而已
 
  ## 小的tip
  nextTick里面的4ms是因为[html5的规范](https://html.spec.whatwg.org/multipage/webappapis.html#timers)要求的;最大值的话是2的32次方-1，如果超过了，会被立即执行。
