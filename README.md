@@ -10,102 +10,102 @@
 - 以及自己的阅读笔记
 
 ## 框架以及规范
- - [React][20]
- - [React,Redux实战][41]
- - [Angular][30]
- - [Polyfill源码阅读][33]
- - [Prototype,原型,继承][35]
- - [Promise规范以及写一个Promise][46]
- - [Semver规范][47]
- - [TypeScript][66]
- - HTML5
-  - [history相关][4]
-  - [hashchange事件][7]
-  - [Web-Workers][63]
- - ES6
-  - [正则表达式][14]
-  - [Generator函数][19]
-  - [Promise以及各种异步的学习][3]
- - 模块引入
-  - [Commonjs,CMD,AMD和cortex介绍][1]
-  - [Requirejs学习以及实现][64]
-  - [Requirejs源码阅读][65]
+- [React][20]
+- [React,Redux实战][41]
+- [Angular][30]
+- [Polyfill源码阅读][33]
+- [Prototype,原型,继承][35]
+- [Promise规范以及写一个Promise][46]
+- [Semver规范][47]
+- [TypeScript][66]
+- HTML5
+ - [history相关][4]
+ - [hashchange事件][7]
+ - [Web-Workers][63]
+- ES6
+ - [正则表达式][14]
+ - [Generator函数][19]
+ - [Promise以及各种异步的学习][3]
+- 模块引入
+ - [Commonjs,CMD,AMD和cortex介绍][1]
+ - [Requirejs学习以及实现][64]
+ - [Requirejs源码阅读][65]
 
 ## 浏览器兼容性以及移动端开发
- - [浏览器兼容性][8]
- - [移动开发相关][9]
+- [浏览器兼容性][8]
+- [移动开发相关][9]
 
 ## JS代码库
- - [输入框js验证函数][17]
- - [Chrome插件编写][25]
+- [输入框js验证函数][17]
+- [Chrome插件编写][25]
 
 ## Nodejs
- - [Npm模块介绍][29]
- - Nodejs框架模块
-  - KOA相关
-    - [Co源码以及与Koa的深入理解][39]
-    - [Koa源码][42]
-    - [Koa以及react空白项目搭建][28]
-    - [Koa以及Express][27]
- - Nodejs普通模块
-  - [Forever源码阅读][31]
- - Nodejs核心模块
-  - [Nodejs核心模块][32]
+- [Npm模块介绍][29]
+- Nodejs框架模块
+ - KOA相关
+  - [Co源码以及与Koa的深入理解][39]
+  - [Koa源码][42]
+  - [Koa以及react空白项目搭建][28]
+  - [Koa以及Express][27]
+- Nodejs普通模块
+ - [Forever源码阅读][31]
+- Nodejs核心模块
+ - [Nodejs核心模块][32]
 
 ## 前端分享
 [2015届D2分享][38]
 
 ## 前端基础
- - [前端基础知识][44]
- - [Macro-task与Micro-task][48]
- - [setTimeout][49]
- - [throttle和debounce][56]
- - [JS性能][59]
- - [CSS性能][52]
- - [页面渲染过程][53]
- - [CSS布局][54]
- - [关于this][69]
+- [前端基础知识][44]
+- [Macro-task与Micro-task][48]
+- [setTimeout][49]
+- [throttle和debounce][56]
+- [JS性能][59]
+- [CSS性能][52]
+- [页面渲染过程][53]
+- [CSS布局][54]
+- [关于this][69]
 
- ## 读书笔记
-  - Javascript高级程序设计(23章还没看，直接先看24章了)
-   - [6章面向对象的程序设计][51]
-   - [14章表单脚本][21]
-   - [17章错误处理与调试][23]
-   - [20章JSON][24]
-   - [21章Ajax和Comet][26]
-   - [22章高级技巧][36]
-   - [24最佳实践][57]
-  - Javascript框架设计(这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记)
-   - [种子模块][5]
-   - [模块加载系统][11]
-  - Javascript语言精粹
-    - [精华以及基础][50]
-    - [继承与数组][55]
-    - [正则表达式与方法][58]
-  - 高性能Javascript
-   - [前言，加载与执行][60]
-   - [2章数据存取][61]
-   - [3,4章DOM编程与算法流程控制][62]
-   - [5章字符串与正则表达式][67]
-   - [6章快速响应的用户界面][68]
-   - [7章Ajax][70]
-  - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
-   - [node基础][43]
-   - [异步IO,异步编程][45]
+## 读书笔记
+- Javascript高级程序设计(23章还没看，直接先看24章了)
+ - [6章面向对象的程序设计][51]
+ - [14章表单脚本][21]
+ - [17章错误处理与调试][23]
+ - [20章JSON][24]
+ - [21章Ajax和Comet][26]
+ - [22章高级技巧][36]
+ - [24最佳实践][57]
+- Javascript框架设计(这里基本都是阅读[司徒正美](https://github.com/RubyLouvre)的javascript框架设计的笔记)
+ - [种子模块][5]
+ - [模块加载系统][11]
+- Javascript语言精粹
+ - [精华以及基础][50]
+ - [继承与数组][55]
+ - [正则表达式与方法][58]
+- 高性能Javascript
+ - [前言，加载与执行][60]
+ - [2章数据存取][61]
+ - [3,4章DOM编程与算法流程控制][62]
+ - [5章字符串与正则表达式][67]
+ - [6章快速响应的用户界面][68]
+ - [7章Ajax][70]
+- 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
+ - [node基础][43]
+ - [异步IO,异步编程][45]
 
- ## 其他技术
-  - [Freemarker分页][40]
-  - [编码问题][15]
-  - [小问题总结][16]
-  - [Cookie，Session，Localstorage][18]
-  - [快捷键][22]
-  - [Hybird框架理解][37]
-  - [Markdown使用心得][6]
+## 其他技术
+- [Freemarker分页][40]
+- [编码问题][15]
+- [小问题总结][16]
+- [Cookie，Session，Localstorage][18]
+- [快捷键][22]
+- [Hybird框架理解][37]
+- [Markdown使用心得][6]
 
 ## 工具使用
- - [Atom][34]
- - [Chrome,Sublime插件推荐][10]
- - [photoshop简单使用][12]
+- [Atom][34]
+- [Chrome,Sublime插件推荐][10]
+- [photoshop简单使用][12]
 
 [1]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Commonjs,CMD,AMD和cortex介绍.md
 [3]:https://github.com/panyifei/learning/blob/master/框架以及规范/ECMAScript6/Promise以及各种异步的学习.md
