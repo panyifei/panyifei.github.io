@@ -1,0 +1,1 @@
+define("a",[],function(){return function(){console.log("我是a")}}),define("c",[],function(){return function(){console.log("我是c")}}),define("b",["c"],function(n){return n(),function(){console.log("我是b")}}),require(["a","b"],function(n,o){n(),o()}),define("main",function(){});

@@ -73,11 +73,4 @@ define([],function(){})
 - 依赖树的信息通过neocortex-4j来吐到页面上，可以并行加载
 - combo的好处在于一个请求把所有的数据拉回来，其实就是这个请求打到cdn上，cdn发现没有这个结果，就回源，打到我们的服务器上，我们的服务器就会去拼装js
 
-
-
-
-todo:CMD和seajs还没有研究
-todo:seajs和cortex是怎么保证在Domcontentloaded事件的时候发生的？
-
-
 [1]:https://github.com/panyifei/learning/blob/master/Javascript框架设计/模块加载系统.md

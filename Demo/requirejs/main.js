@@ -3,6 +3,11 @@
 // b();
 //});
 
-define('main',function (require, exports, module) {
-  require('a')()
+//define('main',function (require, exports, module) {
+//  require('a')()
+//});
+
+require(["a","b"],function (a,b) {
+ a();
+ b();
 });

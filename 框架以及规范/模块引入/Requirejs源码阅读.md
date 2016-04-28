@@ -38,6 +38,9 @@ var requirejs, require, define;
  ## 小的tip
  nextTick里面的4ms是因为[html5的规范](https://html.spec.whatwg.org/multipage/webappapis.html#timers)要求的;最大值的话是2的32次方-1，如果超过了，会被立即执行。
 
+## r.js
+其实这个就是个与requirejs一起用的打包以及压缩的工具。他帮助合并了requirejs异步发出的请求，然后还用uglify压缩了一下。
+
 参考：
 
     http://www.cnblogs.com/yexiaochai/p/3632580.html
