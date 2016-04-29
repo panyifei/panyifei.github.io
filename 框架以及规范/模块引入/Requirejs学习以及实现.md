@@ -237,12 +237,19 @@ function Module(id,dependence){
     this.handlers = {};
 }
 Module.prototype={
-    on:function(name,handler){
-        this.handlers[name] = handler;
+    on: function(name,handler){
+        if(!this.handlers[name]){
+            this.handlers[name] = [];
+            this.handlers[name].push(handler);
+        }else{
+            this.handlers[name].push(handler);
+        }
     },
     emit:function(name){
-        if(this.handlers[name]){
-            this.handlers[name]();
+        if(!!this.handlers[name]){
+            this.handlers[name].forEach(function(value){
+                value();
+            })
         }
     }
 }
@@ -301,23 +308,40 @@ var define = function(id,array,cb){
 这样子的话，define模块的时候就会注册依赖模块的监听器。然后在依赖的模块执行完了时候就会进行全局的触发_notifyModule，通知每一个模块这个模块加载OK。于是注册过这个事件的模块就会触发_finish方法。这样子最大的好处是进行了一次解耦，代价是会进行全局的广播的形式来通知。其实我们如果用promise来做的话，可以更好的管理状态，但是为了兼容性没有去尝试。
 
 ## 再次优化
-上面全局通知的代价有些高，看完源码之后才发现，其实事件可以绑定在dependence的模块上面，这样就不用全局通知了。
+上面全局通知的代价有些高，看完源码之后才发现，其实事件可以绑定在dependence的模块上面，这样就不用全局通知了。而且这次的修改支持多个文件同时引用一个模块了。
 
 ```javascript
+function _registerModule(id,dependence,defined){
+    var i  = allModule.length;
+    if(!allModule[id]){
+        allModule[i++] = allModule[id]= new Module(id,dependence);
+        allModule[id].defined = defined;
+    }else{
+        if(dependence){
+            allModule[id].dependence = dependence;
+            allModule[id].dependenceLoadNum = 0;
+        }
+    }
+    dependence.forEach(function(value){
+        _registerModule(value,[],false);
+    });
+}
 //cb为加载完了执行的方法
 var define = function(id,array,cb){
     //注册相关的模块
-    _registerModule(id,array);
+    _registerModule(id,array,true);
+
     var thisModule = allModule[id];
     if(array.length > 0){
         array.forEach(function(value){
-            //给所有依赖的模块绑定好事件
             allModule[value].on('finish',function(){
                 _finish();
             })
-            var tempScript = document.createElement('script');
-            tempScript.src = value+'.js';
-            document.body.appendChild(tempScript);
+            if(!(allModule[value].defined)){
+                var tempScript = document.createElement('script');
+                tempScript.src = value+'.js';
+                document.body.appendChild(tempScript);
+            }
         })
     }else{
         thisModule.func = cb();
@@ -331,14 +355,15 @@ var define = function(id,array,cb){
                 modules[index] = allModule[value].func;
             })
             thisModule.func = cb.apply(null ,modules);
+            //继续向上层触发
+            thisModule.emit('finish');
         }
-        //继续向上层触发
-        thisModule.emit('finish');
+
     }
 };
 ```
 
-这次的优化就改了define方法，去掉了全局的通知。
+这次的优化改了define方法，去掉了全局的通知。还增加了defined属性来支持多个模块引用同一个模块。
 
 参考：
 
