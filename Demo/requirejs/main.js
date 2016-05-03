@@ -1,4 +1,17 @@
-define('main',["a","b"],function (a,b) {
+//define('main',[],function () {
+// console.log('main');
+//});
+
+//define('main',["a"],function (a) {
+// a();
+//});
+
+//define('main',["a1c","b"],function (a,b) {
+// a();
+// b();
+//});
+
+define('main',["a1c","b"],function (a,b) {
  a();
  b();
 });
