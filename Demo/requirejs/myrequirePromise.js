@@ -7,12 +7,7 @@ function define(id,deps,cb){
         allModules[id].defined = true;
         allModules[id].cb = cb;
         if(deps.length == 0){
-            allModules[id].loadPro = new Promise(function(resolve){
-                resolve();
-            }).then(function(){
-                allModules[id].func = cb();
-                return allModules[id].func;
-            });
+            _justLoad(id);
         }else{
             var loadPros = [];
             deps.forEach(function(value){
@@ -48,27 +43,11 @@ function define(id,deps,cb){
                 allModules[id].loadPro = new Promise(function(resolve){
                     resolve();
                 }).then(function(){
-                        allModules[id].func = cb();
-                        return allModules[id].func;
-                    });
-            }else{
-                var loadPros = [];
-                deps.forEach(function(value){
-                    if(!allModules[value]){
-                        allModules[value] = {};
-                    }
-                    var depsLoadPro = new Promise(function(resolve){
-                        var script = document.createElement('script');
-                        script.onload = function(){
-                            resolve();
-                        }
-                        script.src = value + '.js';
-                        document.body.appendChild(script);
-                    }).then(function(){
-                            return allModules[value].func;
-                        });
-                    loadPros.push(depsLoadPro);
+                    allModules[id].func = cb();
+                    return allModules[id].func;
                 });
+            }else{
+                var loadPros = getDepsPro(deps);
                 allModules[id].initPro = Promise.all(loadPros).then(function(values){
                     allModules[id].func = cb.apply(null,values);
                     return allModules[id].func;
@@ -76,6 +55,40 @@ function define(id,deps,cb){
             }
         }
     }
+}
+
+function _justLoad(id){
+    allModules[id].loadPro = Promise.resolve(function(){
+        allModules[id].func = cb();
+        return allModules[id].func;
+    });
+}
+
+function getDepsPro(deps){
+    var loadPros = [];
+    deps.forEach(function(value){
+        if(!allModules[value]){
+            allModules[value] = {};
+        }
+        var depsLoadPro;
+        if(!allModules[value].loadPro){
+            depsLoadPro = new Promise(function(resolve){
+                var script = document.createElement('script');
+                script.onload = function(){
+                    resolve();
+                }
+                script.src = value + '.js';
+                document.body.appendChild(script);
+            }).then(function(){
+                return allModules[value].func;
+            });
+        }else{
+            depsLoadPro =  allModules[value].loadPro;
+        }
+
+        loadPros.push(depsLoadPro);
+    });
+    return loadPros;
 }
 
 var scripts = document.getElementsByTagName('script');

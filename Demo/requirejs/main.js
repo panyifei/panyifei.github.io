@@ -11,7 +11,12 @@
 // b();
 //});
 
-define('main',["a1c","b"],function (a,b) {
+//define('main',["a1c","b1d"],function (a,b) {
+// a();
+// b();
+//});
+
+define('main',["a1c","b1c"],function (a,b) {
  a();
  b();
 });
