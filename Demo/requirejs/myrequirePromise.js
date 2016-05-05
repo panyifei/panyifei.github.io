@@ -40,12 +40,7 @@ function define(id,deps,cb){
             allModules[id].defined = true;
             allModules[id].cb = cb;
             if(deps.length == 0){
-                allModules[id].loadPro = new Promise(function(resolve){
-                    resolve();
-                }).then(function(){
-                    allModules[id].func = cb();
-                    return allModules[id].func;
-                });
+                _justLoad(id);
             }else{
                 var loadPros = getDepsPro(deps);
                 allModules[id].initPro = Promise.all(loadPros).then(function(values){
@@ -58,8 +53,10 @@ function define(id,deps,cb){
 }
 
 function _justLoad(id){
-    allModules[id].loadPro = Promise.resolve(function(){
-        allModules[id].func = cb();
+    allModules[id].loadPro = new Promise(function(resolve){
+        resolve();
+    }).then(function(){
+        allModules[id].func = allModules[id].cb();
         return allModules[id].func;
     });
 }
