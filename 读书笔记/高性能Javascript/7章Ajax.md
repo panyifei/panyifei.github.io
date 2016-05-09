@@ -26,3 +26,19 @@ MXHR其实和XHR非常类似，也是同样的请求，不过是将一些静态�
 ## 数据格式
 ### XML
 AJAX最开始的时候，使用的是XML作为格式，因为通用性极佳，操作严格，易于验证
+
+但是xml太冗余，有效数据比例很低，而且限制于结构，我们需要针对每段XML写不同的解析的工具，很麻烦。我们可能得使用getElementByTagName
+
+但是现在高级点的浏览器都有xPath来通过一个路径来获取值，但是低级的浏览器不支持，IE8有类似的，就算用也得使用getElementByTagName来写降级的代码。
+
+```javascript
+var path="/bookstore/book/title";
+xml.selectNodes(path)
+```
+
+### JSON
+JSON是一种使用Javascript对象和数组直接量编写的轻量级且易于解析的数据格式。我们解析JSON很简单，只要JSON.parse和JSON.stringify就可以。
+
+支持性还可以，正常的浏览器都可以，IE8以及以上是支持的。不支持的话，我们可以有简单的polyfill。
+
+parse方法最简单的polyfill就是用eval执行一遍直接就能转化为对象了。

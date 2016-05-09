@@ -9,7 +9,6 @@
 - 还有自己的阅读笔记
 
 ## 框架以及规范
-- [React][20]
 - [React,Redux实战][41]
 - [Angular][30]
 - [Polyfill源码阅读][33]
@@ -29,6 +28,10 @@
  - [Commonjs,CMD,AMD和cortex介绍][1]
  - [Requirejs学习以及实现][64]
  - [Requirejs源码阅读][65]
+- React
+ - [React文档阅读][71]
+ - [React][20]
+
 
 ## 浏览器兼容性以及移动端开发
 - [浏览器兼容性][8]
@@ -123,7 +126,7 @@
 [17]:https://github.com/panyifei/learning/blob/master/JS代码库/输入框js验证函数.md
 [18]:https://github.com/panyifei/learning/blob/master/其他技术/Cookie，Session，Localstorage.md
 [19]:https://github.com/panyifei/learning/blob/master/框架以及规范/ECMAScript6/Generator函数.md
-[20]:https://github.com/panyifei/learning/blob/master/框架以及规范/React.md
+[20]:https://github.com/panyifei/learning/blob/master/框架以及规范/React/React.md
 [21]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/14章表单脚本.md
 [22]:https://github.com/panyifei/learning/blob/master/其他技术/快捷键.md
 [23]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript高级程序设计/17错误处理与调试.md
@@ -174,3 +177,4 @@
 [68]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/6章快速响应的用户界面.md
 [69]:https://github.com/panyifei/learning/blob/master/前端基础/关于this.md
 [70]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/7章Ajax.md
+[71]:https://github.com/panyifei/learning/blob/master/框架以及规范/React/React文档阅读.md
