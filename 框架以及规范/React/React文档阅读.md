@@ -138,3 +138,78 @@ console.log(component.props.foo);
 组件自己没法修改props，这样可以保证组件是始终如一的。Owner负责修改以及传递状态。
 
 注意Owner和Parent是不一样的，`<Parent><Child/></Parent>`这个是parent，而owner是React.createClass。我们可以在Parent里面使用this.props.children来操作。
+
+我们最好不要用hide来隐藏，我们应该直接让他们消失，对于list生成的我们需要给每一个一个唯一的key来保证他们正常且不别破坏。
+
+数据流是单向绑定的。
+
+JS执行的速度是非常快的，所以基本上没有性能瓶颈。主要的瓶颈是DOM的渲染，而这点React帮我们通过批处理以及脏检测来优化过了。
+
+当我们真的感觉到性能问题的时候，我们可以重写shouldComponentUpdate来让他返回false就可以了，但是其实不是很需要。
+
+### Reusable Components
+设计接口的时候，将那些简单设计的元素分解为可重复使用的，良好设计的接口。下次就可以复用了。
+
+为了保证我们的组件被正确的使用，我们可以通过设置propTypes来限制用户传入的数据，但是这个东西只有在`development模式`才会有效。
+
+#### default prop values
+我们可以在用户没有传的时候设置一个默认值，调用getDefaultProps就可以设置默认值了，如果用户设置过的话，就会被忽略
+
+#### Transferring Props: A Shortcut
+有的时候我们想要从父元素传递props给子元素，我们可以直接使用spread syntax来简写，比如直接{...this.props}这样。
+
+#### Mixins
+当不同的组件拥有相同的功能的时候，我们可以使用mixins，这个就是将组件的功能进行抽离的一个方法，还蛮有意思的。使用的时候加个`mixins: [SetIntervalMixin]`就可以了。
+
+一个很重要的有点在于，如果有多个Mixin在同一个生命周期的方法执行，那么他们都会被执行，并且会严格按照申明的顺序执行。
+
+#### ES6 Classes
+我们也可以使用es6的class语法来声明组件，唯一不同的是没有getInitialState这个方法，我们只能在constructor里面手动初始化state。
+
+而且方法如果想要在render里面以this来调用的话，必须在constructor里面bind一下this。
+
+还有propTypes和defaultProps得在外面申明，而不是写在里面。下面的例子
+
+```javascript
+export class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {count: props.initialCount};
+    this.tick = this.tick.bind(this);
+  }
+  tick() {
+    this.setState({count: this.state.count + 1});
+  }
+  render() {
+    return (
+      <div onClick={this.tick}>
+        Clicks: {this.state.count}
+      </div>
+    );
+  }
+}
+Counter.propTypes = { initialCount: React.PropTypes.number };
+Counter.defaultProps = { initialCount: 0 };
+```
+
+关于this的绑定，我们可以在调用的时候绑定，也可以使用箭头，不过最好像上面一样在constructor里面绑定，这样只绑定了一次。
+
+```javascript
+<div onClick={this.tick.bind(this)}>//bad
+<div onClick={()=> this.tick()}>//bad
+```
+
+ES6的语法的话没有Mixins的支持。
+
+#### Stateless Functions
+如果组件只是一个简单的js function的话，我们可以使用这种语法
+
+```javascript
+function HelloMessage(props) {
+  return <div>Hello {props.name}</div>;
+}
+//或者直接使用下面的箭头语法
+const HelloMessage = (props) => <div>Hello {props.name}</div>;
+```
+
+这种比较适合没有lifestyle方法的，不存有内部状态，我们仍然可以设置propTypes和defaultProps。就像ES6的设置一样。我们的项目应该较多的是stateless的模块。
