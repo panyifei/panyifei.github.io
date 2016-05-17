@@ -213,3 +213,72 @@ const HelloMessage = (props) => <div>Hello {props.name}</div>;
 ```
 
 这种比较适合没有lifestyle方法的，不存有内部状态，我们仍然可以设置propTypes和defaultProps。就像ES6的设置一样。我们的项目应该较多的是stateless的模块。
+
+### Transferring Props
+我们想要传递给子模块的时候加上某个属性的话，可以直接使用spread语法。`<Component {...this.props} more="values" />`
+
+如果没有用jsx的话，我们可以使用ES6的语法Object.assign和underscore的extends。
+
+如果我们在某一层组件的时候截断某个属性，然后将其他属性传下去的话，可以使用other的语法。
+
+```javascript
+function FancyCheckbox(props) {
+  var { checked, ...other } = props;
+  var fancyClass = checked ? 'FancyChecked' : 'FancyUnchecked';
+  // `other` contains { onClick: console.log } but not the checked property
+  return (
+    <div {...other} className={fancyClass} />
+  );
+}
+ReactDOM.render(
+  <FancyCheckbox checked={true} onClick={console.log.bind(console)}>
+    Hello world!
+  </FancyCheckbox>,
+  document.getElementById('example')
+);
+```
+
+这样子的话，other就会只包含除了checked以外的属性了，主要是因为`checked`这个属性在html的结构有特殊的意义，而在自定义的组件没有这个效果。
+
+我们也可以使用rest properties，`var { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };`，不过在webpack里面得加上transform-object-rest-spread这个plugin。
+
+不用jsx的话，我们可以使用underscore的omit来删属性和extends来扩展。
+
+### Forms
+与HTML对应的，value是被input和textarea支持的。
+
+checked是被input的checkbox和radio支持的。
+
+selected是被options支持的。
+
+注意HTML中，textarea的值是被设置在两个标签之间，REACT是在value属性上。
+
+onChange事件会在input和textarea的值发生改变的时候触发，还有input的checked改变，以及option的selected改变的时候。
+
+如果我们在render方法里面写死了input的value，那么我们输入会被忽视的，只有value改为state的可变的值才行。
+
+我们可以使用defaultValue给input，textarea，select(这个支持multiple)，然后radio和checkbox的值是defaultChecked，注意这个值只能够在初始化的时候。
+
+### Working with the browser
+react快的原因是因为他不直接与DOM交流，render方法返回的对DOM的描述，react会计算最快的更新页面的方法。
+
+事件系统完美处理。
+
+当我们想要调用html本身的命令的时候或者接触真实的DOM树，我们可以使用refs来控制。
+
+#### Component Lifecycle
+模块有3个主要的阶段：
+
+ - Mounting：组件准备插入DOM中
+ - Updating：组件更新
+ - Unmounting：组件从DOM中删除
+
+Mounting提供了getInitialState()和componentWillMount()和componentDidMount()。
+
+Updating提供了componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate(组件即将执行更新之前，我们无法执行setState方法)，componentDidUpdate(更新发生之后会立即触发)。
+
+Unmounting提供了componentWillUnmount()在组件被移除之前触发。
+
+Mounted好了的复合组件也提供了component.forceUpdate()来强行重新刷一次。
+
+react支持IE9以及以上，但是我们可以引入es5-shim和es5-sham来让老版的支持，这其实取决于我们自己。
