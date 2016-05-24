@@ -94,6 +94,7 @@
 - 深入浅出nodejs(这里的都是阅读朴灵老师的深入浅出nodejs写的读书笔记)
  - [node基础][43]
  - [异步IO,异步编程][45]
+- [图解HTTP][72]
 
 ## 其他技术
 - [Freemarker分页][40]
@@ -178,3 +179,4 @@
 [69]:https://github.com/panyifei/learning/blob/master/前端基础/关于this.md
 [70]:https://github.com/panyifei/learning/blob/master/读书笔记/高性能Javascript/7章Ajax.md
 [71]:https://github.com/panyifei/learning/blob/master/框架以及规范/React/React文档阅读.md
+[72]:https://github.com/panyifei/learning/blob/master/读书笔记/图解HTTP.md
