@@ -334,3 +334,12 @@ componentDidMount: function() {
 react并不是真的依赖于DOM，所以可以后端来执行，将HTML吐在页面上，如果是nodejs的话，是可以ReactDOMServer.rendertoString的。
 
 如果是java的话，可以依赖于Nashorn这个JS的执行器来转化JSX。
+
+### Add-ons
+这是一些react提供的功能插件，这些相对于核心来说变化的会比较多一些。以下的是一些实验性质的：
+
+ - TransitionGroup and CSSTransitionGroup：解决那些不容易实现的动画，例如在组件移除的时候的动画。
+ - LinkedStateMixin：这个是将form的属性与state绑在一起的插件，如果form比较大的话，这个还是很关键的。
+ - ...还有很多下面会慢慢介绍的
+
+#### Animation
