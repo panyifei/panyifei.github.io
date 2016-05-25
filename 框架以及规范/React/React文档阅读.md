@@ -282,3 +282,55 @@ Unmounting提供了componentWillUnmount()在组件被移除之前触发。
 Mounted好了的复合组件也提供了component.forceUpdate()来强行重新刷一次。
 
 react支持IE9以及以上，但是我们可以引入es5-shim和es5-sham来让老版的支持，这其实取决于我们自己。
+
+### Refs to Components
+构建组件完了，你可能想要在render的component实例上调用方法。大多数情况下应该是用不到的，因为正常的数据流应该是父组件传props给子组件的。
+
+jsx并不返回一个component的实例，他只是返回一个ReactElement（这只是一个告诉React这个组件应该是什么样子的轻量的）。
+
+我们想要调用某个组价实例的方法，只能在最上层的component使用(就是ReactDom.render生成的东西)。在组件的内部，我们应该自己处理他们之间的状态，或者使用另一种方法来得到ref(字符串属性或者回调方法属性)。
+
+#### The ref Callback Attribute
+ref属性我们可以直接写成一个回调方法。这个方法会在组件结束mount之后立即被触发，参数是引用的组件。我们可以直接使用这个组件或着把他存了等到以后使用。
+
+这个方法会在componentDidMount之前触发。
+
+```jsx
+render: function() {
+    return (
+      <TextInput
+        ref={function(input) {
+          if (input != null) {
+            input.focus();
+          }
+        }} />
+    );
+  },
+render: function() {
+  return <TextInput ref={(c) => this._input = c} />;
+},
+componentDidMount: function() {
+  this._input.focus();
+},
+```
+
+当我们将refs添加给div的时候，我们得到的是DOM元素，如果给自定义的组件绑定，我们得到的是react的实例。如果是我们自定义的组件，我们可以调用任何在他的class里面定义的方法。
+
+当组件unmounted或者ref改变的时候，老的ref都会以null来被调用，所以说当ref update的时候，在被组件实例为参数之前，会立即调用一次null为参数的。(这点需要注意的)
+
+#### The ref String Attribute
+我们也可以简单的加一个string的ref属性，然后我们在其他的事件处理里面就可以this.refs.xx来调用了。
+
+### Tooling Integration
+作者希望react成为环境无关的，推荐了一些工具来让我们更好地使用各种种类的语言。
+
+#### Language Tooling
+我们写成JSX的文件的话，我们要用babel先转化为纯粹的react的语法。Flow和TypeScrip也都支持JSX了。
+
+#### Package Management
+我们可以在commonjs系统browserify或者webpack里面直接npm的形式来引入react和react-dom。
+
+#### Server-side Environments
+react并不是真的依赖于DOM，所以可以后端来执行，将HTML吐在页面上，如果是nodejs的话，是可以ReactDOMServer.rendertoString的。
+
+如果是java的话，可以依赖于Nashorn这个JS的执行器来转化JSX。
