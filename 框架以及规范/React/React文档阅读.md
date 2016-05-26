@@ -342,4 +342,38 @@ react并不是真的依赖于DOM，所以可以后端来执行，将HTML吐在�
  - LinkedStateMixin：这个是将form的属性与state绑在一起的插件，如果form比较大的话，这个还是很关键的。
  - ...还有很多下面会慢慢介绍的
 
-#### Animation
+### Animation
+react提供了ReactTransitionGroup这种比较级别比较低的api来让我们使用，还提供了ReactCSSTransitionGroup来让我们更好的使用css实现的动画。包括进入和离开页面的动画。
+
+当我们在list添加的时候，我们可以使用ReactCSSTransitionGroup的enter和leave来实现。他会根据key的区别来判断是不是新添加的，然后就会像我们通常触发动画一样来toggle css的class。
+
+组件初始化渲染的话，我们可以使用transitionAppear这个来添加动画。注意初始化渲染的时候，所有的children是appear，然后后来添加进的就是enter了。
+
+使用ReactCSSTransitionGroup我们得不到动画结束的通知，也无法为了动画加上更复杂的逻辑，想定制化，就得使用ReactTransitionGroup了。
+
+如果想禁掉某些动画，我们可以设置为false。
+
+#### ReactTransitionGroup
+这个玩意功能强大的多，他提供了在动画生命周期里能够执行的方法。使用到的时候再思考吧。
+
+### Two-Way Binding Helpers
+ReactLink是个方便的在react里面实现双向绑定的工具。但是这个在新版本被废弃了，还是推荐通过onchange来设置值。
+
+双向绑定实际上强制性的要求了DOM完全等于react的state，这点虽然其实有很广的范围，React提供了ReactLink来帮我们简单的封装了setState和onChange方法。他并没有实际上改变react的单项数据流。最好别用~
+
+### Test Utilities
+React提供了非常棒的测试语法。配合Jest这层依赖于Jsdom的，我们可以写脚本测试整个的渲染以及事件逻辑。
+
+我们可以直接写脚本模拟点击，模拟输入，模拟键盘事件。
+
+类似于ReactTestUtils.Simulate.click(node);
+
+我们可以renderIntoDocument然后进行各种类型判断以及事件触发检验。
+
+不依赖于Jest，不依赖于DOM，我们也可以render组件，使用如下的Shallow rendering。
+
+#### Shallow rendering
+使用这个组件我们可以脱离DOM来渲染组件，但是这只是一层渲染，子组件不会被渲染。我们只能够检查output的信息。功能其实还是很少的。refs也不支持，function也不支持。
+
+### Cloning ReactElements
+cloneWithProps这个组件被废弃了，现在只建议使用React.cloneElement。就是在想要复制一个element。并且在他的原props上进行一些修改。
