@@ -383,3 +383,16 @@ cloneWithProps这个组件被废弃了，现在只建议使用React.cloneElement
 
 ### Immutability Helpers
 (这个add-on的好处在于我们可以改变外面的壳子为一个新对象，然后对象里面的属性会自动重用老的。等于就是一个浅复制，然后我们就可以在子组件里面使用shandowCompare来比较。)
+
+我们有时想要改变对象的里面的某个属性，然后其他的不想改变。例如下图。
+
+```javascript
+var old = {a:1,b:{c:1,d:{e:12}},r:{f:1}};
+var newData = Update(old,{b:{c:{$set:2}}});
+console.log(old === newData);//false
+console.log(old.b === newData.b);//false
+console.log(old.b.d === newData.b.d);//true
+console.log(old.r === newData.r);//true
+```
+
+### PureRenderMixin
