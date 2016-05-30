@@ -41,3 +41,8 @@ componentWillMount是在开始渲染之前
 componentDidMount是在开始渲染之后
 
 componentDidUpdate是在更新之后
+
+### render方法的执行条件
+如果我们在父元素里面调用了render，那么子元素肯定执行render的。
+
+如果我们想要阻止子元素的render，我们可以在子元素里面进行shouldComponentUpdate来进行compare。我们可以使用shallowCompare来简单的比较引用是否改变。因为如果我们想要传新对象的话，这个肯定会渲染的。而如果我们还传老的对象，代表我们并没有修改。层次比较多的时候我们可以使用update这个add-on来执行我们的更新操作。

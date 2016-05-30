@@ -377,3 +377,9 @@ React提供了非常棒的测试语法。配合Jest这层依赖于Jsdom的，我
 
 ### Cloning ReactElements
 cloneWithProps这个组件被废弃了，现在只建议使用React.cloneElement。就是在想要复制一个element。并且在他的原props上进行一些修改。
+
+### Keyed Fragments
+有时我们需要将两块元素换位置，按照我们一般的写法，我们会单纯的给他们换位置，于是这些元素就会经历unmount和remount两个步骤。这是因为我们没有给他们每个模块一个单独的key。我们如果使用createFragment就可以让元素不执行unmount了。
+
+### Immutability Helpers
+(这个add-on的好处在于我们可以改变外面的壳子为一个新对象，然后对象里面的属性会自动重用老的。等于就是一个浅复制，然后我们就可以在子组件里面使用shandowCompare来比较。)
