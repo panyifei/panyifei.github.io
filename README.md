@@ -1,6 +1,8 @@
 # Front-end-learning
 一个前端工程狮的日常，使用github来管理也是希望与大家分享并得到纠正。
 
+建议直接访问http://panyifei.github.io/Front-end-learning/
+
 内容主要是：
 
 - js，包括js的一些规范以及一些源码的阅读
@@ -9,12 +11,9 @@
 - 还有自己的阅读笔记
 
 ## 框架以及规范
-- [Angular][30]
-- [Polyfill源码阅读][33]
-- [Prototype,原型,继承][35]
-- [Promise规范以及写一个Promise][46]
-- [Semver规范][47]
-- [TypeScript][66]
+- React
+ - [React文档阅读][71]
+ - [React][20]
 - HTML5
  - [history相关][4]
  - [hashchange事件][7]
@@ -27,9 +26,12 @@
  - [Commonjs,CMD,AMD和cortex介绍][1]
  - [Requirejs学习以及实现][64]
  - [Requirejs源码阅读][65]
-- React
- - [React文档阅读][71]
- - [React][20]
+- [Angular][30]
+- [Polyfill源码阅读][33]
+- [Prototype,原型,继承][35]
+- [Promise规范以及写一个Promise][46]
+- [Semver规范][47]
+- [TypeScript][66]
 
 
 ## 浏览器兼容性以及移动端开发
