@@ -9,7 +9,6 @@
 - 还有自己的阅读笔记
 
 ## 框架以及规范
-- [React,Redux实战][41]
 - [Angular][30]
 - [Polyfill源码阅读][33]
 - [Prototype,原型,继承][35]
@@ -100,14 +99,10 @@
 - [Freemarker分页][40]
 - [编码问题][15]
 - [小问题总结][16]
-- [Cookie，Session，Localstorage][18]
 - [快捷键][22]
 - [Hybird框架理解][37]
-- [Markdown使用心得][6]
 
 ## 工具使用
-- [Atom][34]
-- [Chrome,Sublime插件推荐][10]
 - [photoshop简单使用][12]
 
 [1]:https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Commonjs,CMD,AMD和cortex介绍.md

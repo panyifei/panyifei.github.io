@@ -396,3 +396,43 @@ console.log(old.r === newData.r);//true
 ```
 
 ### PureRenderMixin
+就是如果你的组件是pure的，就是说给不变的props和state，render同样的结果。可以直接mixins这个插件。其实就是shouldComponentUpdate里面返回了一个shandowCompare而已。
+
+### Performance Tools
+(这个是个非常好的提供性能的工具，可以让我们查看一定的操作之后，我们页面组件重新渲染的次数，可以让我们进行组件的优化，使用可以参照本项目DEMO里的那个debug-panel，这个是勐喆开发的一个查看工具，内部调用了start，stop，printWasted，getLastMeasurement等方法)
+
+<img alt="perf工具" width='700px' src="pics//perf.png" />
+
+这里有个Perf.printWasted，这个是react内部做的深层次比对，发现没有变化，于是DOM没有触及，这一块的浪费我们可以在shouldComponentUpdate里面通过return false来进行阻止。
+
+### Shandow Compare
+这个是个最浅层的比较，会对对象的每个属性进行严格等于的比较，然后都相等就返回false，有改变的话就返回true。代表着需要更新。
+
+### Advanced Performance
+人们使用react的原因在于他们希望网站是快速的，并且是响应的。每次state的改变导致重新render整个子树让人们想知道这样是否影响了性能，React使用了一些聪明的技术来减少需要更新UI时的DOM操作。
+
+首先线上环境要使用压缩过的production build
+
+#### Avoiding reconciling the DOM
+React使用的是虚拟DOM。这种平行的关系阻止了React直接创建和接触真实的DOM。每次React的props和state改变的话。React都会生成一个新的虚拟DOM来和老的比较，如果不相等的话，React才会尽可能小的改变虚拟DOM。
+
+在这之上，React提供了一个组件的生命周期的方法，shouldComponentUpdate，这个方法来阻止虚拟DOM比较以及可能的最终的DOM的更改。让开发者来缩短整个过程。这个值默认返回true，默认执行比较以及更新。
+
+我们很多时候的比较其实只是引用地址的比较(shandow compare)，这个基本上都是true的，因为我们是在同一个对象上修改的。
+
+我们可以使用Immutable这个东西来创建不同的对象，或者使用Object.assign来做这件事情。
+
+### Context
+React让我们很容易的跟踪数据流的走向，因为他都是沿着组件树的结构一层层props传递下去的。但是有时我们不想要一层层的传递下去，我们可以使用Context这个东西。(这个是个实验性质的属性，将来可能会修改)
+
+我们在父组件中(context的提供者)申明好childContextTypes和getChildContext。然后我们在子组件里面申明好contextTypes就可以拿到相关的数据了。如果不申明，那this.context就会是一个空对象。
+
+还是建议不要使用这个东西，用了的话，生命周期函数基本都会变化，会新加一个参数nextContext。会让组件无法被重用。
+
+## REFERENCE
+这一块的太多了，先不看好了....
+
+## FLUX
+这个也先不管....
+
+## TIPS

@@ -15,6 +15,6 @@ app已经实现了urlschema化
 
 通过urlschema来给js提供更多的api
 
-建一个隐藏的iiframe将消息从html发出去
+建一个隐藏的iframe将消息从html发出去
 
-native拦截下来，然后通过ios通过jscall来做，
+native拦截下来，然后通过ios通过jscall来做
