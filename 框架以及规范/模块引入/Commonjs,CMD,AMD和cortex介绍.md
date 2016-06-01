@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Commonjs,CMD,AMD和cortex介绍
 
 这里只是一些入门级别的认识，深入一些的可查看我的阅读笔记[模块加载系统][1]

@@ -111,8 +111,8 @@ title: {{ site.name }}
 ## 工具使用
 - [photoshop简单使用][12]
 
-[1]:/Commonjs,CMD,AMD和cortex介绍.md
-[3]:/框架以及规范/ECMAScript6/Promise以及各种异步的学习
+[1]:./框架以及规范/模块引入/Commonjs,CMD,AMD和cortex介绍.md
+[3]:./框架以及规范/ECMAScript6/Promise以及各种异步的学习.md
 [4]:https://github.com/panyifei/learning/blob/master/框架以及规范/HTML5/history相关.md
 [5]:https://github.com/panyifei/learning/blob/master/读书笔记/Javascript框架设计/种子模块.md
 [6]:https://github.com/panyifei/learning/blob/master/其他技术/Markdown使用心得.md
