@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 ## 经典js计算题
 这道题摘自[微信的一篇文章](http://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=402252398&idx=1&sn=f163fcc3637f57cd53678e7dd3bea19e&scene=23&srcid=0229uS9TwUS3TYlRIguAgT9v#rd)，坑可谓是很多，而且很细节。
 

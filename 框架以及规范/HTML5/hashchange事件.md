@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # hashchange事件
 
 这里承接history相关，对于后退键不刷新页面，使用了修改hash来模拟实现的方法。
@@ -119,7 +123,7 @@ popPage.init = function(iScroll,options){
     position: absolute;
     width: 100%;
     height:100%;
-    overflow:hidden; 
+    overflow:hidden;
 }
 .user-control{
     position: relative;

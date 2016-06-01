@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # node基础
 本文摘要了深入浅出nodejs的第一，二章
 ## Why node？

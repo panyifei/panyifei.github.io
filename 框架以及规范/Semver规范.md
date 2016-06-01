@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Semver规范
 这是个用来管理版本的规范
 

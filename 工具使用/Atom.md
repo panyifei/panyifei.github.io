@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Atom
 这个界面比sublime帅太多了，直接就有了想删除sublime的想法，而且下载插件比sublime舒服太多了
 

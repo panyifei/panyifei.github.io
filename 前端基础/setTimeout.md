@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 ## setTimeout
 setTimeout作为一个定时器函数，比较简单，主要是他的一些细节进行总结。
 

@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # CSS布局
 ## 水平居中
 很简单，margin:0 aoto;

@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Co源码以及与Koa的深入理解
 tj大神的co，将本来应该是一个数据类型的generator变成了一种处理异步的解决方案
 

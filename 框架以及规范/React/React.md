@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # React
 React的概念非常火，今日有幸听点评的前端工程师张强做的分享，进行了总结
 

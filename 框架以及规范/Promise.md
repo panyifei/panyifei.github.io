@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Promise规范以及写一个Promise
 看了些promise的介绍，但是还是感觉不够深入，这个在解决异步问题上是一个很好的解决方案，所以详细看一下。
 

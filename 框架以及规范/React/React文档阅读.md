@@ -1,6 +1,13 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # React文档阅读
+
 ## quick start
+
 ### Tutorial
+
 #### 建立一个模块
 我们可以使用React.createClass()来创建一个React模块。我们通过一个JS对象传了一些方法给这个函数，最重要的方法是render，返回了最终会变成HTML的部分。
 

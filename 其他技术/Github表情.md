@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Github表情
 
 这是github支持的表情，可以在github的页面使用，还是比较不错的，摘自[AutumnsWind](https://github.com/AutumnsWind/Emoji-cheat-sheet)的github

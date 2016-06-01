@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Npm模块
 npm是node的模块网站，模块太多，自己也能使用了一个记录一个
 
@@ -52,6 +56,3 @@ nodejs用来连接数据库的工具，支持的语法很全。
 
 
 todu:clone的代码看一下
-
-
-

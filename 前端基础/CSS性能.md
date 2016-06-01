@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # CSS性能
 写好了css之后可以用csslint跑一遍来检测下自己有哪些坏习惯，棒！
 

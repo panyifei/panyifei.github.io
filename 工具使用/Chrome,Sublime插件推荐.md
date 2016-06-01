@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Chrome,Sublime插件推荐
 
 ## Chrome插件

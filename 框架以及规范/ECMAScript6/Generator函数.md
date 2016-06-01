@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Generator函数
 Generator是一个状态机，封装了多个内部状态。
 
@@ -104,7 +108,7 @@ wrapped().next('hello!')
 
 #### for..of循环
 for...of可以自动遍历Generator函数
-	
+
 	如果next方法返回的done属性为true，则for...of终止，且不包含该返回对象。
 
 ```javascript
@@ -373,10 +377,3 @@ tudo:yield*命令的作用
 tudo:构造函数是generator函数
 
 tudo:es7的generator函数推导
-
-
-
-
-
-
-

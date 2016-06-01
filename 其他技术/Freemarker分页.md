@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 ### Freemarker分页
 
 公司后台用的java，模板使用的是freemarker，一般分页都是写在后台的，这样打开了页面不用加载js就可以跳去想要的页面了，这里学习一下freemarker里面分页的写法

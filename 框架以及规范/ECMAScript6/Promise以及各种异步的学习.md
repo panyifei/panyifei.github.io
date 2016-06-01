@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Promise以及各种异步的学习
 Promise是一个对象，用来传递异步操作，代表了某个未来才会知道的结果。
 

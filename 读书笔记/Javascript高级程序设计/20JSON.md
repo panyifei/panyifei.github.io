@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # 20JSON
 Json的语法可以是接下来的三种方式
 

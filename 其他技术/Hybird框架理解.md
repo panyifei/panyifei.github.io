@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Hybird理解
 
 ## 好处

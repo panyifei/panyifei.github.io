@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # throttle和debounce
 这两个都是处理密集调用的函数，看高级程序设计614页的时候，发现写的有问题，书里将throttle和debounce搞混了。于是重新整理了一下。
 

@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Angular
 angular是个很好用的前端单页应用的框架，使用的双向数据绑定来控制显示。
 
@@ -6,7 +10,7 @@ angular是个很好用的前端单页应用的框架，使用的双向数据绑�
 ## 设置directive触发enter键
 jade为
         input.input(ng-model="searchInput" ng-enter="search()" placeholder="keyword:ajax|name:jquery|author:ltebean")
-        
+
 js为
 
 ```javascript

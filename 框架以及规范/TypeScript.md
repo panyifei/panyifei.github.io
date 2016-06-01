@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # TypeScript
 团队的邹瑞同学分享了typescript相关的东西，自己做一下记录。
 

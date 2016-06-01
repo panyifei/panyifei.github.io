@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Polyfill源码阅读
 在勐喆的推荐下，开始看一些比较浅层次的源码，来加深对于规范的理解。看[polyfill](https://github.com/inexorabletash/polyfill)顺便可以看一下js的兼容，还可以了解一些不常用的API
 

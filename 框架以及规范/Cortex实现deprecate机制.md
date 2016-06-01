@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 ## Cortex
 Cortex是张颖张老师实现的一套前端解决方案，前端的模块化的实现是借鉴了npm。目前还未实现deprecate机制。在这里思考下如何实现该机制。
 

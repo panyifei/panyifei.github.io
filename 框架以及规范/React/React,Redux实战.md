@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 ## React,Redux实战
 
 ### 运行时修改this.props

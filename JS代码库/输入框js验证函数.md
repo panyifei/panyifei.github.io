@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # 输入框js验证函数
 
 ## 功能

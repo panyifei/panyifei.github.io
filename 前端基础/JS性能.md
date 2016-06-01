@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # JS性能
 ## 测时间的函数
 ```javascript

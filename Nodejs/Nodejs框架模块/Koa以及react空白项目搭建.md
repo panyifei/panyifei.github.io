@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Koa以及react空白项目搭建
 这里是自己搭建的一个空白项目框架，使用了Koa和React，使用了redux。[传送门](https://github.com/panyifei/koa-react-example)
 

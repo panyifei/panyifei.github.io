@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Chrome插件编写
 Chrome的tab插件用的不爽，于是自己学习着写一个好了，[chrome的文档](https://developer.chrome.com/extensions/getstarted)很全面，自己的[插件地址](https://github.com/panyifei/chrome-tab-plugin)
 

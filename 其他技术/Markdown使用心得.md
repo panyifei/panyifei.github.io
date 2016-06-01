@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Markdown使用心得
 记录一些简单使用的语法塘
 

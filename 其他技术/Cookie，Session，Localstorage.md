@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Cookie
 可以使用`document.cookie=`来设置cookie
 

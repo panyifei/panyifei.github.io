@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Web Workers
 Web Workers可以让JS运行到后台，来解决JS线程可能会冻结页面的问题。我们可以将大量数据的处理交给worker来做，只将页面的渲染事情交给JS就好了。
 
