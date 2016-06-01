@@ -1,7 +1,5 @@
 # Front-end-learning
-一个前端工程狮的日常，使用github来管理也是希望与大家分享并得到纠正。欢迎感兴趣的同学star~
-
-建议直接访问 http://panyifei.github.io/Front-end-learning/README
+一个前端工程狮的日常，建议直接访问 http://panyifei.github.io/Front-end-learning/README
 
 内容主要是：
 
@@ -106,6 +104,10 @@
 
 ## 工具使用
 - [photoshop简单使用][12]
+
+使用github来管理也是希望与大家分享并得到纠正。欢迎感兴趣的同学star~
+
+项目没有介入博客系统，有问题的话大家直接去项目的github提issue吧~
 
 [1]:./框架以及规范/模块引入/Commonjs,CMD,AMD和cortex介绍.md
 [3]:./框架以及规范/ECMAScript6/Promise以及各种异步的学习.md
