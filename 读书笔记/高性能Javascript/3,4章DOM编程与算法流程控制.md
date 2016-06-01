@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # DOM编程与算法流程控制
 ## DOM编程
 文档对象模型是独立于语言的，用于XML和HTML文档的程序接口。尽管DOM是个与语言无关的API，但是他在浏览器中的接口是用Javascript实现的，所以DOM就成为了现在Js编码的重要部分。

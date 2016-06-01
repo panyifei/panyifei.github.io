@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # Front-end-learning
 一个前端工程狮的日常，使用github来管理也是希望与大家分享并得到纠正。
 

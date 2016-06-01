@@ -1,3 +1,7 @@
+---
+layout: default
+title: {{ site.name }}
+---
 # 图解HTTP
 ## 第一章
 HTTP1.1自从1997年制定好了之后基本就没有更新了
