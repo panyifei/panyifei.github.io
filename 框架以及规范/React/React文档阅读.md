@@ -302,7 +302,7 @@ ref属性我们可以直接写成一个回调方法。这个方法会在组件�
 
 这个方法会在componentDidMount之前触发。
 
-```jsx
+```javascript
 render: function() {
     return (
       <TextInput
