@@ -172,7 +172,7 @@
 [63]:./框架以及规范/HTML5/Web-Workers.md
 [64]:./框架以及规范/模块引入/Requirejs学习以及实现.md
 [65]:./框架以及规范/模块引入/Requirejs源码阅读.md
-[66]:./框架以及规范/模块引入/TypeScript.md
+[66]:./框架以及规范/TypeScript.md
 [67]:./读书笔记/高性能Javascript/5章字符串和正则表达式.md
 [68]:./读书笔记/高性能Javascript/6章快速响应的用户界面.md
 [69]:./前端基础/关于this.md

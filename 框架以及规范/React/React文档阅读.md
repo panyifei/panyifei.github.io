@@ -282,7 +282,7 @@ react快的原因是因为他不直接与DOM交流，render方法返回的对DOM
 
 Mounting提供了getInitialState()和componentWillMount()和componentDidMount()。
 
-Updating提供了componentWillReceiveProps，shouldComponentUpdate，componentWillUpdate(组件即将执行更新之前，我们无法执行setState方法)，componentDidUpdate(更新发生之后会立即触发)。
+Updating提供了componentWillReceiveProps(这个方法的价值在于组件接收到新的props的时候，我们可以比较新老的props，然后setState。这个方法在初次mount的时候并不会被触发，因为这个时候没有老的props)，shouldComponentUpdate，componentWillUpdate(组件即将执行更新之前，我们无法执行setState方法)，componentDidUpdate(更新发生之后会立即触发)。
 
 Unmounting提供了componentWillUnmount()在组件被移除之前触发。
 
@@ -408,7 +408,7 @@ console.log(old.r === newData.r);//true
 ### Performance Tools
 (这个是个非常好的提供性能的工具，可以让我们查看一定的操作之后，我们页面组件重新渲染的次数，可以让我们进行组件的优化，使用可以参照本项目DEMO里的那个debug-panel，这个是勐喆开发的一个查看工具，内部调用了start，stop，printWasted，getLastMeasurement等方法)
 
-<img alt="perf工具" width='700px' src="pics//perf.png" />
+<img alt="perf工具" width='400px' src="pics//perf.png" />
 
 这里有个Perf.printWasted，这个是react内部做的深层次比对，发现没有变化，于是DOM没有触及，这一块的浪费我们可以在shouldComponentUpdate里面通过return false来进行阻止。
 
@@ -443,3 +443,33 @@ React让我们很容易的跟踪数据流的走向，因为他都是沿着组件
 这个也先不管....
 
 ## TIPS
+这里主要就是一些细节的点了
+### Inline Styles
+在React里面，我们想要使用行内式样的话，必须以对象的形式申明，而且必须是驼峰式，行内样式本来就不推荐，这里也就了解一下感觉就够了。
+
+### If-Else in JSX
+JSX里面我们没法使用if else，因为JSX只是一个来处理函数调用以及对象构建语法糖，最多只能处理3目运算符。如果想要使用if else也可以，只要在JSX外面使用就好了。或者写成一个自执行的匿名函数调用。
+
+### Self-Closing Tag
+就是说react component都可以自封闭，包括div什么的，因为他们本身也就是react的component。
+
+### Maximum Number of JSX Root Nodes
+目前，render里面只允许返回一个root nodes。如果我们想要返回多个的话，我们只能用一个将他们包装起立。
+
+### Shorthand for Specifying Pixel Values in style props
+就是说在行内的style属性中，当我们写一些长度属性的时候，React会帮我们自动加上px这个单位，这里也介绍了一些不会加的，不过行内的用处不大，这里了解下就好了。
+
+### Type of the Children props
+我们在componentDidMount中可以通过this.props.children来访问到组件内部包裹的组件。如果包裹的数量大于1的话，这个值就是一个数组，如果是1的话，这个值就是一个单个的值，并没有用数组包起来，所以提供了React.Children utilities来访问。
+
+### Value of null for Controlled Input
+我们正常给input设置了value之后我们是无法修改他的值的，但是我们把input的value设置为null或者undefined之后，input就变的可以编辑状态了(但是我这种赋值并没有价值，这只是一种错误的状态)
+
+### componentWillReceiveProps Not Triggered After Mounting
+这个方法并不会在初次mount的时候执行，因为他的作用在于比较老的props和新的props，如果老的没有的话，就不会触发。
+
+### Props in getInitialState Is an Anti-Pattern
+我们在getInitialState里面使用props来设置state需要注意一下，因为getInitialState这个方法只会在初始化的时候被执行一次。
+
+### DOM Event Listeners in a Component
+就是说
