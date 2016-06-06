@@ -472,4 +472,29 @@ JSX里面我们没法使用if else，因为JSX只是一个来处理函数调用�
 我们在getInitialState里面使用props来设置state需要注意一下，因为getInitialState这个方法只会在初始化的时候被执行一次。
 
 ### DOM Event Listeners in a Component
-就是说
+就是说我们最好在componentDidMount这个方法执行之后进行DOM上事件的绑定，因为这个时候渲染已经完成了。
+
+### Load Initial Data via AJAX
+让我们在componentDidMount里面拉取ajax数据，然后在UnMount方法里面abort掉这个request。
+
+### False in JSX
+false在jsx里面的渲染结果会有些不同，比如false作为id或者value等等的值就会被解析为字符串“false”，如果在div中间使用{false}，就会得到一个空白的div。
+
+### Communicate Between Components
+想要父组件与子组件交流，很简单的传输props就可以了，想要子组件与父组件交流，只需要func.bind(this,i,props)这样绑定一下就好了。
+
+如果是没有父子关系的组件之间的交流，我们可以设置自己的时间系统，在componentDidMount里面订阅，然后在willUnmount里面取消订阅。
+
+或者按照flux来解决。
+
+### Expose Component Functions
+将方法暴露给父组件来调用，其实就是父组件创建的时候给个ref值，然后在父组件里面使用this.refs.item1.func()就可以调用子组件的方法了。
+
+### this.props.children undefined
+children这个属性并不指的是自己的render方法里面的子，而是调用这个组件里面传入的子。注意调用我们自己包装的组件时，在里面包的div并不会渲染，除非我们自己在组件里面的渲染中调用{this.props.children}来手动渲染。
+
+### Use React with Other Libraries
+我们完全可以不整个的使用react，我们可以在shouldComponentUpdate里面手动return false。我们可以在DidMount里面进行一些事件的绑定。在DidUpdate进行一些处理。但是这是件tricky的事。
+
+### Dangerously Set innerHTML
+一般React会帮我们编码一下吐到页面上，基本不会有XSS攻击，但是有时我们想要自己生成html吐到页面上，react提供了dangerouslySetInnerHTML这个function，传入的数据是{__html:'haha'}，注意这个就是有风险的，而且我们基本完全可以避免，除非一些非常特别的case。
