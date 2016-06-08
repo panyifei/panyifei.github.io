@@ -437,7 +437,17 @@ React让我们很容易的跟踪数据流的走向，因为他都是沿着组件
 还是建议不要使用这个东西，用了的话，生命周期函数基本都会变化，会新加一个参数nextContext。会让组件无法被重用。
 
 ## REFERENCE
-这一块的太多了，先不看好了....
+### Top-Level API
+#### React
+react是对react library的入口，如果我们提前引了这个script。react就是global的。我们如果是Commonjs的项目，也可以直接require来引入。
+
+#### React.Component
+
+
+
+
+
+
 
 ## FLUX
 这个也先不管....
