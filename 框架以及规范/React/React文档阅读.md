@@ -442,7 +442,16 @@ React让我们很容易的跟踪数据流的走向，因为他都是沿着组件
 react是对react library的入口，如果我们提前引了这个script。react就是global的。我们如果是Commonjs的项目，也可以直接require来引入。
 
 #### React.Component
+粗略的看过
 
+### Component API
+#### setState
+实际上是一个shandow merge，这个是我们主要使用的更新的方法，我们可以传一个二参在setState完成以及以及一个组件re-render的时候触发。(注意永远不要手动改变this.state的状态，因为接下里调用setState可能会导致冲突)
+
+#### forceUpdate
+这个方法就是强行刷新，跳过本组件的shouldComponentUpdate，使用到的组件还会执行shouldComponentUpdate的，这个方法主要是为了有些我们的组件渲染不只是一句props和state的时候使用。建议还是不要使用这个东西。
+
+#### 其他的都被废弃或者即将废弃
 
 
 
