@@ -453,6 +453,64 @@ react是对react library的入口，如果我们提前引了这个script。react
 
 #### 其他的都被废弃或者即将废弃
 
+### Component Specs and Lifecycle
+当我们提供了一个React.createClass的时候，我们必须得提供一个含有了render的方法的对象。我们也可以可选的包含一些生命周期方法。我们当然也可以使用ES6的继承，区别前面也已经提过了。
+
+#### render
+这个方法不应该改变组件的props或者state，应该是纯净的渲染，我们可以通过返回null或者false来表示我们不需要他们的渲染。
+
+#### getInitialState
+这个方法只有React.createClass才会有，如果我们使用extends那种，我们就可以在constructor里面进行初始化。
+
+#### getDefaultProps
+这个方法会执行一次并且被保存下来，用来初始化。而且必须是parents没有设置过，才会被设置。
+
+#### propTypes
+这个可以用来检验props的输入
+
+#### mixins
+这个等于是个小的继承的写法
+
+#### statics
+我们在这个里面可以申明静态方法，注意这个里面的方法我们没法访问到props或者state。
+
+#### displayName
+这个主要是用在debug的时候，JSX会默认设置一下的。
+
+#### Lifecycle Methods
+各种各样的方法会在组件的各个时间段执行
+
+##### componentWillMount
+这个方法会在render之前被执行一次，只执行一次，我们可以设置state，这个客户端和服务器端都会执行
+
+##### componentDidMount
+这个方法在客户端会执行一次，第一次render之后会执行一次，只执行一次，在这里我们使用children的refs了。
+
+##### componentWillReceiveProps
+在组件接收到新的props的时候被触发，注意第一次不会被触发。
+
+这个方法是让我们在接收到新的props的时候，在render触发之前还有一个机会通过setState来改变state。
+
+##### shouldComponentUpdate
+这个方法是在render之前当新的props或者state接收到的时候，这个方法初次initial的时候不执行，forceUpate的时候也不执行。
+
+使用这个我们可以通过return false来阻止render。如果shouldComponentUpdate return 了fasle，componentWillUpdate和componentDidUpdate都不会触发了。
+
+##### componentWillUpdate
+这个方法会在我们更新的render之前执行，初次渲染不会执行。（注意我们这个方法里面没法调用了`setState`了，如果我们想要因为props的改变动state的话，我们就在componentWillReceiveProps里面执行这个操作）
+
+##### componentDidUpdate
+这个方法会在update执行之后，初次渲染不被执行，这是个机会我们去操作DOM。
+
+##### componentWillUnmount
+这个在Component被移除DOM的时候执行，我们可以使用这个方法来清理一些定时等等。
+
+### Tags and Attributes
+ 
+
+
+
+
 
 
 
