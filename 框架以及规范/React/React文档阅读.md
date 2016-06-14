@@ -442,7 +442,7 @@ React让我们很容易的跟踪数据流的走向，因为他都是沿着组件
 react是对react library的入口，如果我们提前引了这个script。react就是global的。我们如果是Commonjs的项目，也可以直接require来引入。
 
 #### React.Component
-粗略的看过
+粗略的看过//tudo
 
 ### Component API
 #### setState
@@ -506,7 +506,47 @@ react是对react library的入口，如果我们提前引了这个script。react
 这个在Component被移除DOM的时候执行，我们可以使用这个方法来清理一些定时等等。
 
 ### Tags and Attributes
- 
+react尝试支持HTML和SVG里面所有的元素，基本所有小写的元素都可以。使用svg的话，其实我们也可以使用react-art来绘制。
+
+#### Supported Attributes
+react支持所有的data-和aria-的属性，所有的属性都是驼峰式写法。注意class变成了className，for变成了htmlFor。这样主要是为了去适应DOM的API。
+
+#### 这一页基本就是支持的属性了
+
+### Event System
+#### SyntheticEvent
+它提供了浏览器所有的本身的事件，并且每个event对象里面都拥有了bubbles，defaultPrevented等等全部的属性。我们可以通过e.stopPropagation()或者e.preventDefault来达到我们想要的效果。
+
+#### Event pooling
+这个合成事件是混合的，也就是说事件对象会被重复使用，事件对象的所有属性将会在事件被触发之后置为null。就是说我们在事件处理的过程中如果有了一个异步的过程，那事件对象将会被设置为null。如果想要在异步的过程中访问，我们可以调用event.persist()来将这个event从池子中放出来。
+
+#### Supported Events
+已下列出的所有的方法都是在冒泡阶段发生的，想要在捕获阶段得到事件的响应，我们只需要在后面加上Capture就行了。
+
+#### 这里列了很全的事件
+我感觉react做的很成功的一件事就是统一了这些事件在各个浏览器的属性。而且完美兼容了DOM的API。
+
+### DOM Differences
+这里解释了react之所以使用驼峰式属性的原因，是因为这样的设计就不太正常
+
+因为class和for是js的保留字，而且正好dom提供的叫做className，所以我们要换成className和htmlFor。但是上面只是build-in的DOM nodes组件，如果是我们自己的custom的组件，直接使用class和for。
+
+onChange事件也被修改过，按照人们的意愿来触发，而不在blur的时候触发。
+
+还有就是textarea的值被放到了value里面。
+
+### Special Non-DOM Attributes
+react还提供了一些不存在dom中的属性。
+
+ - key是为了保证这个组件被创建并且记录
+ - ref就是一个指针的感觉
+ - dangerouslySetInnerHTML就是一个让我们插入html文本的东西
+
+### Reconciliation
+tudo
+
+
+
 
 
 
