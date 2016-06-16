@@ -442,7 +442,7 @@ React让我们很容易的跟踪数据流的走向，因为他都是沿着组件
 react是对react library的入口，如果我们提前引了这个script。react就是global的。我们如果是Commonjs的项目，也可以直接require来引入。
 
 #### React.Component
-粗略的看过//tudo
+粗略的看过
 
 ### Component API
 #### setState
@@ -542,22 +542,46 @@ react还提供了一些不存在dom中的属性。
  - ref就是一个指针的感觉
  - dangerouslySetInnerHTML就是一个让我们插入html文本的东西
 
-### Reconciliation
-tudo
+### Reconciliation(和解)
+react的key的设计是为了看起来每次update的时候react都在重新渲染整个APP。这让APP写起来更简单了但是让他易于管理变成了挑战。这篇文章解释了我怎么把一个O3方的问题变成了线性的。
 
+#### Motivation
+最小的转化把一个树转换为另一个树是一个复杂的问题。如果n是树里的node的个数，那我们需要比较n的3次方次。
 
+CPU的功率并不足以我们来针对1000个以上的node在1s内进行比较。鉴于算法不可控，我们实现了一个基于两点假设的启发式算法。
 
+ - 不同class的组件会渲染不同的，同样class的组件会渲染类似的
+ - 提供一个独一无二的key在不同的渲染中。
 
+在实践中，这两个假设在几乎所有的现实例子中意想不到的快。
 
+#### Pair-wise diff
+为了比较两棵树的不同，我们先要比较两个node，有3种case要处理
 
+ - 不同的node type：当做两个不同的子树，扔掉第一个，插入第二个(原生的或者自己的都是)，react快速处理了这些本质不同的，集中精力于那些可能相似的。
+ - DOM nodes：当比较两个DOM nodes的时候，我们比较他们的attribute，可以在线性的时间内决定谁修改过了。然后style属性还被整成了k-v的值，很容易进行修改，然后在所有的children上递归就行了
+ - Custom Components：我们决定两个组件是一样的，react会在老的组件上调用componentWillReceiveProps()和componentWillUpdate()，使用新的组件的所有属性。
 
+#### List-wise diff
+react会一次比较完，然后根据不同的地方生成一个突变的方法。就会比较傻一点。但是使用一些高级的算法来做这件事有些得不偿失，所以react推出了key这个东西，通过这个key来帮助比较，就会效果好很多了。注意key只需要在silbing里面是独一无二的就行了，并不需要是全局的。
 
+#### Trade-offs
+这两个假设也在不断的修改来适应实际。如果我们无法说明子树搬去了那里，那么子树将会被重新渲染。
 
+注意如果假设不同的class渲染是不同的，如果我们想相同的话，不如变成同一个class。
 
+注意key最好是有价值的，如果是随机生成的可能会有不好的事情发生。
 
+### Web Components
+react和Web Components是为了解决不同的问题，Web Components是为了重用组件而存在，react仅仅是想提供一层view层。两个是可以相互使用的。
 
-## FLUX
-这个也先不管....
+### React (Virtual) DOM Terminology
+就是区分一些术语：
+
+ - React Elements：就是我们通过标签名创建的react的元素，
+ - Factories：其实就是React Elements包了一层的type，
+ - React Nodes：可能是ReactElement，string，number或者Array of ReactNodes
+ - React Components：这个就是我们自己明明的组件了，我们永远不要自己来new，通过createClass或者jsx来创建好了
 
 ## TIPS
 这里主要就是一些细节的点了
