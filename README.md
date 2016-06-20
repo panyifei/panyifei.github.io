@@ -66,6 +66,7 @@
 - [页面渲染过程][53]
 - [CSS布局][54]
 - [关于this][69]
+- [Web Components][73]
 
 ## 读书笔记
 - Javascript高级程序设计(23章还没看，直接先看24章了)
@@ -177,3 +178,4 @@
 [70]:./读书笔记/高性能Javascript/7章Ajax.md
 [71]:./框架以及规范/React/React文档阅读.md
 [72]:./读书笔记/图解HTTP.md
+[73]:./前端基础/Web Component.md
