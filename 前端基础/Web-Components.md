@@ -24,6 +24,7 @@ document.body.appendChild(new SuperButton());
 ```
 
 也可以传入元素的prototype
+
 ```javascript
 var buttonProto = Object.create(HTMLElement.prototype);
 buttonProto.print = function() {
@@ -59,7 +60,11 @@ document.body.appendChild(shadowRoot);
 ## HTML Import
 长久以来，网页可以加载外部的样式表，脚本，图片，多媒体但是其实没有什么好的办法来加载其他网页的，iframe和ajax都只能解决部分问题。HTML Import就是为了解决这个问题提出的。
 
+用于将外部的HTML文档加载进当前的文档，我们可以将html，css，js封装在一个文件里。
 
+这里有个貌似大问题，这里必须得同域！！
+
+我们除了使用link标签，还可以使用javascript来调用link元素，完成HTML Import。
 
 在模板中创建HTML代码和子DOM树，我们可以通过不同的物理文件来组织代码，通过link标签来引入这些文件，就像我们在PHP中引入js一样。
 
@@ -127,3 +132,7 @@ Polymer使用了HTML imports来进行依赖管理，确保自定义元素及其�
 react的组件生态思想和webcomponent很类似，但是他做了更多的事情，除了web Component，react想做的是platform component。
 
 angular2.0已明确提出将支持Node绑定、模板集成。也开始支持web component规范，代表这个规范在将来肯定是会变成趋势的。
+
+参考：
+
+http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/#toc-style-scoped
