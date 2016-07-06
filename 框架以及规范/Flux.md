@@ -11,3 +11,9 @@ Flux的应用有主要的三个部分。
  - dispather
  - store
  - view(React Component)
+
+我们要将这个与MVC区分开，Controller在Flux中确实存在，不过是以controller-views的形式。View通常在顶部，从整个store取出数据并且传给children。另外，action的创造者-dispatcher帮助方法-用来描绘应用中所有可能改变的API。他作为Flux更新环中的第四部分。
+
+Flux用一个单项的数据流来避开了MVC。当用户与一个react的view交互的时候，这个view通过一个中心的dispatcher传递这个action。传给了各种各样的包含了用户数据与逻辑的stores。这个尤其适合react的申明式的语法，即他的更新不需要我们告诉view如何去转换显示。
+
+最开始设计是为了正确的取出数据。比如在页面我们需要展示未读的数量以及未读的列表，我们在更新一个为已读的时候，我们就需要更改两个地方。导致了错综复杂的数据流动以及不可预期的结果。所以我们让store来控制，来接受更新并在合适的时机处理。
