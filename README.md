@@ -30,6 +30,7 @@
 - [Promise规范以及写一个Promise][46]
 - [Semver规范][47]
 - [TypeScript][66]
+- [Flux][76]
 
 
 ## 浏览器兼容性以及移动端开发
@@ -168,3 +169,4 @@
 [73]:./前端基础/Web-Components.md
 [74]:./读书笔记/高性能Javascript/9章构建并部署高性能Javascript.md
 [75]:./读书笔记/设计模式/1章引言.md
+[76]:./框架以及规范/Flux.md
