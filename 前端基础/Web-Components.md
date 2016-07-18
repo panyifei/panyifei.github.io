@@ -96,7 +96,7 @@ Shadow Dom的CSS封装很好的解决了现在CSS的一个大问题，因为CSS�
 ### 事件的封装
 Shadow Dom对于事件通过在冒泡阶段target的重定向来封装事件，然后一些可能对页面造成影响的事件，Shadow Dom就会影藏掉这些事件，也就是在冒泡到主页面的过程中被挡住了。
 
-<img alt="事件重定向" width='500px' src="pics//wc-events.png" />
+<img alt="事件重定向" width='500px' src="pics//wc-event.png" />
 
 就像图中所示，普通点击时，target会是我们真正点击的元素，而Shadow Dom则会将事件的target重定向到宿主元素身上，主要是为了保证组件内部的封装。多层宿主的时候我也试过了，每层都会重定向到自己的宿主身上。
 
@@ -226,6 +226,9 @@ Html Imports就解决了这个问题，他可以用来`打包资源`与`优雅�
 他的相关框架有Polymer，X-Tag，SKATEJS，Bosonic，这四个框架大部分都是对他的API的友好封装。Polymer是google出品，目前也是有15000的star的，比较火，除了封装了API，他还像Angular一样做了一层数据的双向绑定。但是这几个框架都是使用的上面的Polyfill，所以上面提高的问题他们也都有。
 
 ## Web Components与React
+
+<img alt="Vuejs" width='200px' src="pics//wc-react.png" />
+
 这里我想比较一下这两者。因为React官网文档专门有一篇解释他们两者解决的是不同的问题。
 
 Web Components个人感觉是HTML提出的模块化，他的目的是复用web组件，主要思想是封装。
@@ -251,10 +254,13 @@ React Components优点：
  - 抽象做的更好，组件状态管理
 
 ## Web components 与 Vuejs
+
+<img alt="Vuejs" width='400px' src="pics//wc-vue.png" />
+
 这里还想提一下Vuejs，因为看CSS Modules的时候看到Vuejs自己也实现了CSS的模块化的，就去看了一下他的文档。发现他几乎是实现了一套Web components。他的组件的创建，注册，继承，生命周期都和Web components很像。看作者自己与其他框架比较的时候也说了，Vuejs和Polymer的区别就在于Vuejs不依赖于Web components，不需要polyfill。所以想使用Web components的可以去使用Vuejs。他能支持到IE9。使用场景会比较多。
 
 ## 总结
-他是w3c标准，基本会是组件技术的最终方向，但是需要大量的时间来让来让浏览器支持。
+总体来说，Web component他是w3c标准，基本会是组件技术的最终方向，但是需要大量的时间来让来让浏览器支持。
 
 转载的话，请注明[出处](http://panyifei.github.io/Front-end-learning/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/Web-Components)
 
