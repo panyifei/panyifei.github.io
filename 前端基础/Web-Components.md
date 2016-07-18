@@ -194,3 +194,77 @@ document.body.appendChild(xfoo);
 通过上面的Shadow Dom和Custom Elements，其实我们已经实现了组件的自定义以及封装。不过我们的模板最后一直使用的字符串。最后通过innerHtml的方式插入。包括现在其实JS模版其实全是这么实现的。这样子的坏处在于当我们多次使用一个模板的时候(比如刷新操作)，每次都得把一段字符串转化为DOM结构，这其实是很费浏览器的性能的。
 
 Template允许我们在文档中申明一段HTML，他在浏览器的解析过程中不会有任何的副作用。他里面的元素img，script等等都不会发请求。完全无害。但是他又不是仅仅作为字符串存在。他是被解析成了Document Fragment。这样每次重用的时候就不会有解析为Dom这种浪费性能的操作。
+
+## Html Imports
+现在我们需要的就是将这个组件打包出去。其实一直以来关于HTML的引入就一直没有一个好的解决方案。嵌入iframe的话，页面之间的交互调用其实很麻烦。用一个script标签埋在页面上作为字符串也比较tricky。使用ajax来拉取html的话也会比较奇怪。
+
+除了这个问题，我们一直以来引入资源都是件比较麻烦的事情。比如我们想要引入bootstrap，我们得要手动引入css，再引入js，然后根据bootstrap提供的html结构来使用。
+
+Html Imports就解决了这个问题，他可以用来`打包资源`与`优雅的引入HTML`。
+
+```html
+<!-- 如下 -->
+<!-- <link rel="import" href=“/path/to/imports/stuff.html"> -->
+```
+
+使用其实很简单，就是用link标签，也可以用js来创建一个link标签。不过这个是有同域限制的。感觉还是得HTTP2时代，把现在的CDN分域问题解决了才能有使用的价值。
+
+## Web Components的兼容性
+
+<img alt="兼容性" width='500px' src="pics//wc-use.png" />
+
+如图，chrome算是很激进了，安卓也得是比较新的版本。safari，IE，FF的支持都很差。这里还有一张图：
+
+<img alt="兼容性" width='500px' src="pics//wc-use2.png" />
+
+这张图的意思的FF已经把Custom Elements和Shadow Dom立了development flag，将会去实现他。而Html Imports暂时hold on。这个和Safari暂时hold住了Custom Elements和Html Imports的原因一样。他们都觉得这个和ES6的modules解决的是同一个问题。他们在等待ES6的modules的实施效果。而最新的IE的申明则是，这三个规范都在思考中，应该是都会去实现。
+
+## Web Components的polyfill
+也就是说这些个规范我们想单纯的使用时没有办法的。但是他是有组织提供了polyfill的。这个[polyfill](http://webcomponents.org/polyfills/)还是有很大的问题的，IE只能支持到IE11，而且shadow dom的CSS封装没有官方的支持也是没法完美实现的。
+
+## 相关的框架
+他的相关框架有Polymer，X-Tag，SKATEJS，Bosonic，这四个框架大部分都是对他的API的友好封装。Polymer是google出品，目前也是有15000的star的，比较火，除了封装了API，他还像Angular一样做了一层数据的双向绑定。但是这几个框架都是使用的上面的Polyfill，所以上面提高的问题他们也都有。
+
+## Web Components与React
+这里我想比较一下这两者。因为React官网文档专门有一篇解释他们两者解决的是不同的问题。
+
+Web Components个人感觉是HTML提出的模块化，他的目的是复用web组件，主要思想是封装。
+
+React是为了搭建交互式UI，主要是针对不同的状态显示不同的View，处理的是view与data同步。
+
+React官网文档也有实例如何在React中使用Web Components。其实就是在ComponentDidMount的时候初始化一下Web Components，很简单的使用。
+
+## Web Components与React Components
+这里我还想比较一下这两个组件系统，因为他们其实有不少相似点的。
+
+Web Components优点：
+
+ - HTML规范
+ - 复用性，移植性高
+ - css样式隔离
+ - js做js的事情，html做html的事情，css做css的事情(这个有待争议)
+
+React Components优点：
+
+ - virtual dom支持服务器渲染，seo友好(这个也有待争议，因为google爬虫是可以跑js的)编写测试方便(这个也有待争议)
+ - 浏览器支持情况好，新版本支持到IE9，v0.14支持到IE8
+ - 抽象做的更好，组件状态管理
+
+## Web components 与 Vuejs
+这里还想提一下Vuejs，因为看CSS Modules的时候看到Vuejs自己也实现了CSS的模块化的，就去看了一下他的文档。发现他几乎是实现了一套Web components。他的组件的创建，注册，继承，生命周期都和Web components很像。看作者自己与其他框架比较的时候也说了，Vuejs和Polymer的区别就在于Vuejs不依赖于Web components，不需要polyfill。所以想使用Web components的可以去使用Vuejs。他能支持到IE9。使用场景会比较多。
+
+## 总结
+他是w3c标准，基本会是组件技术的最终方向，但是需要大量的时间来让来让浏览器支持。
+
+转载的话，请注明[出处](http://panyifei.github.io/Front-end-learning/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/Web-Components)
+
+
+参考：
+
+ - http://www.html5rocks.com/zh/tutorials/webcomponents/shadowdom-201/
+ - http://www.html5rocks.com/zh/tutorials/webcomponents/customelements/
+ - http://webcomponents.org/articles/a-quick-polymer-introduction/
+ - https://facebook.github.io/react/docs/webcomponents.html
+ - http://benmccormick.org/2014/08/28/custom-elements-by-example/
+ - https://www.w3.org/standards/techs/components#w3c_all
+ - http://www.csdn.net/article/2015-08-11/2825439-vue
