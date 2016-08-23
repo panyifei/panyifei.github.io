@@ -24,3 +24,6 @@ action会触发reducer，然后通过reducer里面对action.type的判断来决�
 如果我们在父元素里面调用了render，那么子元素肯定执行render的。
 
 如果我们想要阻止子元素的render，我们可以在子元素里面进行shouldComponentUpdate来进行compare。我们可以使用shallowCompare来简单的比较引用是否改变。因为如果我们想要传新对象的话，这个肯定会渲染的。而如果我们还传老的对象，代表我们并没有修改。层次比较多的时候我们可以使用update这个add-on来执行我们的更新操作。
+
+### react想根据props来设置state
+如果是首次的话，在constructor里面就好了。如果是想在更新的时候，因为componentWillUpdate里面不能做setState的操作，所以只能在componentWillReceiveProps里面进行操作
