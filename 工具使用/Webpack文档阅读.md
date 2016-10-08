@@ -72,4 +72,13 @@ Commonjs：require.ensure
 
 AMD的话就是本身的require就是支持的。
 
-ES6的模块的话，webpack1.x.x是没有原生支持的，2.0.0支持。所以只能通过babel将ES6的模块转化成Commonjs或者AMD的模块。
+ES6的模块的话，webpack1.x.x是没有原生支持的，2.0.0支持。所以只能通过babel将ES6的模块转化成Commonjs或者AMD的模块。这个方法有效果但是对于动态加载有一些警告。
+
+模块语法import x from 'foo'是故意设计来静态分析的，这就意味着没法做动态的引用。
+
+幸运的是，有一个js的api“loader”专门是写来处理动态使用的例子的。“System.load”。这个API将会native地等价于上面的require方法。但是，大多数编译器都没法处理这个变成require。所以如果我们想要动态的代码分割，我们就得直接来写。
+
+### 代码块内容
+所有的在分割点的依赖都会打进一个新的代码块中，递归的依赖也会被打进chunk中。
+
+如果你在分割点传入一个callback，webpack也会自动将这个callback的所有依赖打进chunk。   
