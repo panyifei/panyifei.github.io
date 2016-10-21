@@ -45,3 +45,29 @@ new的优先级最高
 我们写一个字符串实际上只是一个字面量。但是我们操作他的时候，他就会变成一个string对象。
 
 属性名这个东西最常用的是ES6的Symbol(这个东西是个创建了之后能保证唯一性的东西，他是一个基础的数据类型。就是说从6大基础数据类型变成7个了)
+
+configurable为false的时候，我们还是可以将writable从true设置为false。其他情况都是不能设置的，然而浏览器好像没有报错....
+
+### 不变性
+Object.preventExtension：就是禁止添加新属性
+
+Object.seal就是调用preventExtension，然后遍历属性，configuable为false
+
+Object.freeze就是会调用一遍seal，然后遍历属性，全部的writable为false
+
+const仅仅只是锁住了常量不可编辑，对象的话是锁住了引用，值还是可以修改的。
+
+### 遍历
+其实用的比较多的是for in，但是我们想要遍历值的话，我们可以使用ES6的for of。
+
+但是使用for of的话得要求调用的得用迭代器接口。
+
+我们可以通过Symbol.iterator来获得或者定义一个对象的迭代器方法。这个方法返回一个拥有next方法的对象。我们可以不断的调用这个对象的next来遍历。next方法的结果是{value:'',done:false}。
+
+## 混合对象"类"
+javascript不支持多重继承，因为多重继承可能会遇到钻石问题(菱形继承导致不知道具体继承的行为)。
+
+这一章的各种模拟类都是一种类似复制对象的形式来做的
+
+## 原型
+我们
