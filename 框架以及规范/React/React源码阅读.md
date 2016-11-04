@@ -19,12 +19,33 @@ react用的内部模块系统'Haste'，与commonjs很像，但是他比较喜欢
 现在代码里面引入了Flow来进行类型的限制了。
 
 ### 动态注入
-React用了一些动态注入，主要原因是React原来是只支持DOM的。后来Reactive Native开始作为React的一个fork了。所以需要添加一些动态注入来让Reactive Native重写一些行为。
+React用了一些动态注入，主要原因是React原来是只支持DOM的。后来Reactive Native开始作为React的一个fork了。所以需要添加一些动态注入来让Reactive Native重写一些行为。(inject)未来准备抛弃动态注入，在构建时连接所有的静态。
+
+与render的相关在renderers里面。
+
+### Reconcilers
+不同的renderer例如React Dom以及React Native需要分享许多的逻辑，所以Reconcilers来管理render，用户组件，状态，生命周期方法等等跨平台的。
+
+stack reconciler他管理了所有的React组件的内部实例的独立的树结构。
 
 ## React的component是如何创建并渲染的
 首先React本身返回了一个React对象。这个对象拥有着createElement方法。
 
 ## React的事件系统听说用了享元模式？
+先看下官网推荐的video讲解：
+
+ - EventConstents：列举了所有的监听的事件
+ - SimpleEventPlugin：就是用来监听浏览器的事件触发，然后执行在组件内部申明的事件。就是都是通过plugin来处理事件的；他的事件系统目前都是支持冒泡和捕获的，但是后期可能会删去捕获，因为复杂性，而且也很少人使用。这里的每个事件在最后都会作为dependences绑上一个toplevel事件。
+ - ReactBrowserEventEmitter：这个文件就是执行了一个listenTo的方法，其实就是监听在window上的。里面会查看刚才定义的dependences。然后去定义一些真正被监听的东西。然后就会交给EventListener来注册事件。然后就会执行dispatchEvent(就是你的浏览器事件被触发的时候真正被执行的第一个方法)。然后就会执行到里面的handleTopLevelImpl(会去得到那个event.target，然后拿到他真实的内部的React实例)。然后就会执行另一个函数_handleTopLevel(这个值一般是动态注入的，但是一般都是ReactEventEmitterMixin里面的handleTopLevel)，然后就会得到EventPluginHub的extrqctEvents(基本上就会执行到SimpleEventPlugin的extractEvents，执行runEventQueueInBatch。
+ - SimpleEventPlugin的extractEvents：这里面就是生成最后的event事件，然后通过一个getPool来得到(这里就是传说中的享元模式了，慢慢研究一下)
+    - SyntheticMouseEvent：我们map native event to SyntheticEvent。一般的属性都是直接拷贝的，有些特殊的属性需要兼容各种浏览器。
+ - EventPropagators.accumulateTwoPhaseDispatches：就是处理了capture和bubble两种事件，这里连有个数组的调用。最后执行的是EventPluginUtils.traverseTwoPhase(真正开始执行上下的冒泡的地方)。
+ - 然后执行到accumulateDirectionalDispatches，里面会查看这个react code有没有注册listener。
+ - 执行到了executeDispatchesAndRelease(就是按顺序执行，如果不需要持久化的话，就直接release)
+    - executeDispatchesInOrder：就是真正执行用户定义的事件的地方，会检查用户时候阻止
+    - ReactErrorUtils.invokeGuardedCallback：如果有error发生的时候，开发模式react会创建一个eventListener来让浏览器触发他的报错事件，就不会导致整体的挂掉了，非开发模式就会报错
+
+## React的事件是什么时候绑上去的？
 React的component其实就是一堆属性。
 
 真正的入口是ReactDOM.render开始执行
