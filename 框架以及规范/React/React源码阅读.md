@@ -36,7 +36,8 @@ stack reconciler他管理了所有的React组件的内部实例的独立的树�
 
  - EventConstents：列举了所有的监听的事件
  - SimpleEventPlugin：就是用来监听浏览器的事件触发，然后执行在组件内部申明的事件。就是都是通过plugin来处理事件的；他的事件系统目前都是支持冒泡和捕获的，但是后期可能会删去捕获，因为复杂性，而且也很少人使用。这里的每个事件在最后都会作为dependences绑上一个toplevel事件。
- - ReactBrowserEventEmitter：这个文件就是执行了一个listenTo的方法，其实就是监听在window上的。里面会查看刚才定义的dependences。然后去定义一些真正被监听的东西。然后就会交给EventListener来注册事件。然后就会执行dispatchEvent(就是你的浏览器事件被触发的时候真正被执行的第一个方法)。然后就会执行到里面的handleTopLevelImpl(会去得到那个event.target，然后拿到他真实的内部的React实例)。然后就会执行另一个函数_handleTopLevel(这个值一般是动态注入的，但是一般都是ReactEventEmitterMixin里面的handleTopLevel)，然后就会得到EventPluginHub的extrqctEvents(基本上就会执行到SimpleEventPlugin的extractEvents，执行runEventQueueInBatch。
+ - ReactBrowserEventEmitter：这个文件就是执行了一个listenTo的方法，其实就是监听在document上。里面会查看刚才定义的dependences。然后去定义一些真正被监听的东西。然后就会交给EventListener来注册事件(这个东西很难找，因为这个不在react的源码里面，在fbjs里面)。
+ - 然后就会执行dispatchEvent(就是你的浏览器事件被触发的时候真正被执行的第一个方法)。然后就会执行到里面的handleTopLevelImpl(会去得到那个event.target，然后拿到他真实的内部的React实例)。然后就会执行另一个函数_handleTopLevel(这个值一般是动态注入的，但是一般都是ReactEventEmitterMixin里面的handleTopLevel)，然后就会得到EventPluginHub的extrqctEvents(基本上就会执行到SimpleEventPlugin的extractEvents，执行runEventQueueInBatch。
  - SimpleEventPlugin的extractEvents：这里面就是生成最后的event事件，然后通过一个getPool来得到(这里就是传说中的享元模式了，慢慢研究一下)
     - SyntheticMouseEvent：我们map native event to SyntheticEvent。一般的属性都是直接拷贝的，有些特殊的属性需要兼容各种浏览器。
  - EventPropagators.accumulateTwoPhaseDispatches：就是处理了capture和bubble两种事件，这里连有个数组的调用。最后执行的是EventPluginUtils.traverseTwoPhase(真正开始执行上下的冒泡的地方)。
@@ -45,7 +46,10 @@ stack reconciler他管理了所有的React组件的内部实例的独立的树�
     - executeDispatchesInOrder：就是真正执行用户定义的事件的地方，会检查用户时候阻止
     - ReactErrorUtils.invokeGuardedCallback：如果有error发生的时候，开发模式react会创建一个eventListener来让浏览器触发他的报错事件，就不会导致整体的挂掉了，非开发模式就会报错
 
-## React的事件是什么时候绑上去的？
+### 事件的整体总结
+就是react自己通过承接浏览器的事件发生，然后在自己内部的实例进行冒泡和捕获。事件用了个池子来减少每次申明的代价。
+
+### React的事件是什么时候绑上去的？
 React的component其实就是一堆属性。
 
 真正的入口是ReactDOM.render开始执行
@@ -62,4 +66,26 @@ React的component其实就是一堆属性。
  - 然后直接执行_renderNewRootComponent
     - 执行了ensureScrollValueMonitoring？
     - 将element交给instantiateReactComponent(提供一个ReactNode，创建一个真实被mount的实例)
-    -         
+    - 然后执行batchedUpdates，将willMount和didMount的事件绑上去  
+    - 然后执行batchedMountComponentIntoNode
+        - 也是从池子里面取出transaction
+    - 然后执行mountComponentIntoNode(mount component，然后把他插进DOM中)
+        - 执行了ReactReconciler.mountComponent
+        - 其实就是循环调用了ReactDomComponent.mountComponent
+            - 然后主要是调用了_updateDOMProperties
+                - 然后调用了enqueuePutListener
+                    - 然后执行了listenTo(这是真实的监听了)
+    - 然后执行了_mountImageIntoNode(真实的插入了进去)
+        - 执行了DOMLazyTree.insertTreeBefore，将DOM树直接插入了进去
+
+## props有没有做freeze的限制？
+真的被freeze了
+
+## 享元模式的池子是怎么实现的
+他的池子的[代码](https://github.com/facebook/react/blob/master/src/shared/utils/PooledClass.js)，
+
+很简单，其实就是创建了一个空数组，然后创建的时候，空的话就新建，非空则pop。然后release的时候，如果池子没装满，就push进池子，否则不管他。
+
+这里为了写个通用的不依赖于arguments，还写了多个arguments的情况。
+
+代码其实很简单，不过思路还是挺有意思的。
