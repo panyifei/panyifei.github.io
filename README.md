@@ -11,6 +11,7 @@
 ## 框架以及规范
 - React
  - [React文档阅读][71]
+ - [React源码阅读][91]
  - [React][20]
 - HTML5
  - [history相关][4]
@@ -129,7 +130,7 @@
 [27]:./Nodejs/Nodejs框架模块/Koa以及Express.md
 [28]:./Nodejs/Nodejs框架模块/Koa以及react空白项目搭建.md
 [29]:./Nodejs/Npm模块.md
-[30]:./框架以及规范/Angular.md
+[30]:./框架以及规范/Angular/Angular.md
 [31]:./Nodejs/Nodejs普通模块/Forever源码阅读.md
 [32]:./Nodejs/Nodejs核心模块/Nodejs核心模块.md
 [33]:./框架以及规范/Polyfill源码阅读.md
@@ -140,7 +141,6 @@
 [38]:./前端分享/2015届D2分享.md
 [39]:./Nodejs/Nodejs框架模块/Co源码以及与Koa的深入理解.md
 [40]:./其他技术/Freemarker分页.md
-[41]:./React/React,Redux实战.md
 [42]:./Nodejs/Nodejs框架模块/Koa源码.md
 [43]:./读书笔记/深入浅出nodejs/node基础.md
 [44]:./前端基础/前端基础知识.md
@@ -189,3 +189,4 @@
 [88]:./前端基础/动态CDN加速.md
 [89]:./读书笔记/敏捷软件开发/1部分敏捷开发.md
 [90]:./读书笔记/你不知道的Javascript上卷/this和对象原型.md
+[91]:./框架以及规范/React/React源码阅读.md
