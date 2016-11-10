@@ -70,7 +70,7 @@ React的component其实就是一堆属性。
     - 然后执行batchedMountComponentIntoNode
         - 也是从池子里面取出transaction
     - 然后执行mountComponentIntoNode(mount component，然后把他插进DOM中)
-        - 执行了ReactReconciler.mountComponent
+        - 执行了ReactReconciler.mountComponent (这一步生成了`虚拟DOM`)
         - 其实就是循环调用了ReactDomComponent.mountComponent
             - 然后主要是调用了_updateDOMProperties
                 - 然后调用了enqueuePutListener
@@ -89,3 +89,17 @@ React的component其实就是一堆属性。
 这里为了写个通用的不依赖于arguments，还写了多个arguments的情况。
 
 代码其实很简单，不过思路还是挺有意思的。
+
+## React的所谓双向绑定
+React是单向的数据流，从owner流向child。一般进行input的修改我们可以监听change方法来setState。他提供的其实就是简单的把这个步骤由框架来提供了而已。而且那个mixin在0.15版本已经被废弃了
+
+## React的diff算法
+传统diff是O(n3)，React把他做到了O(n)。
+
+diff算法：如果两种Dom element不同，就完全重建。如果相同种类，就更改属性。
+
+Component同样的，react更新他的props，并且调用componentWillReceiveProps和componentWillUpdate两个方法。然后render方法调用，使用diff算法来把老的变成新的。
+
+默认情况下，react是会把两个children按顺序比较，然后当有不同的时候进行更新。如果我们设置了key，就会计较聪明，可以进行移动和插入，就会有下面的算法：
+
+    对比新列和老列，从新列的第一个开始比较。设一个lastIndex为老列中的位置和当前位置的最大值。然后比这个值小的话，就需要进行move的操作，比这个值大的就不移动。当然老列中的index每次都要更新。然后不断遍历下去就好了。lastIndex锁住了一个安全的位置，左侧的移动不会影响到右侧。
