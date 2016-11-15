@@ -55,3 +55,49 @@ ng-app代表着一个Angular的directive叫做ngApp，这个directive是用来�
 这里的例子就是使用ngRepeat来取代了硬编码的list。
 
     ng-repeat是一个Angular的重复的directive。
+
+还有个ng-controller把PhoneListController绑在了body上面。
+
+    ng-controller管理了整个绑定的元素，以及子元素，会有一个自己的model。
+
+#### scope
+每个scope都是一层层从上层继承的，每个directive都有自己的一个scope。scope像是胶水一样将template和model和view连接在一起。
+
+### Components
+上一章中见到了template和controller如何结合在一起，将静态的html变成动态的view。这是一般的单页应用中常见的情况，客户端接管了页面的渲染，以及根据用户的输入来展示新的内容。
+
+视图作为蓝图告诉我们的数据应该被如何组织以及展示给用户，controller提供了上下文来评估绑定并且对我们的视图应用行为逻辑。
+
+这里还有一些事情可以做的更好：
+
+ - 当我们在我们的应用中想要重用某个相同的方法？我们可能需要将整个模板包括controller都复制一遍，这个很容易引发错误并且伤害到可维护性。
+ - 那个连接我们的控制器和模板的scope，与页面的其他部分并不是孤立的，这意味着一个随机的，页面上其他地方的改动，都可能导致错误。
+
+#### 重用的组件
+因为模板和控制器的组合是一个常见和共同出现的模式，angular提供了一个简单的并且简明的方法来把他么捆绑成一个可重用的和独立的实体，称之为components。Angular会创建一个相对独立的scope，这意味着没有原型的继承，我们的组件就不会影响到页面的其他内容。这里并没有深入。
+
+组件的声明就是.component()，然后使用的时候就是直接类似于`<greet-user></greet-user>`
+
+这里的template是以$ctrl来访问的，好处是避免了直接的对scope的访问，并且在controller中我们可以直接用this来访问。
+
+注意component的组件的scope是不从页面顶端的scope继承的。
+
+### Directory and File Organization
+就是说不在把所有的代码都写在一个文件里面。将每一个功能放在一个文件中。
+
+然后文件夹也根据组件来定义文件夹。
+
+模板也可以提出来放在一个新的文件中。
+
+### Filtering Repeaters
+这里的例子加了一个input。通过ngModel这个directive，可以在用户输入结果的同时，就能看到影响。
+
+ - 数据绑定：这是angular的一个核心功能，当页面加载的时候，angular把input的值绑定到model上，然后保持两个同步。当数据模型的变化导致中继器的输入改变了，然后中继器就会根据模型的当前状态来更新DOM。
+
+### Two-way Data Binding
+双向绑定的关键其实就在于做了从View向model层的转变。
+
+###  XHR & Dependency Injection
+就是angular集成了很多内置的service，比如$http来让你发送请求。那些$$开头的变量意味着是私人的，不应该访问或者修改的。当然我们想要使用他们必须得手动注明引入。
+
+### Templating Links & Images
