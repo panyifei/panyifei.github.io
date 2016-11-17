@@ -13,6 +13,8 @@
  - [React文档阅读][71]
  - [React源码阅读][91]
  - [React][20]
+- Angular
+ - [Angular文档阅读][92]
 - HTML5
  - [history相关][4]
  - [hashchange事件][7]
@@ -190,3 +192,4 @@
 [89]:./读书笔记/敏捷软件开发/1部分敏捷开发.md
 [90]:./读书笔记/你不知道的Javascript上卷/this和对象原型.md
 [91]:./框架以及规范/React/React源码阅读.md
+[92]:./框架以及规范/Angular/Angular文档阅读.md

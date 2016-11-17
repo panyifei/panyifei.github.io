@@ -2,7 +2,7 @@
 layout: default
 title: {{ site.name }}
 ---
-# Angular文档阅读
+# Angular教程阅读
 ## 简介
 HTML非常适合申明静态文档，但是当想要在WEB app里面声明动态view的时候效果就不好了。Angularjs允许你扩展HTML的语法。效果时更具有可读性，表现力并且很容易开发。
 
@@ -101,3 +101,123 @@ ng-app代表着一个Angular的directive叫做ngApp，这个directive是用来�
 就是angular集成了很多内置的service，比如$http来让你发送请求。那些$$开头的变量意味着是私人的，不应该访问或者修改的。当然我们想要使用他们必须得手动注明引入。
 
 ### Templating Links & Images
+### Routing & Multiple Views
+当页面变得复杂的时候，我们开始把index.html变成一个layout，然后把其他的内容展示根据现在的route来加载对应的template。
+
+angular提供了$routeProvider来提供路径功能，用这个我们可以把URL，控制器，模板联合在一起。并且我们可以利用浏览器的历史和书签。
+
+#### A Note about DI, Injector and Providers
+DI(依赖注入)是Angular的一个核心，认识他还是蛮重要的。
+
+当应用程序开始的时候，Angular创建了一个你的应用将会使用到的所有的service的注入器。注射器本来不知道你的$http和$route到底做什么。
+
+注射器只按照下面的步骤进行：
+
+ - 加载你在程序中定义的模块定义
+ - 注册模块定义中的provider
+ - 当被要求的时候，实例化服务以及依赖关系，作为可注射参数函数
+
+这里的template使用的是ng-view这个directive，我们就可以在config里面对使用的模板进行配置。
+
+### More Templating
+### Custom Filters
+用户可以自己定义filter
+
+### Event Handlers
+就是通过ng-click来绑定点击事件
+
+### REST and Custom Services
+### Animations
+这里就是教我们如何使用动画
+
+## Developer Guide
+核心思想是模板，将渲染的过程从后端放到了前端，这样子对于动态页面的更新更加有效。还有一些应用架构，比如scope来将model导出到view，依赖注入等等，还有其他的一些功能。
+
+### Introduction
+angular是一个动态web应用程序的结构性框架。他让我们使用html作为模板并且扩展HTML的语法。angular的数据绑定和依赖注入让我们少写了一些可能需要去写的代码。这一切发生在浏览器中，于是可以与任何服务器技术合作。
+
+Angular通过告诉浏览器新的语法我们称之为directive。
+
+Angular是一个完整的客户端解决方案，他处理了你所有的创建，阅读，更新，删除操作，包括复用，依赖注入，数据绑定，模板，表单验证。
+
+Angular通过提供更高程度的抽象来简化应用的开发过程。就像任何的抽象一样，他的灵活是有代价的。换句话说，不是所有的应用都是适合Angualr的。
+
+游戏和GUI编辑器这种密集的DOM操作性的例子就不太适合angular，可能更低级别的抽象比如jQuary更适合些。
+
+#### The Zen of Angular
+Angular的构建的意思是申明式的比命令式的更适合UI和布线软件组件。
+
+Angular帮你解脱了以下的痛苦：
+
+ - 注册回调：注册回调让你的代码显得很杂糅，删除那些通常的样板代码比如回调的注册能够大量的减少代码量并且能够更直观的看清楚你的程序在干吗。
+ - 操纵DOM编程：操纵DOM是ajax引用的基础，但是它很繁琐并且容易出错。通过申明式的描述你的UI如何变化，你可以解脱于低级的DOM操作。使用angular基本避免了你去操作DOM，当然如果你想的话你也可以。
+ - 数据与UI之间的变化：CRUD操作占了大多数的应用程序，整个表单验证，然后返回一个内部的模型，这整个过程有大量的样板代码，angular消除了这其中的样板代码。
+ - 写大量的初始化代码：通常你可能需要写大量的代码来得到一个“Hello world”，angular的guide帮你写了整个第一次初始化的过程。
+
+### External Resources
+### Conceptual Overview
+用一个简单的例子来介绍Angular的所有重要部分。
+
+建议唯一一个该去访问DOM的地方就是自定义的directive。
+
+### Data Binding
+Angular中的数据绑定是保持数据在model和view之间自动同步。Angular的实现数据绑定的方式允许你把model当做是你应用的单一可信来源。View在任何时候都是model的一个投影。当model改变的时候，view反应了这个变化，反之亦然。
+
+传统的模板系统就是在某个时刻merge model以及模板。需要去写代码来将两者同步。
+
+Angular模板中的数据绑定则是初始从template编译成view。然后任何view的变化都会立刻在model中反映出来，model中的变化也会立刻反映到view中。可以把视图当做是瞬间的投影。
+
+### Controllers
+在angular中，controller被定义为一个js的构造函数，用来增强Angular scope。
+
+当一个controller通过ng-directive被链接到DOM时，angular将会实例化一个控制器对象。
+
+使用controller来初始化scope对象的初始状态。来给scope对象添加行为。
+
+controller里面的scope是一层层继承的。
+
+### Services
+Angular services是使用依赖注入的可替换的对象，我们可以使用services来组织并且跨应用程序共享代码。
+
+ - angular只会在应用组件依赖的时候才会去吃实话一个service。
+ - 単例：每个组件依赖的service都会得到服务工厂产生的单一实例。
+
+angular提供了好几个service，比如$http。我们是可以自己去定义服务的。
+
+service都是注册在模块上的，service也是可以拥有依赖的。也可以通过模块的config方法中的$provide来注册服务。
+
+### Scopes
+Scope是一个对象，指向应用程序的model，他是表达式的执行上下文，作用域可以查看表达式以及传播事件。
+
+#### scope特点
+ - scope提供了API($watch)来观察model的变化
+ - scope提供了$apply来传递model的变化。
+ - 他的可以嵌套或者限制属性。child scope是可以继承parent scope的，但是隔离scope就不会。
+ - scope提供了表达式的求的值来作为内容。
+
+#### scope作为数据模型
+scope是控制器和view之间的绑定
+
+### Dependency Injection
+依赖注入是一个设计模式，他处理组件如何管理他们的依赖。angular的注入子系统负责创建组件，解决他们的依赖，将他们需要的其他组件提供给他们。
+
+#### 使用动态注入
+在Angular中DI无处不在，你可以在你定义组件或者为一个模块提供run和config方法的时候使用它。
+
+ - 那些被注入的工厂方法或者构造函数声明的组件例如服务，指令，筛选器和动画。这些组件可以被服务和value组件作为依赖注入。
+ - 通过构造函数定义的控制器，他们可以被任意的服务和value组件注入，
+
+#### 为什么要动态注入
+
+
+
+
+
+
+
+### Directives
+高层次来说，Directives是DOM元素上的标记，比如属性名，元素名，comment或者css的class。他会告诉angular的HTML编译器($compile)来对DOM元素添加一段特殊的行为。甚至转变DOM以及他的children。
+
+Angular附带了一组内部指令，比如ngBind，ngModel，ngClass。与你创建控制器和服务很像，你可以创建你自己的指令。
+
+编译其实就是给html添加指令来让HTML变得互动，使用编译这个词的原因是因为递归添加指令的过程很像是编译代码语言。
