@@ -15,6 +15,7 @@
  - [React][20]
 - Angular
  - [Angular文档阅读][92]
+ - [Angular][30]
 - HTML5
  - [history相关][4]
  - [hashchange事件][7]
@@ -27,7 +28,6 @@
  - [Commonjs,CMD,AMD和cortex介绍][1]
  - [Requirejs学习以及实现][64]
  - [Requirejs源码阅读][65]
-- [Angular][30]
 - [Polyfill源码阅读][33]
 - [Prototype,原型,继承][35]
 - [Promise规范以及写一个Promise][46]
@@ -62,7 +62,7 @@
 
 ## 前端基础
 - [前端基础知识][44]
-- [Macro-task与Micro-task][48]
+- [MVC的思考][93]
 - [setTimeout][49]
 - [throttle和debounce][56]
 - [JS性能][59]
@@ -71,6 +71,7 @@
 - [CSS布局][54]
 - [Web-Components][73]
 - [动态CDN加速][88]
+- [Macro-task与Micro-task][48]
 
 ## 读书笔记
 - Javascript高级程序设计 `绝对是要深读的好书，5星` (23章还没看，直接先看24章了)
@@ -193,3 +194,4 @@
 [90]:./读书笔记/你不知道的Javascript上卷/this和对象原型.md
 [91]:./框架以及规范/React/React源码阅读.md
 [92]:./框架以及规范/Angular/Angular文档阅读.md
+[93]:./前端基础/MVC的思考.md
