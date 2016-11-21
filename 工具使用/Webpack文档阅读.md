@@ -127,3 +127,53 @@ require.ensure方法接收一个增加的额外的第三个参数，如果两个
 require.include是一个webpack的特性的函数。他能添加一个模块进当前的代码块中。但是不评估他。(申明会从bundle中删去)
 
 当一个模块存在于多个子代码块的时候，require.include是挺好用的。在父代码块中，require.include将会包含这个模块，而子代码块中的模块实例将会消失。
+
+## configuration
+webpack其实是一个配置对象。取决于你的webpack的用法，有两种方式来传递这个配置对象。
+
+### CLI与nodejs API
+如果你使用CLI，他将会读一个文件webpack.config.js，或者通过--config传入的文件。这个文件将会导出配置对象。`module.exports`
+
+如果你使用nodejs API，你需要传这个配置对象作为参数。webpack({//configuration},callback)
+
+在两种case下，你都可以使用数组化的配置，并行执行。他们共享文件系统的缓存和观察者，所以这比多次调用webpack更加高效。
+
+### 配置对象内容
+
+    记住我们并不需要写纯净的JSON进配置中。使用任何你想要的JS，他只是一个nodejs的模块。
+
+#### context
+就是处理entry的基础目录，如果output.pathinfo被设置了，包含的pathinfo是对这个目录的缩写。
+
+#### entry
+bundle的入口文件，如果你传一个string，这个字符就会被解析为模块加载时启动。如果你传了一个数组，所有的模块会在启动时加载，最后一个被export。如果你传了一个对象，会有多个入口bundle，key是模块名。
+
+#### output
+影响编译输出的配置项。output告诉了webpack如何去写编译的文件到disk上。注意尽管有多个entry的点，只有一个output的配置。如果你使用了任何的散列来让模块一定有一个一致的排序，使用OccurenceOrderPlugin或者recordsPath。
+
+ - output.filename：指定每个输出文件在磁盘上的名称，你不能在这里指定一个绝对路径
+ - output.path：决定了文件被写入的磁盘的位置
+ - output.filename：仅用于命名的文件名
+ - output.publicPath：用于规定页面上的公共资源，比如js，css，img的路径，因为可能会需要放置到不同的domain或者CDN。
+ - output.chunkFilename：无入口的chunk的name，相对于path
+ - output.sourceMapFilename：js文件的sourcemap的文件名。default：[file].map
+
+接下来还有一堆先不看了
+
+如果你的配置创建了多于一个块你应该使用下面的替换，来保证每个文件有一个独一无二的名字。[name]会被chunk的name替换，[hash]会被编译的hash替换，[chunkhash]被chunk的hash替换
+
+#### module
+module.loaders：自动应用的加载器数组，每个item都有下面的属性：
+
+ - test：必须满足的条件，正则
+ - exclude：必须不满足的条件
+ - include：必须满足的条件
+ - loader：一个以`!`分隔的loaders
+ - loaders：loader的字符串数组
+
+ 其他的内容先不管
+
+#### resolve
+影响了模块的解析
+
+ - root：包含了你的模块的绝对路径，可能是一个array，这个用来添加独立的目录进搜索路径 
