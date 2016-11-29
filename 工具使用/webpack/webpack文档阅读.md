@@ -176,4 +176,6 @@ module.loaders：自动应用的加载器数组，每个item都有下面的属�
 #### resolve
 影响了模块的解析
 
- - root：包含了你的模块的绝对路径，可能是一个array，这个用来添加独立的目录进搜索路径 
+ - root：包含了你的模块的`绝对路径`，可能是一个array，这个用来添加独立的目录进搜索路径
+ - modulesDirectories：这里传的是如何node去找到node_modules文件夹，如果我想要处理的话，感觉加个neurons，然后加个webpack的插件应该可以搞定。
+ - fallback：一个文件夹，webpack将会去查找模块，当没法在root或者modulesDirectories里面寻找到的时候提供了一个fallback
