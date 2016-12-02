@@ -179,3 +179,49 @@ module.loaders：自动应用的加载器数组，每个item都有下面的属�
  - root：包含了你的模块的`绝对路径`，可能是一个array，这个用来添加独立的目录进搜索路径
  - modulesDirectories：这里传的是如何node去找到node_modules文件夹，如果我想要处理的话，感觉加个neurons，然后加个webpack的插件应该可以搞定。
  - fallback：一个文件夹，webpack将会去查找模块，当没法在root或者modulesDirectories里面寻找到的时候提供了一个fallback
+
+#### externals (懂了)
+指定依赖项不应该被webpack处理，但是应该成为bundle的依赖。依赖的种类取决于'output.libraryTarget'
+
+    这个其实很简单，页面可能已经通过script的方式引入了某个类库，但是我们使用的时候并不想通过全局变量来引用，于是我们配置了externals以及那个类库的引入方法之后，就可以在代码里面进行require了。
+
+#### bail（懂了）
+这个是运行webpack的时候作为参数带着  --bail
+
+    就是编译错误的时候会把报错信息显示的更加详细
+
+#### profile （懂了）
+这个是运行webpack的时候作为参数带着 --profile
+
+    会把每个模块的时间信息打印出来
+
+#### cache
+缓存生成模块和chunk来提高多个增量构建的性能，在watch模式被默认开启，可以传false来阻止。
+
+#### debug
+切换loader到开发模式
+
+#### devtool （懂了）
+选择一个开发工具来改善debug，就是选一种sourcemap，其实很简单就能开启。
+
+#### devServer（懂了）
+其实就是热部署的一个配置项
+
+## Loaders
+loaders允许你预处理文件，你需要使用require或者load他们。Loaders就像是其他构建工具的tasks。提供了一个强大的方式来处理前端构建步骤。loaders能够转换不同的语言。loader甚至允许你进行css的require。
+
+告知webpack进行loader的应用，你可以在config里面写好，或者在require的时候写明。
+
+当链式调用loader的时候，顺序是从右向左的。
+
+## loader order
+在文件从文件系统读出来之后，loaders会以下面的顺序执行。
+
+ - config里面的preloader
+ - config里面的loaders
+ - 在require里面申明的loaders
+ - config里面的postloaders
+
+我们在require里面可以通过添加前缀来取消一些loader的执行。比如`!``!!``-!`
+
+## PLUGINS
