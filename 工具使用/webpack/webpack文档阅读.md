@@ -224,4 +224,61 @@ loaders允许你预处理文件，你需要使用require或者load他们。Loade
 
 我们在require里面可以通过添加前缀来取消一些loader的执行。比如`!``!!``-!`
 
-## PLUGINS
+## HOW TO WRITE A LOADER
+一个loader就是一个export一个function的node模块。
+
+这个方法会在资源需要被转化的时候被调用。
+
+在这个简单的case中，当一个简单的loader被应用到资源上。这个loader被传入这个资源的文本作为一个string参数调用。
+
+这个loader可以在函数中通过this这个参数得到loader api。
+
+一个同步的loader只希望得到一个简单返回的string，在其他任意的case中，loader都返回任意数量的value通过this.callback。错误也是this.callback来返回或者通过一个同步的loader返回。
+
+loader希望返回一到两个值，第一个值是js code作为string或者buffer。第二个可选的value是一个sourcemap作为js对象。
+
+在复杂的case中，当多个loader被链式调用，只有最后的loader拿到资源文件，只有第一个loader希望返回一到两个值。
+
+### Guidelines
+#### do only a single task
+
+loader可以被链式调用，为每一步创建loader，而不是一个loader一次性做所有的事情。这也意味着如果不是必要的话他们不该被转化为js。例子：通过应用查询参数来从模板里渲染html。可以写一个loader来从source中编译，执行他，然后返回一个包含了HTML code的字符串。我们应该在这种使用过程中为了每个task写loader并且管道应用他们。
+
+ - jade-loader：将模板转化为一个抛出方法的模块
+ - apply-loader：通过应用查询参数，返回结果
+ - html-loader：接受html，返回一个字符串的export模块
+
+#### generate modules that are modular
+loader生成模块必须像是正常的模块一样期望同样的设计原则。
+
+#### flag itself cacheable if possible
+大多数loader都是可以被缓存的，所以他们需要flag他们自己成可缓存的，直接调用cacheable就行了。
+
+### not keep state between runs and modules
+loader应该独立于其他的模块编译。loader应该独立于同一个模块的前一次编译
+
+### mark dependences
+如果一个loader依赖了其他的资源，比如从文件系统中读取，他必须被通知到。这个信息用来缓存失效机制以及在watch模式下重新编译
+
+就是调用addDependency这个方法
+
+### resolve dependences
+在许多语言中，有一些模式来指定依赖项，例如，在css中有@import和url。这些依赖应该由模块系统来处理，现在有两个选择：
+
+ - 将他们都转化为require
+ - 使用this.resolve来处理路径
+
+## HOW TO ARITE A PLUGIN
+插件向第三方开发者暴露了webpack引擎的的全部潜力。使用构建的回调，开发者可以在webpack的构建过程中引入他们自己的行为。构建插件比构建loader更加先进一些，因为你需要去理解一些webpack的底层的钩子。准备好去阅读一些源码。
+
+### 编译器和编译过程
+开发插件的过程中最重要的两个资源是compiler和compilation。理解他们的角色是扩展webpack引擎的重要的第一步。
+
+ - compiler对象代表了完整的webpack的配置环境，这个对象在开始webpack的时候被构建一次，并且是被那些options，loaders和plugins所一起配置的。当对webpack环境应用一个插件的时候，这个插件将会接收到这个compiler的引用。使用这个compiler来访问主要的webpack环境。
+ - compilation对象代表了版本资源的单次的build。当运行webpack开发中间件的时候，每次当一个文件改变的时候，一个新的compliation将会被创建，从而生成一组编译资源。一个compilation表面信息是关于模块资源的当前状态，编制资产，改变的文件以及查看依赖。compilation也提供了许多的callback点以供执行自定义操作。
+
+### 基本的插件结构
+插件是在原型链上拥有apply方法的实例对象。apply方法在webpack compiler安装这个插件的时候被执行一次。apply方法给予了底层webpack编译器的引用，提供了compiler callback的访问。
+
+### 访问compilation
+使用compiler对象，你可以绑定对每次compilation都提供了引用的回调。这些compilation提供了许多构建过程的步骤的回调。
