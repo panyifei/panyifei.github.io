@@ -101,7 +101,11 @@
 - [Hybird框架理解][37]
 
 ## 工具使用
-- [Webpack文档阅读][86]
+- webpack
+ - [Webpack文档阅读][86]
+ - [webpack热部署][95]
+ - [webpack深入探索][96]
+ - [webpack插件编写][94]
 - [photoshop简单使用][12]
 
 使用github来管理也是希望与大家分享并得到纠正。欢迎感兴趣的同学star~
@@ -195,3 +199,6 @@
 [91]:./框架以及规范/React/React源码阅读.md
 [92]:./框架以及规范/Angular/Angular文档阅读.md
 [93]:./前端基础/MVC的思考.md
+[94]:./工具使用/webpack/webpack插件编写.md
+[95]:./工具使用/webpack/webpack热部署.md
+[96]:./工具使用/webpack/webpack深入探索.md

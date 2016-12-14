@@ -67,8 +67,14 @@ resolveLoader: {
 }
 ```
 
+## 另一种实现
+勐喆之前也做过一版，他做的是babel的插件，他会先通过babel解析的语法树得到这个js所有的引入，得到一个依赖的列表。然后他写了一个轻量的neuron解析器来接住这个依赖列表，在每个cortex的包的头部传入进去。这样完成资源的识别。最后我没有选择这种方式，是因为这样子所有的neuron资源都会走一遍babel的编译，这是个极其耗时的过程。应该避免。而且我的尝试里面如果想要使用他的方法也必须进行一次语法分析的。也会耗费大量的时间，而且打包出来的webpack会有冗余代码。
+
 ## 总结
-这里只是记载了问题的整体解决过程，具体代码可以看我的两个模块[webpack-cortex-loader](https://github.com/panyifei/webpack-cortex-loader)和[webpack-cortex-resolve-plugin](https://github.com/panyifei/webpack-cortex-resolve-plugin)。
+我的虽然摒弃了gulp，但是我在neuron里面生成了一些新的目录结构。还是有一些问题的，这里只是记载了问题的整体解决过程，具体代码可以看我的两个模块[webpack-cortex-loader](https://github.com/panyifei/webpack-cortex-loader)和[webpack-cortex-resolve-plugin](https://github.com/panyifei/webpack-cortex-resolve-plugin)。
+
+## 意外发现已经被包装成插件了
+...好吧，张强同学已经把gulp的这个执行任务包装成过webpack插件了，在webpack run之前会先把neuron里面的结构转化到node_modules里面。我得比较一下我和他的利弊。
 
 ## tip
 这里开发webpack的插件以及loader的时候，发现了一种好用的debug的方法，因为这个命令是命令行webpack执行的。用下面的nodejs以及webstorm的断点可以进行debug。
