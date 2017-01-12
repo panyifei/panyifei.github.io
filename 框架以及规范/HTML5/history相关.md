@@ -3,6 +3,8 @@ layout: default
 title: {{ site.name }}
 ---
 # history相关
+这里介绍的两个API其实挺关键的，因为现在的前端路由的话其实基本都是pushState和replaceState控制的。
+
 **HTML5** history为window添加了**pushState**，**replaceState**这两个方法，还提供了一个事件**popstate**。具体的方法就不讲解了，直接去官网查看吧。[Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
 
 		于是我们可以在页面上ajax获得数据，重绘页面，然后用户在点击倒退键时，还在这个页面上。因为我们在重绘页面的时候，调用一下pushSate为history增加了一条记录。

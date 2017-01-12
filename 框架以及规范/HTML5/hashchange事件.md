@@ -3,6 +3,7 @@ layout: default
 title: {{ site.name }}
 ---
 # hashchange事件
+hashChange事件其实就是另一种前端路由的处理方法了。
 
 这里承接history相关，对于后退键不刷新页面，使用了修改hash来模拟实现的方法。
 
