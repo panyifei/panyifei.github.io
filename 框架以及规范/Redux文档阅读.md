@@ -49,7 +49,7 @@ recuder是纯函数，输入原来的状态和action，得到了新的状态。�
 Redux是一个混合的遗产。他和一些模式和技术很像，但是也在一些重要的部分与他们是不同的。
 
 ### Flux
-Flux可以被以为是一个Flux的实现吗？是也不是。Flux的创造者承认了这点。
+Redux可以被以为是一个Flux的实现吗？是也不是。Flux的创造者承认了这点。
 
 Redux的灵感来源于Flux的几个重要特性。像Flux一样，Redux让你把model的更新逻辑放到了你的app的一个层去解决。(在Flux中为stores，在Redux中为reducers)。都让你通过一个叫做action的空对象来描述每次突变。
 

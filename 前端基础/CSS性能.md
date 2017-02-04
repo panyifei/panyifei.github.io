@@ -45,7 +45,7 @@ title: {{ site.name }}
 
 表格元素可继承：border-collapse
 
-不可继承的：display、margin、border、padding、background、height、min-height、max- height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-break-after、 page-bread-before和unicode-bidi
+不可继承的：display、margin、border、padding、background、height、min-height、max-height、width、min-width、max-width、overflow、position、left、right、top、 bottom、z-index、float、clear、table-layout、vertical-align、page-break-after、 page-bread-before和unicode-bidi
 
 ## 小细节
  - 如果值为0的话，我们可以不加上单位，效果会比较好。
