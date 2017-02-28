@@ -108,6 +108,7 @@
  - [webpack热部署][95]
  - [webpack深入探索][96]
  - [webpack插件编写][94]
+ - [webpack2][99]
 - [photoshop简单使用][12]
 
 使用github来管理也是希望与大家分享并得到纠正。欢迎感兴趣的同学star~
@@ -206,3 +207,4 @@
 [96]:./工具使用/webpack/webpack深入探索.md
 [97]:./前端分享/2016届D2分享.md
 [98]:./框架以及规范/ECMAScript6/Class.md
+[99]:./工具使用/webpack/webpack2.md
