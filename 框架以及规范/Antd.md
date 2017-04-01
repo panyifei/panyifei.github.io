@@ -11,3 +11,6 @@ antd的form如果复杂一些，肯定得拆出一个组件来，然后通过第
 
 ### 空字符串触发props的检验失败
 写组件的时候会申明好组件的props，然后在inputNumber组件删除至回车的时候，会传一个空字符串，这个就触发了props的校验失败，所以最后使用了oneof这种东西。
+
+### form的初始状态设置
+如果是checkbox类型的，设置getFieldDecorator的时候，要告诉他valuePropName为“checked”，这样子form才知道他对应的布尔值控制的是哪个属性~
