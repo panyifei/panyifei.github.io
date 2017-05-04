@@ -5,6 +5,7 @@ title: {{ site.name }}
 # Redux文档阅读
 Redux是js的一个可预测的状态的管理者。
 
+# 介绍
 ## 要旨
  - 你的App的所有的状态存在一个单一store的对象树中。
  - 唯一的改变状态树的方法是发出一个action(一个对象描述发生了什么)
@@ -76,5 +77,77 @@ Redux不关心你如何存储一个对象，可以是个简单的对象，可以
 ## 生态系统
 Redux是个小的库，但是他的概念和API都是很精心挑选来扩展成工具和扩展的生态系统。
 
+# 基础
+## actions
+actions是从应用向store发送的信息。他们是store的唯一的信息来源，我们使用store.dispatch来发送信息。
+
+action是简单的js对象，action必须有个type的属性来指示需要被执行的action。type必须被定义为string的类型，一旦app大了之后，我们可能需要把他们移到独立的模块。
+
+除了type之外，action的结构随我们定义，这里也有个小规范啦。
+
+这里引入了一个action creator的概念，不过没啥意思，小语法糖。
+
+## reducers
+action描述了到底发生了什么，但是没有指明应用的state作为结果是如何改变的，这是reducer的任务。
+
+在redux中，所有的应用state都是存为了一个单一对象，在写代码之前去思考下他的形状很重要，如何把你的应用的状态最小展示为一个对象。
+
+reducer是个纯函数，只拿取老的状态，action，然后返回一个新的状态。我们在reducer里面并不能干的事情：
+
+ - 突变参数
+ - 做一些边界影响，例如调用API，或者路由转换
+ - 执行一些不纯洁的方法，例如random或者Date.now这种
+
+在下面会有介绍边界影响的地方，目前记好了reducer必须是纯的。如果是flux的话，会有个dispatcher，会有个事件发射器。redux的话用出纯函数的reducer来取代了事件发射器。
+
+## store
+store是个将action和reducer结合到一起的地方，他有以下的任务：
+
+ - 保存应用的state
+ - 允许通过getState来拿到数据
+ - 允许数据可以通过dispatch来更新
+ - 通过subscribe注册监听
+ - 通过subscribe返回的函数来取消注册监听
+
+注意很重要的是你只有一个单一store，当你想要分割数据处理逻辑，你可以使用reducer composition而不是很多个store。
+
+创建store很容易，在之前的模块，使用combineReducer来combine多个reducer成为一个，现在将他传给createStore就好了。
+
+我们可以将createStore的第二个参数来指定初始状态。
+
 ## 数据流
-严格的单向数据流
+redux的结构是严格的单向数据流。意味着应用中的数据都是遵循着同样的生命周期模式，让你的app更加可预测并且可理解。也鼓励了数据一致化。
+
+## 与react的使用方法
+他能很好的和react合作的原因是，react把state作为了UI的一种描述形式。
+
+# 进阶
+## 异步action
+在之前的介绍中，我们创建的完全是同步的应用，每次一个action发出的时候，state都会立刻更新。现在开始介绍如果异步的请求来适应redux流。
+
+主要的思想就是action除了返回对象之外还可以返回函数，这个时候action创建函数就变成了thunk了。
+
+然后这时接入redux-thunk，这个中间件就会在action返回函数的时候执行。这个函数可以是不纯净的，可以去执行异步函数，也可以dispatch action。当然了，thunk并不是唯一方式，redux-saga使用感觉很不错啊。
+
+## 异步数据流
+默认情况下，createStore的Redux store没有用到middware，只支持同步数据流。
+
+其实中间件的中间环节随便我们返回什么，但是到了最后只要返回一个简单的action对象就好了，saga估计也就是在这里面做了很多文章。
+
+## 中间件
+用过express或者koa的话，就会有一个已经熟悉的中间件的概念了。与之类似的，redux提供了一个第三方的点，就是从发出一个action到他到达reducer的时候。本文就是带我们了解moddleware。
+
+就是从打log这一件事上，慢慢地去寻找到底补丁该打在哪里咯。
+
+## 与React Router一起使用
+react-router原来保留#的原因是为了适配IE9，params是react-router提供的功能啊。
+
+# 技巧
+## 转换到redux
+redux并不是一个单一框架，是一系列的约定以及一些让他们一起运行的函数。
+
+## 使用对象展开运行符
+我们平常时候写Object.assign来复制一个新的对象，但是代码很冗余啊，于是我们用对象展开运算符，可以将对象的可枚举属性拷贝至另一个对象。
+
+## 减少样板代码
+## 服务器端渲染
