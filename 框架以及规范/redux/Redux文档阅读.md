@@ -187,3 +187,42 @@ redux要求了reducer的格式，而且要求是纯函数，并且是可预测�
 突变不被推荐的原因是他通常打破了时差调试，还有redux的connect方法：意思是React的devtools会希望重新执行来得到一个值而不会产生影响。connet函数检查脏也就是检查引用是否改变了，如果没有改变的话那就不会重新渲染了。
 
 其实是有数据库设计的问题的感觉。
+
+## 基本的reducer结构
+注意，整个app只有一个reducer，他是传入createStore的第一个参数。这个reducer需要做的事情有，第一次state为undefined的时候，reducer需要提供一个默认的state。在拿到action之后，对老的state进行处理得到新的数据后，返回一个新的对象。如果没有变化，返回老的数据。
+
+这里就是说data大部分也就是3种分类，包含了数据的Domain Data，应用的状态App Data(就是比如现在正在获取数据？那个目前被选中着)，还有就是界面状态UI Data(比如modal现在打开着)。
+
+## 拆分reducer逻辑
+对于有意义的应用来说，将你的所有的更新逻辑放到一个reducer方法会很快变得不可维护。函数应该尽可能短，在理想状态下应该只做一件事。因此，将代码拆成一块块的是个好的编程习惯。
+
+因为reducer也就是一个function，我们可以将reducer逻辑拆成多个方法，然后从敷方法调用新方法。
+
+其实就只有combineReducers这个语法糖而已。
+
+## 重构reducer的例子
+这里的拆的整体的过程好有意思，反正最后要返回的是一个新对象，就对每个属性做单独的reducer，例如：
+
+```javascript
+function rootReducer(state = initialState, action){
+  return {
+    tudos: todosReducer(state.todos, action),
+    visibilityFilter: visibilityFilterReducer(state.visibilityFilter, action),
+  };
+}
+```
+
+然后用一个高阶函数把switch去掉了，就会直接根据property匹配相应的函数了，也很神奇啊。高阶函数可以做好多事情，他可以对于一个函数进行自定义化。
+
+然后上面的那坨代码可以使用内置的combineReducers来复写：
+
+```javascript
+const appReducer = combineReducers({
+    visibilityFilter : visibilityReducer,
+    todos : todosReducer
+});
+```
+
+太开心了，太帅气了！终于搞清楚里面是啥了。
+
+## 
