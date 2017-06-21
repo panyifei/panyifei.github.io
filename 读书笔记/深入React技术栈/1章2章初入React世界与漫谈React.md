@@ -136,3 +136,6 @@ react官方提供了PureRender这种方式。
 diff了之后，react计算出全部差异然后放入差异队列，然后执行patch方法来完成DOM的更新。
 
 ## Flux架构模式
+Flux中，store对外只提供了get方法，并没有提供set方法
+
+中心化控制让所有的请求和改变都只能通过action，由dispatcher来分配。
