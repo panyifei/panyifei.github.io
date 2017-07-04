@@ -225,4 +225,86 @@ const appReducer = combineReducers({
 
 太开心了，太帅气了！终于搞清楚里面是啥了。
 
-##
+## 使用combineReducers
+多个reducer响应同一个action，独立更新自己的部分，然后所有的部分被合成一个新的state对象。
+
+因为这个模式很常见，redux提供了combineReducers来实现这个行为，他是一个更高级的reducer，拿那些部分reducer来生成一个新的reducer。
+
+几个重要的点：
+
+ - 首先，combineReducers是一个简化大多数情况下的功能，不一定需要，很有可能用不到也有可能不适用。
+ - Redux本身不对你state的管理做限制，combineReducers强制执行几个规则。
+ - Redux是否在发起一个action的时候调用了所有的Reducer？因为只有一个root reducer方法，所以答案是不调用，但是combineReudcer为了得到新的state树，会用当前的action和state再生成一次，给这些部分一个改变的机会，所以combineReducer执行了所有的
+ - 我们可以在reducer的所有层级使用它，而不仅仅是根层次，很常用的，我们会有大量的combined reducer。
+
+### 定义状态
+两种方法来定义你store的state的初始形状和内容。首先，createStore会用preloadedState作为首参数，这主要是为了用之前在浏览器中初始化的状态，例如浏览器的localStorage。另一种方法是让root reducer在state为undefined的时候返回初始值。但是当用combineReducers的时候有些额外的关注点我们需要去看。
+
+看意思就是我们如果不传入初始值，就会以reducer的名字为state的初始值，我们在用combineReducer的时候最好带上名字。
+
+## beyond combineReducers
+redux的combineReducers很有用，我们故意限制来处理一个简单的case：通过委托更新每一部分的state给特定的slice reducer来更新一个树(一个简单的js对象)。他不处理其他的case，例如一颗用Immutable的maps做的树，尝试传入部分state树作为额外的参数；或者slice reducer的排序；他也不关心如何slice reducer如何运行。
+
+通常的问题是，我如何使用combineReducer来处理这些其他的使用。答案很简单，你可能要用些其他东西了。一旦你超越了核心使用case，就得用更自定义的reducer逻辑了，无论是一次性的用例，还是可以被广泛复用的功能。下面是处理这几种典型用例的建议，不过你自己使用的使用free一些。
+
+## beyond combineReducers
+redux的combineReducers很有用，我们故意限制来处理一个简单的case：通过委托更新每一部分的state给特定的slice reducer来更新一个树(一个简单的js对象)。他不处理其他的case，例如一颗用Immutable的maps做的树，尝试传入部分state树作为额外的参数；或者slice reducer的排序；他也不关心如何slice reducer如何运行。
+
+通常的问题是，我如何使用combineReducer来处理这些其他的使用。答案很简单，你可能要用些其他东西了。一旦你超越了核心使用case，就得用更自定义的reducer逻辑了，无论是一次性的用例，还是可以被广泛复用的功能。下面是处理这几种典型用例的建议，不过你自己使用的使用free一些。
+
+### 在slice reducer里用Immutable对象
+目前combineReducer只能用空白的js对象。用immutable对象作为state的应用没法使用combineRuducer来管理map。因为许多开发者使用immutable，有一些已经发布的程序提供了等效的功能的，例如redux-immutable。这个package提供了自己实现的combineReducer知道如何迭代不可变的map而不是纯java对象。
+
+### 在slice reducer之间分享数据
+类似的，如果sliceA碰巧需要sliceB的部分数据，或者sliceB碰巧需要整个state作为参数，combineReducer并不自己处理这个。这可以通过写一个自定义的知道传入需要的数据作为额外的参数的函数来解决。
+
+一种方法是重新处理下combineReducer，在某些action的时候时候多传些数据，然后在action接住的时候拿数据。
+
+另一种是用高阶函数包一下创建action的函数，多穿些参数。
+
+第三种是用一个combineReducer来处理最简单的情况，然后用一个reducer来处理特殊的需要相互之间交流数据的情况。然后一个包裹的方法，可以来同步运行过这两个reducer。
+
+类似于一个叫做reduce-reducers的模块，他接收大量的reducer然后运行reduce，把之前的结果传给后面的reducer。
+
+如果使用reduceReducers，我们要保证第一个处理了默认情况，因为后面的都会默认整个state已存在。
+
+### 更多建议
+理解redux reducer仅仅只是方法很重要。combineReducer很有用，但他只是一个工具。函数可以包含逻辑语句，可以包裹函数可以调用其他函数。你可能需要你的某个slice reducer来重置他的状态，并且只响应特殊的action，你可以用一些特殊的api，上面都提到过的。也就是我们可以有很大的选择权，我们也可以写自己的函数。
+
+## Normalizing State Shape
+许多应用处理自然嵌套或者相关的数据。比如，博客主有很多博客，每个博客有评论，所有的博客和评论都是由用户编写。
+
+我们的数据结构可能会很庞大，并且有大量冗余。
+
+ - 当一部分数据在多个地方复制的时候，同步的更新变得很难了。
+ - 嵌套数据意味着相应的reducer的逻辑也变得嵌套而且复杂，特别是，尝试更新一个深入嵌套的字段会很难看
+ - 因为immutable数据会要求他所有的祖先都被复制且被更新，一个新的对象引用会导致所有连接的UI重新渲染，
+
+ 由于这个原因，推荐的方法是在redux中处理关系数据或嵌套数据的时候把他处理为数据库，并将其保存为规范化形式。
+
+ ### 规范化设计state
+ 基本概念是：
+
+  - 每种类型的数据在state中有自己的表
+  - 每个数据表应该将各个项目存在对象中，然后ID作为key，item本身作为值
+  - 任何对于项目的引用都应该通过存ID来实现
+  - 应该有个数组的IDs用来指示排序
+
+
+然后给了个例子，给的状态结构总体上更加平坦，与原来的嵌套相比，下面几个方面有改进：
+
+ - 因为item只定义在了一个地方，我们不需要在更新的时候改变多个地方了
+ - reducer逻辑不用处理多层嵌套，所以看上去会简单
+ - 检索和更新变得简单，我们不再需要深挖state，我们很容易就可以追踪了
+ - 因为平层了，所以通常UI通常改动会更少了，我们不需要更新更深层的数据了
+
+规范化的结构通常意味着更多的连接，而不是父组件连接所有向下传递。父元素简单的将ID向下传更容易做性能的优化，渲染上。所以结构化state是改善性能的好方法。
+
+### 组织结构化的state
+一个传统的应用会有关系数据和非关系数据的混合，并没有原则来确定描述如何处理，一个常用的模式是将关系的tables放在一个通用的父key下面，例如entities。
+
+### Relationships and Tables
+因为我们把我们redux的store当成是数据库了，所以数据库设计的很多原则我们可以使用上来，例如多对多的关系，我们可以存储一个中间表来存对应关系（通常叫做关联表或者连接表），为了保持一致性，我们会都是用byId和allIds来管理。数据库操作的性能也会比较好。
+
+### Normalizing Nested Data
+因为API返回的数据很多都是嵌套的，我们可能需要格式化之后再存入state中，Normalizr库就是干的这个事情，可以抽空看下Normalizr库是怎么写的~~
