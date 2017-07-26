@@ -3,7 +3,7 @@ layout: default
 title: {{ site.name }}
 ---
 # Redux文档阅读
-Redux是js的一个可预测的状态的管理者。
+Redux是js的一个可预测的状态的管理者。他是来回来数据什么时候改变，数据来自哪里的。更多的约束得到了我们需要的东西。
 
 # 介绍
 ## 要旨
@@ -308,3 +308,274 @@ redux的combineReducers很有用，我们故意限制来处理一个简单的cas
 
 ### Normalizing Nested Data
 因为API返回的数据很多都是嵌套的，我们可能需要格式化之后再存入state中，Normalizr库就是干的这个事情，可以抽空看下Normalizr库是怎么写的~~
+
+## Updating Normalized Data
+我们使用Normalizr库来转换嵌套的数据变成格式化的数据。但是并没有解决在应用其他地方使用的格式化数据的更新问题。这边有一些推荐的方法。
+
+一种是将action的内容合进state中。这在reducer做的事情最少，但是在action创建的地方我们需要拼装数据来适合放进来，也不能处理删除。
+
+如果我们有一个嵌套的slice reducer，每个reducer都需要知道如何处理这个action，比如写一条评论，那些被combine的reducer要分开处理自己的部分。
+
+### 其他的方法
+基于任务的更新其实就是我们的update的写法，整个state更新。这样子写的话就得在reducer里面知晓整个state的结构。
+
+### redux-orm
+redux-orm提供了一个很有用的抽象来管理redux的格式化数据，它允许你声明modal class并且定义它们之间的关系，他可以为了你的数据类型生成空的table，充当一个专用查找数据的选择器工具，并对该数据执行不可变更新。
+
+总的来说，redux-orm提供了一组非常有用的抽象，来定义数据类型的关系，来检索数据以及数据应用的不可变更新。
+
+## Reusing Reducer Logic
+随着应用的发展，reducer逻辑的常见模式开始出现，你会发现reducer逻辑的几个部分对不同类型的数据做相同的工作，并且希望通过为每种数据类型重用相同的公共逻辑来减少重复。或者，想在store中处理某种类型数据的多个实例。但是redux有一些取舍，他可以轻松跟踪程序的整体状态，但是很难定位特定的状态动作，尤其是combineReducer。
+
+比如我们在combine的时候发起了一个action，所有的都发生了这个action，我们想单独指向一个reducer就比较困难。
+
+### 高阶reducer自定义行为
+高阶reducer是一个方法，接收一个reducer方法，返回一个新的reducer方法。也可以看做是reducer的工厂，combineReducers就是一个高阶reducer，我们可以用类似的方法来包装reducer，比如给action加上额外的前缀或后缀，或者在高阶中判断是谁在发生这个action。
+
+我们也能在某种程度上改变方法，写一个通用的reducer包裹器，挺容易看懂的。
+
+或者写成判断的形式。挺好玩的方法。
+
+## Immutable Update Patterns
+### 更新嵌套数据
+更新嵌套数据的关键是嵌套的每一层都要被适当的复制和更新。更新嵌套对象可能会导致直接突变，应该避免。
+
+ - 比如我们state.a = action.data；就是直接突变数据
+ - 第二个错是我们只处理了最上面一层state的拷贝，对下面进行了突变，也是会挂的
+
+正确的是拷贝所有层的嵌套数据
+
+不幸的是，将不可变的更新应用于深层嵌套的过程很容易变得冗长而难以阅读。所以我们应该尽量使state平坦。
+
+倒是可以抽空看下我们的immutable怎么写的。
+
+## Initializing State
+两种方法来初始化应用state，一种是createStore可以接受可选的preloadedState作为二参。或者reducer本身来判断，如果没有传个默认值或者直接通过ES6的语法。
+
+## Using Immutable.JS with Redux
+### Why should I use an immutable-focused library such as Immutable.JS
+Immutable旨在克服js中固有的不变性问题，为应用程序所需的性能提供不变性的所有好处。你是选择库还是空白的js对象，取决于你是否舒服加入一个新的依赖和是否能处理js的突变。
+
+### 为什么用Immutable.js
+ - 保证不变性：这个和js不一样，js有些操作突变数据pop，push等等，有些并不，比如map，filter，concat，foreach。
+ - 丰富的api，多种数据结构
+ - Performance：使用不可变数据结构会涉及大量的昂贵的复制，尤其是复杂的嵌套数据会有许多的中间拷贝。消耗内存损耗性能。Immutable通过共享表面下的数据结构来避免，最大程度减少复制必要。
+
+### 坏处
+ - 很难与简单的js对象相互操作，你没法直接访问对象属性，你只能通过get或者getIn方法。这就很难与你自己的代码以及第三方库交流，比如lodash等等，他们其实都期望是简单的js对象。虽然提供了toJS方法，但是他很慢，广泛使用会损害性能优势。
+ - Once used, Immutable.JS will spread throughout your codebase，一旦用了，你的代码库里会有很多get。而且很难删掉了
+ - 没有解构或者扩展运算符
+ - 当你的数据很少的时候优势不明显
+ - 很难debug
+ - 打破了对象引用，导致低性能
+
+### 值得吗
+值得，因为突变导致的问题非常难复查出来。但是追查一些规则：
+
+ - 永远不要将js对象和Immutable混合
+ - 让你的redux为一个Immutable对象
+ - 除了展示型组件之外，全都用Immutable
+ - 少用toJS
+ - selector应该返回Immutable
+ - 不要在mapStateToProps中使用toJS
+ - 使用chrome的插件来阻止debug
+
+## General
+什么时候使用：
+
+在你发现你有大量数据改变的时候用redux，当你发现你在top component管理着所有的数据的时候。他并不是写代码最快和最短的方法，他是来帮助回答“什么时候有状态的改变，数据来自哪里的”！！！他通过约束你来实现！！他是一个伟大的工具
+
+redux只能被react用吗：
+都可以啦，最好是能推断UI的变化从state的改变，例如React。
+
+需要额外的构建工具吗：
+
+不用，方便的
+
+## Reducers
+我在两个reducer之间如何分享数据，我是否需要combineReducer
+
+redux的store的建议结构是通过键来将state分为多个切片，提供一个单独的reducer方法来管理每个独立的数据切片。这和Flux搞多个独立的store一样，redux提供combineReducer来让模式更简单。
+
+很多用户想要在reducer之间分享数据，但是发现combineReducer不允许，有几种实现：
+
+ - 如果一个reducer需要从另一个切片知道数据，可能状态树就需要重构了，让单个reducer处理更多数据。
+ - 可能需要写替代combineReducer的东西来自定义了，类似于reduce-reducers
+ - redux-thunk这种可以通过getState拿到整个state，然后通过action传入
+
+原则就是reducer只是方法，我们可以管理他们并且随意拆分。
+
+### 是否需要switch来管理actions
+这个自愿的，可以if，可以是查找table，或者找个方法静态化
+
+## Organizing State
+### 是否需要传入所有的state进redux，是否该用setState
+没有正确答案，有些希望redux管理每个部分的数据，来保持全部的序列化以及应用的可控的版本。其他人希望将非关键的或者是UI的状态，保存在组件的内部。
+
+一些经验法则：
+
+ - 是否应用的其他部分关心这些数据
+ - 你是否需要从这原始数据创造衍生数据
+ - 是否同样的数据来驱动多个组件
+ - 将这数据恢复对你来说是否有价值
+ - 你是否想要缓存数据
+
+### 在stata里面能放方法，promise或者其他非序列化的东西吗
+极力推荐放简单的序列化数据，技术上可以放非序列化的，但是破坏了持久化能力和数据的再补充
+
+自己权衡吧，这是你的应用
+
+### How do I organize nested or duplicate data in my state
+具有ID，嵌套或者关系的数据应该以标准化的方式存储：每个对象只应该被存一次，任何的引用就应该存ID而不是对象的复制。
+
+## Store Setup
+### 是否可以多个store，是否可以直接引入store，然后在组件内部直接用
+最原始的Flux是多个store的，每个有不同的domain。这就会导致一个问题，一个store需要等待另一个store更新。这在Redux中是不必要的，因为数据的分隔是被reducer变成了更小的reducer的。
+
+在Redux中使用多个商店的有效原因可能包括：
+
+ - 部分状态的更新频繁导致的性能问题
+ - 在更大的应用程序中将Redux隔离为组件
+
+同样的，传store也不是推荐模式
+
+### 在我的store增强中使用多个中间件好吗？在中间件功能中next和dispatch有什么区别
+中间件链式调用，每个中间件功能可以调用next来传递给下一个中间件，调用dispatch来重新触发链式的开头，或者什么都不做只是暂停处理。定义多条链式会有问题的，因为会有不同的dispatch实例。
+
+### 我怎么只监听一小部分的state，我能不能拿到action的内容作为订阅的内容
+监听只是为了根据值来处理事情，而不是针对action，如果非要的话，就用中间件。
+
+## Actions
+### 为什么type是string，为什么action type必须是常量
+可序列化的action可以实现redux的功能，因为我们需要可序列化的，能记录历史的东西，才能时间调试，记录和回放action。用Symbol就做不到，因为序列化的结果不可控。因为其实我们不一定要存state的结果，我们可能只要一份原始数据和action的列表就行了。我们可以用Symbol，promise等等来做type，如果我们使用了中间件的话。
+
+Redux只检查了action是个简单的对象并且有type，其他我们都是可以自定义的。
+
+### 在reducer和action之间是否一定有个一对一的映射
+并不一定，我们可以让all，some或者none来响应。取决于我们自己的设计。
+
+### 如何表示ajax这样的副作用，为什么我需要action creator，thunk和中间件来做异步的行为。
+现在的应用需要发起ajax这样的请求来获取数据，所以code不再是input进入一个function，而有了与外界的交互，也就是副作用。
+
+redux受函数式编程影响，开箱即用，没有地方来执行副作用，特别是reducer要求是纯函数。但是Redux的中间件允许拦截发起的请求，并且在周围添加复杂行为，包括副作用。
+
+一般，redux觉得将副作用的作为action创建过程中的事情来做。尽管我们可以在UI组件的内部来写这个，不过将逻辑拿出来可以更好的复用。
+
+最简单的我们可以用thunk来写复杂的异步的逻辑，我们也可以用saga来写看上去更同步的逻辑。还有个Redux Loop在reducer里面声明副作用来响应state改变。
+
+### 我应该从一个动作创建者分发多个action吗？
+没有规范我们如何管理action。如果只发一个，我们就比较难debug到发生了什么，如果发多个的话，就会觉得是不是应该只发一个。
+
+应该尽量避免同步发多个dispatch，有大量的插件和方法来做这件事。
+
+## Immutable Data
+### 不变性的好处
+不变性能带来更高的性能，导致更简单的编程和调试，因为永不改变的数据比任意自由改变的数据更容易理解。
+
+特别是，不变性使得能够简单的实现复杂的变化检测技术，确保更新DOM这种昂贵的操作只在必须发生时才发生。
+
+### 为什么Redux要求不变性
+React和redux都是浅检测，特别是combineReducer，react-redux的connect也是通过浅检测来判断是否需要re-render。
+
+不变性让数据处理更安全。
+
+time-travel调试需要reducer是纯函数。
+
+### redux为什么使用浅检测
+主要是为了性能考虑。
+
+### react-redux是怎么使用shallow比较来决定是否重绘的
+connect函数中传入的props一定不能是新对象，他会对props里面的所有值进行浅比较。如果是新对象，啧啧啧
+
+### 如何处理数据的突变，非要使用Immutable.js吗？
+不一定需要，简单的js对象，正确书写也可以完美解决。当然很容易出问题而且难以排查。
+
+## Code Structure
+### 逻辑放在reducer还是action
+感觉reducer轻量更容易复用啊，action如果太轻了。reducer就会变得复杂，而且需要大量的输入。文档让我们自己选择。
+
+## Performance
+### redux在规模化了之后在性能和架构方面有多好
+规模化之后必然有性能问题，这其实与redux无关。React-Redux还做了优化的。
+
+许多独立的组件应该自己去连state。list应该传Id给他们的children。用可缓存的selector来做也是性能优化。
+
+### 每个action call all reducers会有性能问题吗
+react实际上只有一个reducer，其实没什么性能问题。如果担心的话，可以加一些redux-ignore来精准操作或者先计量一下时间。
+
+### 我需要在reducer深克隆吗，会变慢吗
+都是浅拷贝啦
+
+### 如何减少store更新事件的数量
+如果是react，我们可以用ReactDOM.unstable_batchedUpdates()来batch操作。
+
+如果单纯的reducer，可以用redux-batched-actions来将多个action batch，然后在reducer里面解压。
+
+## React Redux
+### 为什么组件重渲，为什么跑了mapStateToProps？
+意外地直接修改状态是目前为止组件在调度后不会重新呈现的最常见原因。Redux期望您的reducer不可变。意味着总是复制，并且将更改应用于副本。如果我们要改变某个嵌套的，那一顺溜的都要复制。
+
+并不意味着我们一定需要Immutable.js，我们也可以用js对象来做，或者Object.assign或者spread操作符。
+
+### 为什么我的组件经常的rerender
+React Redux做了一些优化来保证你的组件在真正需要的时候重绘。包括在mapStateTpProps和mapDispatchToProps生成的对象做了shallow equal。但是在每次都得到新引用的情况下就挂了。
+
+有一个好选择是用reselect来缓存或者你自己在shouldComponentUpdate中用_.equal来判断。还有的时候我们会传箭头函数，我们可以在constructor里面bind。
+
+### 有的时候dispatch为什么没有了
+因为你不写的话会有默认dispatch，但是你自己写的话，就会被覆盖了。
+
+### 我应该只连顶层组件？我可以在我的树里连多个组件吗？
+早期redux文档建议你只应该在接近顶层的地方连接。这会导致一些组件知道太多子组件的需求，并且传太多的props。
+
+最佳实践是将组件分为展示或者容器组件。将展示组件分离。
+
+而且连接较多的组件通常比较少的组件性能更好。
+
+在数据流和你的组件职责之间找到一个平衡点。
+
+## Miscellaneous
+
+## Troubleshooting
+### dispatch action的时候啥也没有发生
+可能是突变了数据。你必须返回新的数据。注意可能是需要深拷贝的。
+
+### 别忘了调用dispatch(action)
+千万别只返回一个action，要记着真正去dispatch他。
+
+## Glossary
+### state
+随意的数据，最好能容易的序列化。
+
+### action
+简单的对象，代表了改变状态的意图。唯一能改变store的东西，所以的东西都要变成action来改变。
+
+最好用string作为type，因为他好序列化，Symbol不能序列化的。
+
+除了type之外action对象完全取决于你自己。
+
+### reducer
+一个方法接收state和action来生成新的state。必须是纯函数。而且没有side effect。
+
+### dispatching function
+
+### action creator
+
+### async action
+
+### middleware
+
+### store
+包含了state树。有dispatch，getState，subscribe还有replaceReducer来热加载和代码分离
+
+### Store creator
+创建store
+
+### Store enhancer
+store增强，允许我们给store加新的接口，store并不是一个实例，而是一个对象集合，可以很容易被创建。
+
+## API Reference
+记住redux只关心管理状态，在一个真的应用中，我们还需要UI绑定，例如react-redux。
+
+## createStore
+一参为reducer，二参是初始state，三参是store的增强，
