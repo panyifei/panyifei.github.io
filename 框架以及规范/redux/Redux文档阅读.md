@@ -579,3 +579,6 @@ store增强，允许我们给store加新的接口，store并不是一个实例�
 
 ## createStore
 一参为reducer，二参是初始state，三参是store的增强，
+
+## store
+store不是class，他是一个拥有一些方法的对象，
