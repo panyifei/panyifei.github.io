@@ -58,4 +58,7 @@ function compose (...funcs) {
 #### redux-thunk代码为什么不传next，而是传了dispatch
 异步的函数啊！！！我去，所以传的是最后的结果。
 
-#### applyMiddleware为什么不直接接收store作为参数？？？
+#### applyMiddleware为什么不直接接收store作为参数
+为了不让store应用多遍中间件，所以故意这么设计的..
+
+原来enchaner除了applyMiddleware之外，还是有其他的，比如redux的dev tools。还是挺过瘾的
