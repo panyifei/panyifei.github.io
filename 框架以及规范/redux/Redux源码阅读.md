@@ -62,3 +62,5 @@ function compose (...funcs) {
 为了不让store应用多遍中间件，所以故意这么设计的..
 
 原来enchaner除了applyMiddleware之外，还是有其他的，比如redux的dev tools。还是挺过瘾的
+
+他的第三个enchars其实是有些冗余的，不过为了之前的一个小问题，作者没有去掉这个东西。
