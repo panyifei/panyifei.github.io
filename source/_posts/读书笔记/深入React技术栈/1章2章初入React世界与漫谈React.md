@@ -1,9 +1,10 @@
 ---
 layout: default
-title: { { site.name } }
+title: 深入React技术栈 -- 初入 React 世界
+categories:
+  - 读书笔记
+  - 深入React技术栈
 ---
-
-# 1 章初入 React 世界
 
 引入 JSX 语法，组件复用简单，而且使得代码和真实渲染目标分隔开来，所以可以渲染到浏览器 DOM 来开发网页，也可以开发原生应用。
 
