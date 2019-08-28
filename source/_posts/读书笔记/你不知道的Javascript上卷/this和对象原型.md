@@ -3,7 +3,7 @@ layout: default
 title: this和对象原型
 categories:
   - 读书笔记
-  - 你不知道的javascript上卷
+  - 你不知道的js上卷
 ---
 
 ## this

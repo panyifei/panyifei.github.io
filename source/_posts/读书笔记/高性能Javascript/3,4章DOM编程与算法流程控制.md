@@ -3,7 +3,7 @@ layout: default
 title: DOM编程与算法流程控制
 categories:
   - 读书笔记
-  - 高性能Javascript
+  - 高性能js
 ---
 
 ## DOM 编程

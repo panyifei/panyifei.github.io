@@ -1,9 +1,9 @@
 ---
 layout: default
-title: 9章构建并部署高性能Javascript应用
+title: 9章构建并部署高性能js应用
 categories:
   - 读书笔记
-  - 高性能Javascript
+  - 高性能js
 ---
 
 我们在写代码的时候做了大量的工作来优化，但是其实有一半的使用者并没有使用缓存，还有很多没有进行压缩。
