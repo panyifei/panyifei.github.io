@@ -13,12 +13,11 @@
     "hexo-generator-index": "^0.2.1",
     "hexo-generator-tag": "^0.2.0",
     "hexo-helper-live2d": "^3.1.1",
+    "hexo-recommended-posts": "^1.1.0",
     "hexo-renderer-ejs": "^0.3.1",
     "hexo-renderer-marked": "^1.0.1",
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.3",
-    "hexo-wordcount": "^6.0.1",
-    "live2d-widget-model-epsilon2_1": "^1.0.5",
-    "live2d-widget-model-haru": "^1.0.5"
+    "hexo-wordcount": "^6.0.1"
   }
 }
