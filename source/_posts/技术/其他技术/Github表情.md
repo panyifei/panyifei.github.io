@@ -1,13 +1,11 @@
 ---
 layout: default
-title: \{#\{ site.name }}
+title: Github表情
 ---
-# Github表情
 
-这是github支持的表情，可以在github的页面使用，还是比较不错的，摘自[AutumnsWind](https://github.com/AutumnsWind/Emoji-cheat-sheet)的github
+这是 github 支持的表情，可以在 github 的页面使用，还是比较不错的，摘自[AutumnsWind](https://github.com/AutumnsWind/Emoji-cheat-sheet)的 github
 
 使用方法为前后冒号包围表情代号的句法。
-
 
 People
 
@@ -205,7 +203,6 @@ People
 :suspect:
 :trollface:
 
-
 Nature
 
 :sunny:
@@ -323,7 +320,6 @@ Nature
 :partly_sunny:
 :octocat:
 :squirrel:
-
 
 Objects
 
@@ -589,7 +585,6 @@ Objects
 :tomato:
 :corn:
 
-
 Places
 
 :house:
@@ -698,7 +693,6 @@ Places
 :gb:
 :uk:
 :de:
-
 
 Symbols
 

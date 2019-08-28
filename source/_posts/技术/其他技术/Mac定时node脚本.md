@@ -1,10 +1,13 @@
 ---
 layout: default
-title: \{#\{ site.name }}
+title: Mac定时node脚本
 ---
-# Mac定时node脚本
+
+# Mac 定时 node 脚本
+
 ## 定时
-其实就是用launchctl来做定时。在/Users/pyf/Library/LaunchAgents里面新建一个自己的文件，我取名为了com.pyf.bookMeeting.plist。
+
+其实就是用 launchctl 来做定时。在/Users/pyf/Library/LaunchAgents 里面新建一个自己的文件，我取名为了 com.pyf.bookMeeting.plist。
 
 ```java
 <?xml version="1.0" encoding="UTF-8"?>

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: \{#\{ site.name \}#\}
+title: Reuqirejs学习以及实现
 ---
-# Reuqirejs学习以及实现
+
 Requirejs是AMD规范的比较好的实践，在看Requirejs之前先看下AMD的规范
 
 ## AMD规范

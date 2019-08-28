@@ -1,10 +1,11 @@
 ---
 layout: default
-title: \{#\{ site.name }}
+title: Chrome,Sublime插件推荐
 ---
-# Chrome,Sublime插件推荐
 
-## Chrome插件
+# Chrome,Sublime 插件推荐
+
+## Chrome 插件
 
 #### Json formatter
 

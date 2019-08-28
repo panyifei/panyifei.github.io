@@ -1,12 +1,13 @@
 ---
 layout: default
-title: \{#\{ site.name \}#\}
+title: Decorator
 ---
-# Decorator
+
 装饰器模式为了让不修改原类的情况下表现的更好，我们可以给方法加上装饰器，也可以给类加上装饰器。参考自(文章)[http://taobaofed.org/blog/2015/11/16/es7-decorator/]
 
 ## 装饰方法
-装饰器需要3个参数，target，key，descriptor，这个跟Object.defineProperty的效果一样的。
+
+装饰器需要 3 个参数，target，key，descriptor，这个跟 Object.defineProperty 的效果一样的。
 
 ```
 function decorateLight(target, key, descriptor) {
@@ -24,6 +25,7 @@ function decorateLight(target, key, descriptor) {
 ```
 
 ## 装饰类
+
 ```
 function addFly(canFly){
   return function(target){
@@ -40,4 +42,4 @@ function addFly(canFly){
 
 写的言简意赅，让人直接就想用啊！
 
-使用起来确实挺好用的，就是decorator的抽离挺难控制的。
+使用起来确实挺好用的，就是 decorator 的抽离挺难控制的。
