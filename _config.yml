@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 小鹿
+title: 泽鹿
 subtitle:
 description:
 keywords:
@@ -79,5 +79,5 @@ theme: 3-hexo
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:panyifei/Front-end-learning.git
+  repo: git@github.com:panyifei/panyifei.github.io.git
   branch: gh-pages
