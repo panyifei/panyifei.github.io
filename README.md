@@ -1,6 +1,6 @@
 # Front-end-learning
 
-一个前端工程狮的日常，建议直接访问 http://panyifei.github.io/Front-end-learning/README
+一个前端工程狮的日常，请访问 http://panyifei.github.io/
 
 内容主要是：
 
