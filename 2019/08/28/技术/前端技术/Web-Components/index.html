@@ -1,0 +1,2340 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>Web Components | 泽鹿</title>
+  <meta name="keywords" content>
+  <meta name="description" content="Web Components | 泽鹿">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="前言其实网络速度加的很快，然后 V8 引擎(实时编译引擎，转化为机器码来执行)的出现。但是我们对于运行时间，下载，DOM 操作，页面生存周期，还有 DOM 交互，网络延迟，JS 的阻塞，并发下载等等，还是需要研究。 加载与执行JS 阻塞的：也就是时候大多数浏览器使用的是同一进程来处理用户界面刷新和 Javascript 脚本执行。 原因在于脚本的执行过程很有可能会修改页面的内容。 这种情况也发生在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前言，加载与执行">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/读书笔记/高性能Javascript/前言，加载与执行/index.html">
+<meta property="og:site_name" content="泽鹿">
+<meta property="og:description" content="前言其实网络速度加的很快，然后 V8 引擎(实时编译引擎，转化为机器码来执行)的出现。但是我们对于运行时间，下载，DOM 操作，页面生存周期，还有 DOM 交互，网络延迟，JS 的阻塞，并发下载等等，还是需要研究。 加载与执行JS 阻塞的：也就是时候大多数浏览器使用的是同一进程来处理用户界面刷新和 Javascript 脚本执行。 原因在于脚本的执行过程很有可能会修改页面的内容。 这种情况也发生在">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-28T08:45:23.824Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前言，加载与执行">
+<meta name="twitter:description" content="前言其实网络速度加的很快，然后 V8 引擎(实时编译引擎，转化为机器码来执行)的出现。但是我们对于运行时间，下载，DOM 操作，页面生存周期，还有 DOM 交互，网络延迟，JS 的阻塞，并发下载等等，还是需要研究。 加载与执行JS 阻塞的：也就是时候大多数浏览器使用的是同一进程来处理用户界面刷新和 Javascript 脚本执行。 原因在于脚本的执行过程很有可能会修改页面的内容。 这种情况也发生在">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>泽鹿</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="facebook" href="https://www.facebook.com/faker.tops" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-facebook"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="instagram" href="https://www.facebook.com/faker.tops" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-instagram"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="reddit" href="https://www.reddit.com/user/yelog/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-reddit"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="http://weibo.com/u/2307534817" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="jianshu" href="https://www.jianshu.com/u/ff56736de7cf" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-jianshu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/jaytp/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="oschina" href="https://my.oschina.net/yelog" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-oschina"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:jaytp@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=872336115&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="kugou" href="https://www.kugou.com/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-kugou"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(174)</small></div></li>
+    
+        
+            
+            <li><div data-rel="读书笔记"><i class="fold iconfont icon-right"></i>读书笔记<small>(70)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="js语言精粹">js语言精粹<small>(4)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="js忍着秘籍">js忍着秘籍<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="js框架设计">js框架设计<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="js高级程序设计">js高级程序设计<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="人月神话">人月神话<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="代码大全2">代码大全2<small>(4)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="你不知道的js上卷">你不知道的js上卷<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="你不知道的javascript中卷">你不知道的javascript中卷<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="其他">其他<small>(4)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="图解HTTP">图解HTTP<small>(6)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="javascript数据结构">javascript数据结构<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="敏捷软件开发">敏捷软件开发<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="数据之美">数据之美<small>(4)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="数据可视化之美">数据可视化之美<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="算法">算法<small>(5)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="程序员修炼之道">程序员修炼之道<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="深入浅出nodejs">深入浅出nodejs<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="设计模式">设计模式<small>(5)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="领域驱动设计">领域驱动设计<small>(3)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="高性能js">高性能js<small>(7)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="深入React技术栈">深入React技术栈<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="重构">重构<small>(1)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="黑客与画家">黑客与画家<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="lettcode"><i class="fold iconfont icon-right"></i>lettcode<small>(1)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="总览">总览<small>(1)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="174">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019/08/28/技术/JS代码库/Chrome插件研究/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Chrome插件研究">Chrome插件研究</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/JS代码库/Chrome插件编写/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Chrome插件编写">Chrome插件编写</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/JS构建工具/Webpack/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Webpack">Webpack</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/JS代码库/输入框js验证函数/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="输入框js验证函数">输入框js验证函数</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs尝试/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="nodejs尝试">nodejs尝试</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Npm模块/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Npm模块">Npm模块</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Cookie，Session，Localstorage/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Freemarker分页/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Hybird框架理解/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Markdown使用心得/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Mac定时node脚本/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/快捷键/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/编码问题/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端分享/2016届D2分享/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端分享/2015届D2分享/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/CSS布局/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/CSS性能/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/JS性能/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/MVC的思考/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="MVC的思考">MVC的思考</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/Macro-task与Micro-task/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/setTimeout/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="setTimeout">setTimeout</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/sourcemap/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="sourcemap">sourcemap</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/this/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="this">this</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/throttle和debounce/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="throttle和debounce">throttle和debounce</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/动态CDN加速/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/思考/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/移动端300ms/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/页面渲染过程/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/经典js计算题/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/Atom/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/Chrome,Sublime插件推荐/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/JSDOC/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/photoshop简单使用/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/快捷键/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Antd/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Cortex实现deprecate机制/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Eslint/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Flux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Prototype,原型链,继承/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Reselect源码/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/RxJS/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Semver规范/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/TypeScript/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/浏览器兼容性以及移动端开发/浏览器兼容性/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/浏览器兼容性以及移动端开发/移动开发相关/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js忍着秘籍 "
+           href="/2019/08/28/读书笔记/Javascript忍者秘籍/见习训练/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js框架设计-见习训练">js框架设计-见习训练</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js框架设计 "
+           href="/2019/08/28/读书笔记/Javascript框架设计/模块加载系统/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js框架设计-模块加载系统">js框架设计-模块加载系统</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js框架设计 "
+           href="/2019/08/28/读书笔记/Javascript框架设计/种子模块/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js框架设计-种子模块">js框架设计-种子模块</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js语言精粹 "
+           href="/2019/08/28/读书笔记/Javascript语言精粹/正则表达式与方法/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js语言精粹-正则表达式与方法">js语言精粹-正则表达式与方法</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js语言精粹 "
+           href="/2019/08/28/读书笔记/Javascript语言精粹/精华以及基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js语言精粹-精华以及基础">js语言精粹-精华以及基础</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js语言精粹 "
+           href="/2019/08/28/读书笔记/Javascript语言精粹/附录/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js语言精粹-附录">js语言精粹-附录</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js语言精粹 "
+           href="/2019/08/28/读书笔记/Javascript语言精粹/继承与数组/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js语言精粹-继承与数组">js语言精粹-继承与数组</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/14章表单脚本/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-14章表单脚本">js高级程序设计-14章表单脚本</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/17错误处理与调试/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-17章错误处理与调试">js高级程序设计-17章错误处理与调试</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/20JSON/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-20JSON">js高级程序设计-20JSON</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/21Ajax和Comet/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-21Ajax和Comet">js高级程序设计-21Ajax和Comet</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/24最佳实践/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-24最佳实践">js高级程序设计-24最佳实践</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/6章面向对象的程序设计/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-6章面向对象的程序设计">js高级程序设计-6章面向对象的程序设计</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 人月神话 "
+           href="/2019/08/28/读书笔记/人月神话/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="人月神话 -- 读书笔记一">人月神话 -- 读书笔记一</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 人月神话 "
+           href="/2019/08/28/读书笔记/人月神话/2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="人月神话 -- 读书笔记二">人月神话 -- 读书笔记二</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 代码大全2 "
+           href="/2019/08/28/读书笔记/代码大全2/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="代码大全 2 -- 读书笔记一">代码大全 2 -- 读书笔记一</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 人月神话 "
+           href="/2019/08/28/读书笔记/人月神话/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="人月神话 -- 读书笔记三">人月神话 -- 读书笔记三</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 代码大全2 "
+           href="/2019/08/28/读书笔记/代码大全2/2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="代码大全 2 -- 读书笔记二">代码大全 2 -- 读书笔记二</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 代码大全2 "
+           href="/2019/08/28/读书笔记/代码大全2/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="代码大全 2 -- 读书笔记三">代码大全 2 -- 读书笔记三</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 代码大全2 "
+           href="/2019/08/28/读书笔记/代码大全2/4/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="代码大全 2 -- 读书笔记四">代码大全 2 -- 读书笔记四</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 你不知道的js上卷 "
+           href="/2019/08/28/读书笔记/你不知道的Javascript上卷/this和对象原型/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="this和对象原型">this和对象原型</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 你不知道的js上卷 "
+           href="/2019/08/28/读书笔记/你不知道的Javascript上卷/作用域和闭包/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="作用域和闭包">作用域和闭包</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 你不知道的javascript中卷 "
+           href="/2019/08/28/读书笔记/你不知道的Javascript中卷/类型和语法/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="类型和语法">类型和语法</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 其他 "
+           href="/2019/08/28/读书笔记/其他/Tableau商业分析一点通/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Tableau 商业分析一点通">Tableau 商业分析一点通</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 其他 "
+           href="/2019/08/28/读书笔记/其他/不吹不黑前端框架/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="不吹不黑前端框架">不吹不黑前端框架</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 其他 "
+           href="/2019/08/28/读书笔记/其他/不止代码/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="不止代码">不止代码</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 其他 "
+           href="/2019/08/28/读书笔记/其他/菜鸟不会数据分析/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="菜鸟不会数据分析一(入门篇)">菜鸟不会数据分析一(入门篇)</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/1章网络基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- 网络基础">图解HTTP -- 网络基础</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/2章HTTP协议/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- HTTP协议">图解HTTP -- HTTP协议</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/3章HTTP报文/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- HTTP报文">图解HTTP -- HTTP报文</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/4章HTTP状态码/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- HTTP状态码">图解HTTP -- HTTP状态码</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/6章HTTP首部/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- HTTP首部">图解HTTP -- HTTP首部</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/5章web服务器/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- web服务器">图解HTTP -- web服务器</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 javascript数据结构 "
+           href="/2019/08/28/读书笔记/学习Javascript数据结构与算法/基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="javascript数据结构 -- 基础">javascript数据结构 -- 基础</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/读书笔记/大数据之路/读笔1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 敏捷软件开发 "
+           href="/2019/08/28/读书笔记/敏捷软件开发/1部分敏捷开发/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="1部分敏捷开发">1部分敏捷开发</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 敏捷软件开发 "
+           href="/2019/08/28/读书笔记/敏捷软件开发/2部分敏捷设计/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="2部分敏捷设计">2部分敏捷设计</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据之美 "
+           href="/2019/08/28/读书笔记/数据之美/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据之美 -- 读笔1">数据之美 -- 读笔1</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据之美 "
+           href="/2019/08/28/读书笔记/数据之美/2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据之美 -- 读笔2">数据之美 -- 读笔2</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据之美 "
+           href="/2019/08/28/读书笔记/数据之美/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据之美 -- 读笔3">数据之美 -- 读笔3</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据之美 "
+           href="/2019/08/28/读书笔记/数据之美/4/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据之美 -- 读笔4">数据之美 -- 读笔4</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据可视化之美 "
+           href="/2019/08/28/读书笔记/数据可视化之美/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据可视化之美 -- 读笔1">数据可视化之美 -- 读笔1</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据可视化之美 "
+           href="/2019/08/28/读书笔记/数据可视化之美/2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据可视化之美 -- 读笔2">数据可视化之美 -- 读笔2</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据可视化之美 "
+           href="/2019/08/28/读书笔记/数据可视化之美/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据可视化之美 -- 读笔3">数据可视化之美 -- 读笔3</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 算法 "
+           href="/2019/08/28/读书笔记/算法/第1章基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法 -- 基础">算法 -- 基础</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 程序员修炼之道 "
+           href="/2019/08/28/读书笔记/程序员修炼之道/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="程序员修炼之道-读书笔记一">程序员修炼之道-读书笔记一</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 算法 "
+           href="/2019/08/28/读书笔记/算法/第2章排序/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法 -- 排序">算法 -- 排序</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 算法 "
+           href="/2019/08/28/读书笔记/算法/第3章查找/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法 -- 查找">算法 -- 查找</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 深入浅出nodejs "
+           href="/2019/08/28/读书笔记/深入浅出nodejs/异步IO,异步编程/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="深入浅出nodejs -- 异步IO，异步编程">深入浅出nodejs -- 异步IO，异步编程</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 算法 "
+           href="/2019/08/28/读书笔记/算法/第5章字符串/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法 -- 字符串">算法 -- 字符串</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 算法 "
+           href="/2019/08/28/读书笔记/算法/算法相关知识/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法 -- 算法相关知识">算法 -- 算法相关知识</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 设计模式 "
+           href="/2019/08/28/读书笔记/设计模式/2章实例研究/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="设计模式 -- 实例研究">设计模式 -- 实例研究</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 设计模式 "
+           href="/2019/08/28/读书笔记/设计模式/1章引言/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="设计模式 -- 引言">设计模式 -- 引言</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 设计模式 "
+           href="/2019/08/28/读书笔记/设计模式/3章创建型模式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="设计模式 -- 创建型模式">设计模式 -- 创建型模式</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 设计模式 "
+           href="/2019/08/28/读书笔记/设计模式/4章结构型模式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="设计模式 -- 结构型模式">设计模式 -- 结构型模式</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 领域驱动设计 "
+           href="/2019/08/28/读书笔记/领域驱动设计/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="领域驱动设计 - 读笔一">领域驱动设计 - 读笔一</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 领域驱动设计 "
+           href="/2019/08/28/读书笔记/领域驱动设计/2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="领域驱动设计 - 读笔二">领域驱动设计 - 读笔二</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 领域驱动设计 "
+           href="/2019/08/28/读书笔记/领域驱动设计/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="领域驱动设计 - 读笔三">领域驱动设计 - 读笔三</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/3,4章DOM编程与算法流程控制/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="DOM编程与算法流程控制">DOM编程与算法流程控制</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/2章数据存取/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据存取与DOM编程">数据存取与DOM编程</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/5章字符串和正则表达式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="字符串和正则表达式">字符串和正则表达式</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/6章快速响应的用户界面/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="6章快速响应的用户界面">6章快速响应的用户界面</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/7,8章Ajax与编程实践/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="7章Ajax">7章Ajax</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/9章构建并部署高性能Javascript应用/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="9章构建并部署高性能js应用">9章构建并部署高性能js应用</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 高性能js "
+           href="/2019/08/28/读书笔记/高性能Javascript/前言，加载与执行/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="前言，加载与执行">前言，加载与执行</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Github表情/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端分享/微信小程序逻辑层/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/Web-Components/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Web Components">Web Components</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/前端基础知识/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Polyfill源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Promise/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/22高级技巧/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-22高级技巧">js高级程序设计-22高级技巧</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 深入React技术栈 "
+           href="/2019/08/28/读书笔记/深入React技术栈/1章2章初入React世界与漫谈React/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="深入React技术栈 -- 初入 React 世界">深入React技术栈 -- 初入 React 世界</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 深入浅出nodejs "
+           href="/2019/08/28/读书笔记/深入浅出nodejs/node基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="深入浅出nodejs -- node基础">深入浅出nodejs -- node基础</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 设计模式 "
+           href="/2019/08/28/读书笔记/设计模式/5章行为模式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="设计模式 -- 行为模式">设计模式 -- 行为模式</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 重构 "
+           href="/2019/08/28/读书笔记/重构/重构/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="重构">重构</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 黑客与画家 "
+           href="/2019/08/28/读书笔记/黑客与画家/读笔/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="黑客与画家">黑客与画家</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/小问题总结/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/a/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/b/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/a1c/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/b1d/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/b1c/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/build/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/c/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/d/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/main-built/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/main/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/myrequirePromise/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/myrequire/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/testRequirejs/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs普通模块/Forever源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Forever源码阅读">Forever源码阅读</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs核心模块/Nodejs核心模块/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Nodejs核心模块">Nodejs核心模块</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs框架模块/Koa以及react空白项目搭建/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Koa以及react空白项目搭建">Koa以及react空白项目搭建</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs框架模块/Koa以及Express/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Koa,Co以及Express">Koa,Co以及Express</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/webpack/webpack2/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/webpack/webpack插件编写/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/webpack/webpack深入探索/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/webpack/webpack热部署/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Angular/Angular/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/Decorator/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/Class/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/Module/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/Promise以及各种异步的学习/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/Proxy和Reflect/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/正则表达式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/HTML5/Web-Workers/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/HTML5/hashchange事件/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/HTML5/history相关/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/React/React,Redux实战/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/React/React-router/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/React/React/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/React/React源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/redux/Redux/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/redux/Redux源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/模块引入/Commonjs,CMD,AMD和cortex介绍/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/模块引入/Requirejs源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/模块引入/Seajs学习/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs框架模块/Koa源码/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Koa源码">Koa源码</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Angular/Angular文档阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/ECMAScript6/Generator函数/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/redux/Redux-saga文档/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/模块引入/Requirejs学习以及实现/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs框架模块/Co源码以及与Koa的深入理解/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Co源码以及与Koa的深入理解">Co源码以及与Koa的深入理解</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/webpack/webpack文档阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/redux/Redux文档阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name }}">\{#\{ site.name }}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/React/React文档阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="\{#\{ site.name \}#\}">\{#\{ site.name \}#\}</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="lettcode 总览 "
+           href="/2019/08/28/lettcode/刷题总览/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="lettcode">lettcode</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/require/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="default-技术/前端技术/Web-Components" class="article article-type-default" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Web Components</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-28 16:45:23'>2019-08-28 16:45</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Components-简介"><span class="toc-text">Web Components 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shadow-Dom"><span class="toc-text">Shadow Dom</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-Shadow-Dom"><span class="toc-text">创建 Shadow Dom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内容的传递"><span class="toc-text">内容的传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#样式的影响"><span class="toc-text">样式的影响</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#组件-gt-影响文档流"><span class="toc-text">组件-&gt;影响文档流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文档流-gt-组件"><span class="toc-text">文档流-&gt;组件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shadom-Dom-与-CSS-modules"><span class="toc-text">Shadom Dom 与 CSS modules</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件的封装"><span class="toc-text">事件的封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shadom-Dom-与-Virtual-Dom-的比较"><span class="toc-text">Shadom Dom 与 Virtual Dom 的比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-Elements"><span class="toc-text">Custom Elements</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Custom-Elements–创建"><span class="toc-text">Custom Elements–创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Custom-Elements–绑定功能"><span class="toc-text">Custom Elements–绑定功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Custom-Elements–生命周期"><span class="toc-text">Custom Elements–生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Template"><span class="toc-text">Template</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Html-Imports"><span class="toc-text">Html Imports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Components-的兼容性"><span class="toc-text">Web Components 的兼容性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Components-的-polyfill"><span class="toc-text">Web Components 的 polyfill</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关的框架"><span class="toc-text">相关的框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Components-与-React"><span class="toc-text">Web Components 与 React</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-Components-与-React-Components"><span class="toc-text">Web Components 与 React Components</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-components-与-Vuejs"><span class="toc-text">Web components 与 Vuejs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前端组件化其实是个持续了很长时间的过程了，从最开始的 jquery 的插件开始。我们就在封装一些 js，css，html 来方便下次的复用了。基本各个公司都有自己的组件库，比如我在的点评就是 npm 的组件。现在组里随着一些项目往 React 上转，React 的组件化工作也在不断的整理中。组件化的过程中出现了一些普遍的痛点。Web components 解决了其中的一些棘手的问题，在这里介绍一下 Web Components 的一些现状。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>组件化的过程中主要遇到的一些问题：</p>
+<ul>
+<li>资源分来管理，重用不便</li>
+<li>缺乏封装</li>
+<li>缺乏移植性</li>
+</ul>
+<p>首先，js，css 和 html 基本是分开放置的，我们想要重用某块功能的时候，我们需要在我们的 js 里面想办法引入需要的 js；然后得根据组件要求的 DOM 结构引入 HTML；然后在我们的 css 里引入组件需要的 css，这其实是个很痛苦的过程。二是缺乏封装，尤其体现在 CSS 上，CSS 一直都是全局的，没有局部 CSS 的概念，虽然可以通过 Css Modules 来模拟，但是还是有一些限制的，下文也会进行比较。三是组件缺乏移植性，就比如迁到了 react 的环境。当然我们可以在 webpack 上做一些文章，让以前的组件支持在 React 项目中使用。可是 React 自有自己的一套状态管理的机制，很多组件我们还是要重写的，将来切换到新的环境，迁移是有很大代价的。Web Components 能够解决上面的这些问题</p>
+<h2 id="Web-Components-简介"><a href="#Web-Components-简介" class="headerlink" title="Web Components 简介"></a>Web Components 简介</h2><p>Web Components 它本身不是一个规范，他是由 W3C 提出的另外 4 个规范的合集。这四个规范是：</p>
+<ul>
+<li>Shadow Dom(草案阶段)</li>
+<li>Custom Elements(草案阶段)</li>
+<li>HTML Template(html5)</li>
+<li>HTML Imports(草案阶段)</li>
+</ul>
+<p>如上，这四个规范除了 template 已经成为了 HTML5 的规范，其他 3 个还是处于草案阶段的，所以浏览器的支持情况比较差也是可以理解的了。接下来这四个规范一个个聊一聊。</p>
+<h2 id="Shadow-Dom"><a href="#Shadow-Dom" class="headerlink" title="Shadow Dom"></a>Shadow Dom</h2><p>他的作用是：管理多 DOM 树的层级关系，更好的合成 DOM。他的中心思想是封装一个完全独立于文档流的子 DOM 树。他完美的做到了<code>css的封装</code>。当然还有文档内容的封装。以及通过重定向事件做了事件层面的封装。当然封装是他提供的能力，作为使用者的我们其实很关心的是主文档与 Shadow Dom 的交互，这个在下面会提到。</p>
+<h3 id="创建-Shadow-Dom"><a href="#创建-Shadow-Dom" class="headerlink" title="创建 Shadow Dom"></a>创建 Shadow Dom</h3><p>使用的第一步是创建，Shadow Dom 的创建得基于一个文档中已经存在的一个元素，也就是宿主元素。然后通过 createShadowRoot 方式创建。注意宿主元素的内容是不会被渲染的。</p>
+<h3 id="内容的传递"><a href="#内容的传递" class="headerlink" title="内容的传递"></a>内容的传递</h3><p>我们可以通过 content 元素来将内容映射到 shadow dom 中来显示。还可以通过设置 select 的属性来决定那一块被映射。使用如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"nameTagTwo"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"first"</span>&gt;</span>Bob<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>B. Love<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"email"</span>&gt;</span>bob@<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- shadow dom --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: red;"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">content</span> <span class="attr">select</span>=<span class="string">".first"</span>&gt;</span><span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: yellow;"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">content</span> <span class="attr">select</span>=<span class="string">"div"</span>&gt;</span><span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"color: blue;"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">content</span> <span class="attr">select</span>=<span class="string">".email"</span>&gt;</span><span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="样式的影响"><a href="#样式的影响" class="headerlink" title="样式的影响"></a>样式的影响</h3><p>Shadow Dom 的样式被完全封装，内部的样式对外部完全没有影响。文档流中的样式也对内部没有影响。这一点其实很重要。因为只有这样，才能保证组件的无伤。但是我们使用过程中肯定也会想要有时对 shadow dom 中的样式进行一定的改写的。Shadow Dom 提供了这样的接口。</p>
+<h4 id="组件-gt-影响文档流"><a href="#组件-gt-影响文档流" class="headerlink" title="组件-&gt;影响文档流"></a>组件-&gt;影响文档流</h4><p>组件内部只能使用<code>:host</code>来改变宿主元素的样式，页面的其他内容也是无法影响的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:host(x-foo</span><span class="selector-pseudo">:host)</span> &#123;</span><br><span class="line">  <span class="comment">/* 当宿主是 &lt;x-foo&gt; 元素时生效。 */</span></span><br><span class="line">&#125;</span><br><span class="line">:host(div) &#123;  &#123;</span><br><span class="line">  <span class="comment">/* 当宿主或宿主的祖先元素是</span></span><br><span class="line"><span class="comment">   &lt;div&gt; 元素时生效。 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="文档流-gt-组件"><a href="#文档流-gt-组件" class="headerlink" title="文档流-&gt;组件"></a>文档流-&gt;组件</h4><p>文档流可以通过::shadow 或者/deep/来影响组件的样式。如果想要修整 content 元素的样式，使用::content。chrome 自己使用了&lt;&lt;和&lt;&lt;&lt;，不过这里就不讨论了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">::shadow和/deep/</span><br><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">  <span class="selector-id">#host</span> <span class="selector-pseudo">::shadow</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">  &#125;</span><br><span class="line"> #host /deep/ span &#123;</span><br><span class="line">    <span class="selector-tag">color</span>: <span class="selector-tag">red</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"><span class="comment">/*为了与content一起使用的话::content*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Shadom-Dom-与-CSS-modules"><a href="#Shadom-Dom-与-CSS-modules" class="headerlink" title="Shadom Dom 与 CSS modules"></a>Shadom Dom 与 CSS modules</h3><p>Shadow Dom 的 CSS 封装很好的解决了现在 CSS 的一个大问题，因为 CSS 目前还是全局作用域的。所以 CSS 的模块化还是通过各个技术 hack 来实现。现在有两种：</p>
+<ul>
+<li>放弃 CSS，使用 js 或 json 写样式。缺点：放弃 css 处理器；JS 语法写 CSS。代表：Radium，jsxstyle，react-style。实现：行内属性</li>
+<li>CSS 编写，使用 JS 来管理样式依赖。缺点：得与 webpack 绑定使用。代表：CSS Modules，Vuejs。实现：生成独特的 className(文件名—类名—hash 值)</li>
+</ul>
+<p>上面的两种是目前的 CSS Module 的实现方式，实际上都是一种 hack。Shadow Dom 实际上才是 CSS 模块化的完美解决方案。</p>
+<h3 id="事件的封装"><a href="#事件的封装" class="headerlink" title="事件的封装"></a>事件的封装</h3><p>Shadow Dom 对于事件通过在冒泡阶段 target 的重定向来封装事件，然后一些可能对页面造成影响的事件，Shadow Dom 就会影藏掉这些事件，也就是在冒泡到主页面的过程中被挡住了。</p>
+<img alt="事件重定向" width="500px" src="pics//wc-event.png">
+
+<p>就像图中所示，普通点击时，target 会是我们真正点击的元素，而 Shadow Dom 则会将事件的 target 重定向到宿主元素身上，主要是为了保证组件内部的封装。多层宿主的时候我也试过了，每层都会重定向到自己的宿主身上。</p>
+<p>还有一些事件不会冒泡到主文档流：abort, error, select, change, load, loadedmetadata, reset, resize,scroll and selectstart。</p>
+<h3 id="Shadom-Dom-与-Virtual-Dom-的比较"><a href="#Shadom-Dom-与-Virtual-Dom-的比较" class="headerlink" title="Shadom Dom 与 Virtual Dom 的比较"></a>Shadom Dom 与 Virtual Dom 的比较</h3><p>Shadow Dom 是 W3c 的规范，它主要被我们用来处理 Dom 树之间的关系，他的主要思想是封装。它本身还是 Dom。</p>
+<p>Virtual Dom 是 React 的一个选择，它被用来作为高性能的保证。高性能的地方主要体现在，我们平常操作 Dom 的时候很多时候刷新操作就是将一块 HTML 替换，我们的操作会触发大量的 repaint 和 reflow，这些操作都是很耗浏览器性能的。Virtual Dom 将这些操作打包，并且通过一些 Diff 算法来得出如何通过最简单的方式改变成我们想要的模样。它本身是 Dom 的一层抽象，不是真实的 Dom。</p>
+<h2 id="Custom-Elements"><a href="#Custom-Elements" class="headerlink" title="Custom Elements"></a>Custom Elements</h2><p>这个的一大好处在于拯救了我们还是很缺乏语义化能力的文档。虽然 HTML5 已经在语义化的道路上走的很远。但是文档的语义化能力其实还是很薄弱。尤其是现在单页应用比较多。很多页面只声明了一个入口的 div。而框架为了更大的兼容性，往往生成的就是一堆简单的 div。</p>
+<p>Custom Elements 提供了我们自定义元素的能力。当然，语义化并不是关键，关键是它还提供了我们对语义化元素绑定功能的能力。</p>
+<h3 id="Custom-Elements–创建"><a href="#Custom-Elements–创建" class="headerlink" title="Custom Elements–创建"></a>Custom Elements–创建</h3><p>3 种方式：</p>
+<ul>
+<li><p>申明 + registerElement</p>
+</li>
+<li><p>registerElement + new + appendChild</p>
+</li>
+<li><p>createElement + appendChild</p>
+</li>
+</ul>
+<p>不细讲了，看下面的例子，很容易理解。名字要求是必须以连字符连接的，这个在未来还可以当做作用域来限制。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">x-foo</span> <span class="attr">class</span>=<span class="string">"x-foo"</span>&gt;</span><span class="tag">&lt;/<span class="name">x-foo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.querySelector(<span class="string">"x-foo"</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    alert(<span class="string">"文档中申明出来的"</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> xFoo = <span class="built_in">document</span>.createElement(<span class="string">"x-foo"</span>);</span></span><br><span class="line"><span class="javascript">  xFoo.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    alert(<span class="string">"直接create出来的"</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.body.appendChild(xFoo);</span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> XFoo = <span class="built_in">document</span>.registerElement(<span class="string">"x-foo"</span>, &#123;</span></span><br><span class="line"><span class="javascript">    prototype: <span class="built_in">Object</span>.create(HTMLElement.prototype)</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> xFoo = <span class="keyword">new</span> XFoo();</span></span><br><span class="line"><span class="javascript">  xFoo.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    alert(<span class="string">"注册之后，new出来的"</span>);</span></span><br><span class="line">  &#125;);</span><br><span class="line"><span class="javascript">  <span class="built_in">document</span>.body.appendChild(xFoo);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Custom-Elements–绑定功能"><a href="#Custom-Elements–绑定功能" class="headerlink" title="Custom Elements–绑定功能"></a>Custom Elements–绑定功能</h3><p>其实就是很简单的通过 JS 的方式绑定功能。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> XFooProto = <span class="built_in">Object</span>.create(HTMLElement.prototype);</span><br><span class="line"><span class="comment">// 1. 为 x-foo 创建 foo() 方法</span></span><br><span class="line">XFooProto.foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"foo() called"</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 2. 定义一个只读的“bar”属性</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(XFooProto, <span class="string">"bar"</span>, &#123; <span class="attr">value</span>: <span class="number">5</span> &#125;);</span><br><span class="line"><span class="keyword">var</span> XFoo = <span class="built_in">document</span>.registerElement(<span class="string">"x-foo"</span>, &#123; <span class="attr">prototype</span>: XFooProto &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Custom-Elements–生命周期"><a href="#Custom-Elements–生命周期" class="headerlink" title="Custom Elements–生命周期"></a>Custom Elements–生命周期</h3><p>讲到现在，我们的功能还一直是调用方在绑定。这一点其实蛮蠢的，我们想要得到的其实是已经绑定了完整功能的组件。需要的是拿来立即能使用的东西。这里 Custom Elements 提供了一些生命周期让我们组件可以在初始化的过程中就给自己绑定上方法：</p>
+<ul>
+<li>createdCallback:创建元素实例</li>
+<li>attachedCallback:向文档插入实例</li>
+<li>detachedCallback:从文档中移除实例</li>
+<li>attributeChangedCallback(attrName, oldVal, newVal):添加，移除，或修改一个属性</li>
+</ul>
+<p>使用的过程就像下面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> proto = <span class="built_in">Object</span>.create(HTMLElement.prototype);</span><br><span class="line">proto.createdCallback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"创建时触发"</span>);</span><br><span class="line">  <span class="keyword">this</span>.innerHTML = <span class="string">"&lt;b&gt;我终于有内容了&lt;/b&gt;"</span>;</span><br><span class="line">  <span class="keyword">this</span>.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">"Thanks!"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line">proto.attachedCallback = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"插入文档时触发"</span>);</span><br><span class="line">&#125;;</span><br><span class="line">proto.attributeChangedCallback = <span class="function"><span class="keyword">function</span>(<span class="params">attrName, oldVal, newVal</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(attrName, oldVal, newVal);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> XFoo = <span class="built_in">document</span>.registerElement(<span class="string">"x-foo"</span>, &#123; <span class="attr">prototype</span>: proto &#125;);</span><br><span class="line"><span class="keyword">var</span> xfoo = <span class="keyword">new</span> XFoo();</span><br><span class="line">xfoo.setAttribute(<span class="string">"value"</span>, <span class="number">12</span>);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(xfoo);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Template"><a href="#Template" class="headerlink" title="Template"></a>Template</h2><p>通过上面的 Shadow Dom 和 Custom Elements，其实我们已经实现了组件的自定义以及封装。不过我们的模板最后一直使用的字符串。最后通过 innerHtml 的方式插入。包括现在其实 JS 模版其实全是这么实现的。这样子的坏处在于当我们多次使用一个模板的时候(比如刷新操作)，每次都得把一段字符串转化为 DOM 结构，这其实是很费浏览器的性能的。</p>
+<p>Template 允许我们在文档中申明一段 HTML，他在浏览器的解析过程中不会有任何的副作用。他里面的元素 img，script 等等都不会发请求。完全无害。但是他又不是仅仅作为字符串存在。他是被解析成了 Document Fragment。这样每次重用的时候就不会有解析为 Dom 这种浪费性能的操作。</p>
+<h2 id="Html-Imports"><a href="#Html-Imports" class="headerlink" title="Html Imports"></a>Html Imports</h2><p>现在我们需要的就是将这个组件打包出去。其实一直以来关于 HTML 的引入就一直没有一个好的解决方案。嵌入 iframe 的话，页面之间的交互调用其实很麻烦。用一个 script 标签埋在页面上作为字符串也比较 tricky。使用 ajax 来拉取 html 的话也会比较奇怪。</p>
+<p>除了这个问题，我们一直以来引入资源都是件比较麻烦的事情。比如我们想要引入 bootstrap，我们得要手动引入 css，再引入 js，然后根据 bootstrap 提供的 html 结构来使用。</p>
+<p>Html Imports 就解决了这个问题，他可以用来<code>打包资源</code>与<code>优雅的引入HTML</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 如下 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- &lt;link rel="import" href=“/path/to/imports/stuff.html"&gt; --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用其实很简单，就是用 link 标签，也可以用 js 来创建一个 link 标签。不过这个是有同域限制的。感觉还是得 HTTP2 时代，把现在的 CDN 分域问题解决了才能有使用的价值。</p>
+<h2 id="Web-Components-的兼容性"><a href="#Web-Components-的兼容性" class="headerlink" title="Web Components 的兼容性"></a>Web Components 的兼容性</h2><img alt="兼容性" width="500px" src="pics//wc-use.png">
+
+<p>如图，chrome 算是很激进了，安卓也得是比较新的版本。safari，IE，FF 的支持都很差。这里还有一张图：</p>
+<img alt="兼容性" width="500px" src="pics//wc-use2.png">
+
+<p>这张图的意思的 FF 已经把 Custom Elements 和 Shadow Dom 立了 development flag，将会去实现他。而 Html Imports 暂时 hold on。这个和 Safari 暂时 hold 住了 Custom Elements 和 Html Imports 的原因一样。他们都觉得这个和 ES6 的 modules 解决的是同一个问题。他们在等待 ES6 的 modules 的实施效果。而最新的 IE 的申明则是，这三个规范都在思考中，应该是都会去实现。</p>
+<h2 id="Web-Components-的-polyfill"><a href="#Web-Components-的-polyfill" class="headerlink" title="Web Components 的 polyfill"></a>Web Components 的 polyfill</h2><p>也就是说这些个规范我们想单纯的使用时没有办法的。但是他是有组织提供了 polyfill 的。这个<a href="http://webcomponents.org/polyfills/" target="_blank" rel="noopener">polyfill</a>还是有很大的问题的，IE 只能支持到 IE11，而且 shadow dom 的 CSS 封装没有官方的支持也是没法完美实现的。</p>
+<h2 id="相关的框架"><a href="#相关的框架" class="headerlink" title="相关的框架"></a>相关的框架</h2><p>他的相关框架有 Polymer，X-Tag，SKATEJS，Bosonic，这四个框架大部分都是对他的 API 的友好封装。Polymer 是 google 出品，目前也是有 15000 的 star 的，比较火，除了封装了 API，他还像 Angular 一样做了一层数据的双向绑定。但是这几个框架都是使用的上面的 Polyfill，所以上面提高的问题他们也都有。</p>
+<h2 id="Web-Components-与-React"><a href="#Web-Components-与-React" class="headerlink" title="Web Components 与 React"></a>Web Components 与 React</h2><img alt="Vuejs" width="200px" src="pics//wc-react.png">
+
+<p>这里我想比较一下这两者。因为 React 官网文档专门有一篇解释他们两者解决的是不同的问题。</p>
+<p>Web Components 个人感觉是 HTML 提出的模块化，他的目的是复用 web 组件，主要思想是封装。</p>
+<p>React 是为了搭建交互式 UI，主要是针对不同的状态显示不同的 View，处理的是 view 与 data 同步。</p>
+<p>React 官网文档也有实例如何在 React 中使用 Web Components。其实就是在 ComponentDidMount 的时候初始化一下 Web Components，很简单的使用。</p>
+<h2 id="Web-Components-与-React-Components"><a href="#Web-Components-与-React-Components" class="headerlink" title="Web Components 与 React Components"></a>Web Components 与 React Components</h2><p>这里我还想比较一下这两个组件系统，因为他们其实有不少相似点的。</p>
+<p>Web Components 优点：</p>
+<ul>
+<li>HTML 规范</li>
+<li>复用性，移植性高</li>
+<li>css 样式隔离</li>
+<li>js 做 js 的事情，html 做 html 的事情，css 做 css 的事情(这个有待争议)</li>
+</ul>
+<p>React Components 优点：</p>
+<ul>
+<li>virtual dom 支持服务器渲染，seo 友好(这个也有待争议，因为 google 爬虫是可以跑 js 的)编写测试方便(这个也有待争议)</li>
+<li>浏览器支持情况好，新版本支持到 IE9，v0.14 支持到 IE8</li>
+<li>抽象做的更好，组件状态管理</li>
+</ul>
+<h2 id="Web-components-与-Vuejs"><a href="#Web-components-与-Vuejs" class="headerlink" title="Web components 与 Vuejs"></a>Web components 与 Vuejs</h2><img alt="Vuejs" width="400px" src="pics//wc-vue.png">
+
+<p>这里还想提一下 Vuejs，因为看 CSS Modules 的时候看到 Vuejs 自己也实现了 CSS 的模块化的，就去看了一下他的文档。发现他几乎是实现了一套 Web components。他的组件的创建，注册，继承，生命周期都和 Web components 很像。看作者自己与其他框架比较的时候也说了，Vuejs 和 Polymer 的区别就在于 Vuejs 不依赖于 Web components，不需要 polyfill。所以想使用 Web components 的可以去使用 Vuejs。他能支持到 IE9。使用场景会比较多。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总体来说，Web component 他是 w3c 标准，基本会是组件技术的最终方向，但是需要大量的时间来让来让浏览器支持。</p>
+<p>转载的话，请注明<a href="http://panyifei.github.io/Front-end-learning/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/Web-Components" target="_blank" rel="noopener">出处</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.html5rocks.com/zh/tutorials/webcomponents/shadowdom-201/" target="_blank" rel="noopener">http://www.html5rocks.com/zh/tutorials/webcomponents/shadowdom-201/</a></li>
+<li><a href="http://www.html5rocks.com/zh/tutorials/webcomponents/customelements/" target="_blank" rel="noopener">http://www.html5rocks.com/zh/tutorials/webcomponents/customelements/</a></li>
+<li><a href="http://webcomponents.org/articles/a-quick-polymer-introduction/" target="_blank" rel="noopener">http://webcomponents.org/articles/a-quick-polymer-introduction/</a></li>
+<li><a href="https://facebook.github.io/react/docs/webcomponents.html" target="_blank" rel="noopener">https://facebook.github.io/react/docs/webcomponents.html</a></li>
+<li><a href="http://benmccormick.org/2014/08/28/custom-elements-by-example/" target="_blank" rel="noopener">http://benmccormick.org/2014/08/28/custom-elements-by-example/</a></li>
+<li><a href="https://www.w3.org/standards/techs/components#w3c_all" target="_blank" rel="noopener">https://www.w3.org/standards/techs/components#w3c_all</a></li>
+<li><a href="http://www.csdn.net/article/2015-08-11/2825439-vue" target="_blank" rel="noopener">http://www.csdn.net/article/2015-08-11/2825439-vue</a></li>
+</ul>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Web Components</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="泽鹿">泽鹿</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-08-28, 16:45:23</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-28, 16:45:23</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/28/技术/前端技术/Web-Components/" title="Web Components">http://yoursite.com/2019/08/28/技术/前端技术/Web-Components/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2016-2019 Yelog</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
