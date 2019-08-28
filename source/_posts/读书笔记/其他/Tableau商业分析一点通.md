@@ -1,3 +1,11 @@
+---
+layout: default
+title: Tableau 商业分析一点通
+categories:
+  - 读书笔记
+  - 其他
+---
+
 # Tableau 商业分析一点通
 
 <a name="tr20fk"></a>

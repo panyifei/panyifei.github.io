@@ -1,6 +1,9 @@
 ---
 layout: default
 title: 7章Ajax
+categories:
+  - 读书笔记
+  - 高性能Javascript
 ---
 
 Ajax 从最基本层面说，是一种与服务器建立通信而无需重载页面的方法，数据可以从服务器获取或发送给服务器。有很多种方法建立通信，各有各自的优点和限制。
