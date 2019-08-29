@@ -475,7 +475,7 @@ div.ac > ul > li:before,
   display: block;
   position: fixed;
   top: 20px;
-  right: 30px;
+  right: 20px;
   z-index: 31;
   width: 42px;
   height: 42px;
@@ -498,7 +498,7 @@ div.ac > ul > li:before,
   font-size: 24px;
   line-height: 42px;
   color: #fff;
-  background: #2a2935;
+  background: #5d8ab0;
   overflow: hidden;
 }
 .full-toc .full .min:before {
@@ -514,8 +514,8 @@ div.ac > ul > li:before,
 .full-toc .post-toc-menu {
   display: block;
   position: fixed;
-  top: 63px;
-  right: 30px;
+  top: 70px;
+  right: 20px;
   z-index: 20;
   width: 42px;
   height: 42px;
@@ -535,7 +535,7 @@ div.ac > ul > li:before,
   font-size: 24px;
   line-height: 42px;
   color: #fff;
-  background: #2a2935;
+  background: #5d8ab0;
   overflow: hidden;
 }
 .full-toc .post-toc-menu-icons:before {
@@ -635,7 +635,7 @@ div.ac > ul > li:before,
 .nav-left {
   width: 120px;
   height: 100%;
-  background: #2a2935;
+  background: #32414e;
   box-shadow: inset -15px 0 15px -15px #222;
   float: left;
   position: relative;
@@ -803,7 +803,7 @@ div.ac > ul > li:before,
   display: block;
 }
 .nav-right {
-  width: 420px;
+  width: 370px !important;
   height: 100%;
   background: rgba(250,250,250,0.95);
   border-right: 1px solid #e5e8ec;
@@ -1031,7 +1031,7 @@ div.ac > ul > li:before,
 }
 .nav-right .title-list nav::-webkit-scrollbar-thumb,
 .nav-right .title-list #local-search-result::-webkit-scrollbar-thumb {
-  background: #309e85;
+  background: #3e8fc9;
 }
 .nav-right .title-list nav .search-result-list,
 .nav-right .title-list #local-search-result .search-result-list {
@@ -1064,7 +1064,7 @@ div.ac > ul > li:before,
   left: 12px;
   z-index: 1;
   font-size: 18px;
-  color: #309e85;
+  color: #41b0d0;
 }
 .nav-right .title-list nav a#top:before,
 .nav-right .title-list #local-search-result a#top:before {
@@ -1708,7 +1708,7 @@ h1 {
   height: 40px;
   position: absolute;
   z-index: 30;
-  left: 542px;
+  left: 521px;
   top: 50vh;
   overflow: hidden;
   transition: left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
@@ -1723,7 +1723,7 @@ h1 {
   width: 20px;
   height: 40px;
   border-radius: 0 100px 100px 0;
-  background-color: #42b983;
+  background-color: #4094c7;
   cursor: pointer;
   margin-left: -20px;
   transition: margin-left 0.5s cubic-bezier(0.77, 0, 0.175, 1);
@@ -1836,7 +1836,7 @@ img.pswp__img {
     font-size: 14px;
   }
   .nav .hide-list {
-    left: 492px;
+    left: 501px;
   }
   .nav .hide-list.fullscreen {
     left: 0;
