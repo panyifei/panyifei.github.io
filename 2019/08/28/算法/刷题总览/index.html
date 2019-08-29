@@ -6,17 +6,32 @@
   <meta name="keywords" content>
   <meta name="description" content="刷题总览 | 林深鹿现">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="写一些 promise 的 pollyfill 以及执行顺序相关  相关 pollyfill promise.all promise.finally   执行顺序 并行执行 promise 发送请求返回结果 串行执行 promise 发送请求返回结果 执行 n 次 promise 发送请求返回结果    相关 pollyfillpromise.all123456789101112131415161">
+<meta name="description" content="解法：就是用两个指针，从两侧逼近就行了 做过的双指针盛最多水的容器盛最多水的容器(20 分钟)双指针法挺好的，从两边逼近，短的那个去尝试，找到所有的可能的大的 三数之和三数之和(1 个小时)—-中等—–双指针最开始用的回溯法，被测例搞死了，313 个通过了 311 个，一直超时。感觉是很多题其实很多解法，for 循环，回溯，多指针，哪个合适其实很难说。回溯法效率不算很高，毕竟是一种全排列算法。顺便">
+<meta name="keywords" content="双指针">
 <meta property="og:type" content="article">
-<meta property="og:title" content="promise">
-<meta property="og:url" content="http://panyifei.github.io/2019/08/29/前端面试/代码/异步/promise/index.html">
+<meta property="og:title" content="双指针">
+<meta property="og:url" content="http://panyifei.github.io/2019/08/29/算法/leetcode/双指针/index.html">
 <meta property="og:site_name" content="林深鹿现">
-<meta property="og:description" content="写一些 promise 的 pollyfill 以及执行顺序相关  相关 pollyfill promise.all promise.finally   执行顺序 并行执行 promise 发送请求返回结果 串行执行 promise 发送请求返回结果 执行 n 次 promise 发送请求返回结果    相关 pollyfillpromise.all123456789101112131415161">
+<meta property="og:description" content="解法：就是用两个指针，从两侧逼近就行了 做过的双指针盛最多水的容器盛最多水的容器(20 分钟)双指针法挺好的，从两边逼近，短的那个去尝试，找到所有的可能的大的 三数之和三数之和(1 个小时)—-中等—–双指针最开始用的回溯法，被测例搞死了，313 个通过了 311 个，一直超时。感觉是很多题其实很多解法，for 循环，回溯，多指针，哪个合适其实很难说。回溯法效率不算很高，毕竟是一种全排列算法。顺便">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-29T03:49:01.085Z">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562861194376-9e56377c-ba53-4fa3-8a30-53df6bce07d9.png#align=left&display=inline&height=142&name=image.png&originHeight=398&originWidth=966&size=101931&status=done&width=344">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562897793955-7de502ad-5bad-4b90-931f-6aa8b43ab71d.png#align=left&display=inline&height=109&name=image.png&originHeight=358&originWidth=906&size=108613&status=done&width=277">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563077585280-3147f798-3373-4002-bad4-2ebd07a60da1.png#align=left&display=inline&height=133&name=image.png&originHeight=382&originWidth=936&size=52870&status=done&width=325">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563114079020-a88bef65-0e1f-4da0-bc28-f23c76a6e942.png#align=left&display=inline&height=102&name=image.png&originHeight=318&originWidth=870&size=48528&status=done&width=279">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563114540178-756bcb5c-401a-4f27-904f-6fa48ba12c08.png#align=left&display=inline&height=103&name=image.png&originHeight=330&originWidth=898&size=48671&status=done&width=281">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563114815462-28c93687-6ac4-4a03-95b6-ed09de6c01f3.png#align=left&display=inline&height=106&name=image.png&originHeight=316&originWidth=880&size=48210&status=done&width=296">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563115445992-6014a392-ada9-4b80-8749-c79ca700b5c9.png#align=left&display=inline&height=109&name=image.png&originHeight=344&originWidth=904&size=50258&status=done&width=287">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563282449640-62c5c25d-880a-4aa2-93d5-36b8a99870f8.png#align=left&display=inline&height=101&name=image.png&originHeight=278&originWidth=906&size=88048&status=done&width=330">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563296309856-416a6775-7756-4410-8438-3902f7c552e6.png#align=left&display=inline&height=116&name=image.png&originHeight=332&originWidth=938&size=95122&status=done&width=327">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563296817516-8bbdd2e8-65ee-4036-9e03-c4a926d9e7fb.png#align=left&display=inline&height=117&name=image.png&originHeight=322&originWidth=898&size=92584&status=done&width=326">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563346268968-bf5aa8e7-ce9a-41ad-8727-8e0d20b5a565.png#align=left&display=inline&height=110&name=image.png&originHeight=324&originWidth=902&size=99234&status=done&width=305">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563346728183-a4d401b0-48bc-4eb4-9139-594996ce3f5c.png#align=left&display=inline&height=97&name=image.png&originHeight=326&originWidth=864&size=96909&status=done&width=258">
+<meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566467901225-3e2657fe-7e29-4e31-bc7e-6788d58df5b9.png#align=left&display=inline&height=99&name=image.png&originHeight=304&originWidth=844&size=95960&status=done&width=276">
+<meta property="og:updated_time" content="2019-08-29T09:29:01.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="promise">
-<meta name="twitter:description" content="写一些 promise 的 pollyfill 以及执行顺序相关  相关 pollyfill promise.all promise.finally   执行顺序 并行执行 promise 发送请求返回结果 串行执行 promise 发送请求返回结果 执行 n 次 promise 发送请求返回结果    相关 pollyfillpromise.all123456789101112131415161">
+<meta name="twitter:title" content="双指针">
+<meta name="twitter:description" content="解法：就是用两个指针，从两侧逼近就行了 做过的双指针盛最多水的容器盛最多水的容器(20 分钟)双指针法挺好的，从两边逼近，短的那个去尝试，找到所有的可能的大的 三数之和三数之和(1 个小时)—-中等—–双指针最开始用的回溯法，被测例搞死了，313 个通过了 311 个，一直超时。感觉是很多题其实很多解法，for 循环，回溯，多指针，哪个合适其实很难说。回溯法效率不算很高，毕竟是一种全排列算法。顺便">
+<meta name="twitter:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562861194376-9e56377c-ba53-4fa3-8a30-53df6bce07d9.png#align=left&display=inline&height=142&name=image.png&originHeight=398&originWidth=966&size=101931&status=done&width=344">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -129,23 +144,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(199)</small></div></li>
-    
-        
-            
-            <li><div data-rel="前端技术"><i class="fold iconfont icon-right"></i>前端技术<small>(1)</small></div>
-                
-                    <ul class="sub hide">
-                        
-                        <li><div data-rel="css">css<small>(1)</small></div>
-                            
-                        </li>
-                            
-                    </ul>
-                
-            </li>
-            
-        
+    <li><div class="all active">全部文章<small>(205)</small></div></li>
     
         
             
@@ -169,29 +168,71 @@
     
         
             
-        
-    
-        
-            
-        
-    
-        
-            
-            <li><div data-rel="算法"><i class="fold iconfont icon-right"></i>算法<small>(3)</small></div>
+            <li><div data-rel="前端技术"><i class="fold iconfont icon-right"></i>前端技术<small>(1)</small></div>
                 
                     <ul class="sub hide">
                         
-                        <li><div data-rel="排序">排序<small>(2)</small></div>
-                            
-                        </li>
-                            
-                        <li><div data-rel="leetcode">leetcode<small>(1)</small></div>
+                        <li><div data-rel="css">css<small>(1)</small></div>
                             
                         </li>
                             
                     </ul>
                 
             </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="算法"><i class="fold iconfont icon-right"></i>算法<small>(9)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="leetcode"><i class="fold iconfont icon-right"></i>leetcode<small>(7)</small></div>
+                            
+                                <ul class="sub hide">
+                                    
+                                    <li><div data-rel="二叉树">二叉树<small>(1)</small></div>
+                                    </li>
+                                    
+                                    <li><div data-rel="回溯法">回溯法<small>(1)</small></div>
+                                    </li>
+                                    
+                                    <li><div data-rel="二叉搜索树">二叉搜索树<small>(1)</small></div>
+                                    </li>
+                                    
+                                    <li><div data-rel="双指针">双指针<small>(1)</small></div>
+                                    </li>
+                                    
+                                    <li><div data-rel="数学">数学<small>(1)</small></div>
+                                    </li>
+                                    
+                                    <li><div data-rel="动态规划">动态规划<small>(1)</small></div>
+                                    </li>
+                                    
+                                </ul>
+                            
+                        </li>
+                            
+                        <li><div data-rel="排序">排序<small>(2)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
             
         
     
@@ -213,10 +254,6 @@
                             
                         </li>
                             
-                        <li><div data-rel="js框架设计">js框架设计<small>(2)</small></div>
-                            
-                        </li>
-                            
                         <li><div data-rel="人月神话">人月神话<small>(3)</small></div>
                             
                         </li>
@@ -226,6 +263,10 @@
                         </li>
                             
                         <li><div data-rel="你不知道的js上卷">你不知道的js上卷<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="js框架设计">js框架设计<small>(2)</small></div>
                             
                         </li>
                             
@@ -241,11 +282,11 @@
                             
                         </li>
                             
-                        <li><div data-rel="js数据结构">js数据结构<small>(1)</small></div>
+                        <li><div data-rel="敏捷软件开发">敏捷软件开发<small>(2)</small></div>
                             
                         </li>
                             
-                        <li><div data-rel="敏捷软件开发">敏捷软件开发<small>(2)</small></div>
+                        <li><div data-rel="js数据结构">js数据结构<small>(1)</small></div>
                             
                         </li>
                             
@@ -403,6 +444,26 @@
             
         
     
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
 </ul>
 <div class="left-bottom">
     <div class="menus">
@@ -413,8 +474,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="https://github.com/panyifei/panyifei.github.io">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="199">
-<input type="hidden" id="yelog_site_word_count" value="195.2k">
+<input type="hidden" id="yelog_site_posts_number" value="205">
+<input type="hidden" id="yelog_site_word_count" value="195.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -432,6 +493,8 @@
             
             <li><a target="_blank" href="https://yiluyanxia.site/">一路烟霞</a></li>
             
+            <li><a target="_blank" href="https://yelog.org/">叶落阁</a></li>
+            
         </ul>
     </div>
 </div>
@@ -448,6 +511,26 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">二叉树</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">双指针</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">回溯法</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">二叉搜索树</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">数学</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">冒泡排序</a>
     </li>
     
@@ -455,11 +538,23 @@
         <a href="javascript:" class="color5">快速排序</a>
     </li>
     
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">动态规划</a>
+    </li>
+    
     <div class="clearfix"></div>
 </div>
 
     
     <nav id="title-list-nav">
+        
+        <a  class="前端面试 问答 "
+           href="/2019/08/01/前端面试/问答/基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="基础">基础</span>
+            <span class="post-date" title="2019-08-01 16:02:55">2019/08/01</span>
+        </a>
         
         <a  class="前端技术 css "
            href="/2019/08/28/前端技术/css/垂直水平居中/"
@@ -470,26 +565,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/JS代码库/Chrome插件研究/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Chrome插件研究">Chrome插件研究</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="前端面试 问答 "
-           href="/2019/08/01/前端面试/问答/基础/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="基础">基础</span>
-            <span class="post-date" title="2019-08-01 16:02:55">2019/08/01</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/JS代码库/Chrome插件编写/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="Chrome插件编写">Chrome插件编写</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/JS代码库/Chrome插件研究/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Chrome插件研究">Chrome插件研究</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -502,18 +589,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/JS构建工具/Webpack/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Webpack">Webpack</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/Nodejs/Nodejs尝试/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="nodejs尝试">nodejs尝试</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/JS构建工具/Webpack/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Webpack">Webpack</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -526,10 +613,26 @@
         </a>
         
         <a  class=""
+           href="/2019/08/28/技术/其他技术/Cookie，Session，Localstorage/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Cookie">Cookie</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
            href="/2019/08/28/技术/其他技术/Freemarker分页/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="Freemarker分页">Freemarker分页</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/Hybird框架理解/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hybird理解">Hybird理解</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -542,18 +645,10 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/其他技术/Cookie，Session，Localstorage/"
+           href="/2019/08/28/技术/其他技术/Markdown使用心得/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="Cookie">Cookie</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/技术/其他技术/Hybird框架理解/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Hybird理解">Hybird理解</span>
+            <span class="post-title" title="Markdown使用心得">Markdown使用心得</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -598,22 +693,6 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/其他技术/Markdown使用心得/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Markdown使用心得">Markdown使用心得</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/技术/前端技术/CSS性能/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="CSS性能">CSS性能</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/前端技术/JS性能/"
            data-tag=""
            data-author="" >
@@ -622,10 +701,10 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/前端技术/MVC的思考/"
+           href="/2019/08/28/技术/前端技术/CSS性能/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="MVC的思考">MVC的思考</span>
+            <span class="post-title" title="CSS性能">CSS性能</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -646,18 +725,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/前端技术/sourcemap/"
+           href="/2019/08/28/技术/前端技术/MVC的思考/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="sourcemap">sourcemap</span>
+            <span class="post-title" title="MVC的思考">MVC的思考</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/前端技术/throttle和debounce/"
+           href="/2019/08/28/技术/前端技术/sourcemap/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="throttle和debounce">throttle和debounce</span>
+            <span class="post-title" title="sourcemap">sourcemap</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -670,6 +749,14 @@
         </a>
         
         <a  class=""
+           href="/2019/08/28/技术/前端技术/throttle和debounce/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="throttle和debounce">throttle和debounce</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
            href="/2019/08/28/技术/前端技术/动态CDN加速/"
            data-tag=""
            data-author="" >
@@ -678,18 +765,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/前端技术/经典js计算题/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="经典js计算题">经典js计算题</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/前端技术/页面渲染过程/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="页面渲染">页面渲染</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/经典js计算题/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="经典js计算题">经典js计算题</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -789,12 +876,28 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
+        <a  class="算法 leetcode 二叉树 "
+           href="/2019/08/29/算法/leetcode/二叉树/"
+           data-tag="二叉树"
+           data-author="" >
+            <span class="post-title" title="二叉树">二叉树</span>
+            <span class="post-date" title="2019-08-29 17:16:26">2019/08/29</span>
+        </a>
+        
         <a  class=""
            href="/2019/08/28/技术/浏览器兼容性以及移动端开发/浏览器兼容性/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="浏览器兼容性">浏览器兼容性</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="算法 leetcode 双指针 "
+           href="/2019/08/29/算法/leetcode/双指针/"
+           data-tag="双指针"
+           data-author="" >
+            <span class="post-title" title="双指针">双指针</span>
+            <span class="post-date" title="2019-08-29 17:25:33">2019/08/29</span>
         </a>
         
         <a  class=""
@@ -805,43 +908,35 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class=""
-           href="/2019/08/28/技术/其他技术/Github表情/"
-           data-tag=""
+        <a  class="算法 leetcode 回溯法 "
+           href="/2019/08/29/算法/leetcode/回溯法/"
+           data-tag="回溯法"
            data-author="" >
-            <span class="post-title" title="Github表情">Github表情</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+            <span class="post-title" title="回溯法">回溯法</span>
+            <span class="post-date" title="2019-08-29 16:53:02">2019/08/29</span>
         </a>
         
-        <a  class=""
-           href="/2019/08/28/技术/前端分享/微信小程序逻辑层/"
-           data-tag=""
+        <a  class="算法 leetcode 二叉搜索树 "
+           href="/2019/08/29/算法/leetcode/二叉搜索树/"
+           data-tag="二叉搜索树"
            data-author="" >
-            <span class="post-title" title="微信小程序逻辑层">微信小程序逻辑层</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+            <span class="post-title" title="二叉搜索树">二叉搜索树</span>
+            <span class="post-date" title="2019-08-29 17:23:01">2019/08/29</span>
         </a>
         
-        <a  class=""
-           href="/2019/08/28/技术/前端技术/Web-Components/"
-           data-tag=""
+        <a  class="算法 leetcode 数学 "
+           href="/2019/08/29/算法/leetcode/数学/"
+           data-tag="数学"
            data-author="" >
-            <span class="post-title" title="Web Components">Web Components</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+            <span class="post-title" title="数学">数学</span>
+            <span class="post-date" title="2019-08-29 17:29:47">2019/08/29</span>
         </a>
         
-        <a  class=""
-           href="/2019/08/28/技术/前端技术/前端基础知识/"
+        <a  class="读书笔记 js忍着秘籍 "
+           href="/2019/08/28/读书笔记/Javascript忍者秘籍/见习训练/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="前端基础知识">前端基础知识</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/技术/框架以及规范/Polyfill源码阅读/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Polyfill源码阅读">Polyfill源码阅读</span>
+            <span class="post-title" title="js框架设计-见习训练">js框架设计-见习训练</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -861,11 +956,11 @@
             <span class="post-date" title="2019-07-29 11:20:42">2019/07/29</span>
         </a>
         
-        <a  class="读书笔记 js忍着秘籍 "
-           href="/2019/08/28/读书笔记/Javascript忍者秘籍/见习训练/"
+        <a  class="读书笔记 js语言精粹 "
+           href="/2019/08/28/读书笔记/Javascript语言精粹/正则表达式与方法/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="js框架设计-见习训练">js框架设计-见习训练</span>
+            <span class="post-title" title="js语言精粹-正则表达式与方法">js语言精粹-正则表达式与方法</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -874,14 +969,6 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title="js框架设计-模块加载系统">js框架设计-模块加载系统</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 js语言精粹 "
-           href="/2019/08/28/读书笔记/Javascript语言精粹/继承与数组/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="js语言精粹-继承与数组">js语言精粹-继承与数组</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -894,14 +981,6 @@
         </a>
         
         <a  class="读书笔记 js语言精粹 "
-           href="/2019/08/28/读书笔记/Javascript语言精粹/附录/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="js语言精粹-附录">js语言精粹-附录</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 js语言精粹 "
            href="/2019/08/28/读书笔记/Javascript语言精粹/精华以及基础/"
            data-tag=""
            data-author="" >
@@ -910,10 +989,10 @@
         </a>
         
         <a  class="读书笔记 js语言精粹 "
-           href="/2019/08/28/读书笔记/Javascript语言精粹/正则表达式与方法/"
+           href="/2019/08/28/读书笔记/Javascript语言精粹/附录/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="js语言精粹-正则表达式与方法">js语言精粹-正则表达式与方法</span>
+            <span class="post-title" title="js语言精粹-附录">js语言精粹-附录</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -930,6 +1009,14 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title="js高级程序设计-17章错误处理与调试">js高级程序设计-17章错误处理与调试</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js语言精粹 "
+           href="/2019/08/28/读书笔记/Javascript语言精粹/继承与数组/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js语言精粹-继承与数组">js语言精粹-继承与数组</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -950,18 +1037,18 @@
         </a>
         
         <a  class="读书笔记 js高级程序设计 "
-           href="/2019/08/28/读书笔记/Javascript高级程序设计/24最佳实践/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="js高级程序设计-24最佳实践">js高级程序设计-24最佳实践</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 js高级程序设计 "
            href="/2019/08/28/读书笔记/Javascript高级程序设计/6章面向对象的程序设计/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="js高级程序设计-6章面向对象的程序设计">js高级程序设计-6章面向对象的程序设计</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 js高级程序设计 "
+           href="/2019/08/28/读书笔记/Javascript高级程序设计/24最佳实践/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="js高级程序设计-24最佳实践">js高级程序设计-24最佳实践</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -981,19 +1068,19 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class="读书笔记 人月神话 "
-           href="/2019/08/28/读书笔记/人月神话/3/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="人月神话 -- 读书笔记三">人月神话 -- 读书笔记三</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
         <a  class="读书笔记 代码大全2 "
            href="/2019/08/28/读书笔记/代码大全2/1/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="代码大全 2 -- 读书笔记一">代码大全 2 -- 读书笔记一</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 人月神话 "
+           href="/2019/08/28/读书笔记/人月神话/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="人月神话 -- 读书笔记三">人月神话 -- 读书笔记三</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1045,19 +1132,19 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class="读书笔记 其他 "
-           href="/2019/08/28/读书笔记/其他/不吹不黑前端框架/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="不吹不黑前端框架">不吹不黑前端框架</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
         <a  class="读书笔记 你不知道的js中卷 "
            href="/2019/08/28/读书笔记/你不知道的Javascript中卷/类型和语法/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="类型和语法">类型和语法</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 其他 "
+           href="/2019/08/28/读书笔记/其他/不吹不黑前端框架/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="不吹不黑前端框架">不吹不黑前端框架</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1110,14 +1197,6 @@
         </a>
         
         <a  class="读书笔记 图解HTTP "
-           href="/2019/08/28/读书笔记/图解HTTP/6章HTTP首部/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="图解HTTP -- HTTP首部">图解HTTP -- HTTP首部</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 图解HTTP "
            href="/2019/08/28/读书笔记/图解HTTP/5章web服务器/"
            data-tag=""
            data-author="" >
@@ -1130,6 +1209,22 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 图解HTTP "
+           href="/2019/08/28/读书笔记/图解HTTP/6章HTTP首部/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="图解HTTP -- HTTP首部">图解HTTP -- HTTP首部</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 敏捷软件开发 "
+           href="/2019/08/28/读书笔记/敏捷软件开发/1部分敏捷开发/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="1部分敏捷开发">1部分敏捷开发</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1150,18 +1245,18 @@
         </a>
         
         <a  class="读书笔记 数据之美 "
+           href="/2019/08/28/读书笔记/数据之美/1/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据之美 -- 读笔1">数据之美 -- 读笔1</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据之美 "
            href="/2019/08/28/读书笔记/数据之美/2/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="数据之美 -- 读笔2">数据之美 -- 读笔2</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 敏捷软件开发 "
-           href="/2019/08/28/读书笔记/敏捷软件开发/1部分敏捷开发/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="1部分敏捷开发">1部分敏捷开发</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1170,14 +1265,6 @@
            data-tag=""
            data-author="" >
             <span class="post-title" title="数据之美 -- 读笔3">数据之美 -- 读笔3</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 数据之美 "
-           href="/2019/08/28/读书笔记/数据之美/1/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="数据之美 -- 读笔1">数据之美 -- 读笔1</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1198,18 +1285,18 @@
         </a>
         
         <a  class="读书笔记 数据可视化之美 "
-           href="/2019/08/28/读书笔记/数据可视化之美/3/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="数据可视化之美 -- 读笔3">数据可视化之美 -- 读笔3</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 数据可视化之美 "
            href="/2019/08/28/读书笔记/数据可视化之美/2/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="数据可视化之美 -- 读笔2">数据可视化之美 -- 读笔2</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 数据可视化之美 "
+           href="/2019/08/28/读书笔记/数据可视化之美/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="数据可视化之美 -- 读笔3">数据可视化之美 -- 读笔3</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1238,6 +1325,14 @@
         </a>
         
         <a  class="读书笔记 算法 "
+           href="/2019/08/28/读书笔记/算法/第3章查找/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="算法 -- 查找">算法 -- 查找</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 算法 "
            href="/2019/08/28/读书笔记/算法/第2章排序/"
            data-tag=""
            data-author="" >
@@ -1246,10 +1341,10 @@
         </a>
         
         <a  class="读书笔记 算法 "
-           href="/2019/08/28/读书笔记/算法/第3章查找/"
+           href="/2019/08/28/读书笔记/算法/第5章字符串/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="算法 -- 查找">算法 -- 查找</span>
+            <span class="post-title" title="算法 -- 字符串">算法 -- 字符串</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1269,14 +1364,6 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class="读书笔记 算法 "
-           href="/2019/08/28/读书笔记/算法/第5章字符串/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="算法 -- 字符串">算法 -- 字符串</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
         <a  class="读书笔记 设计模式 "
            href="/2019/08/28/读书笔记/设计模式/2章实例研究/"
            data-tag=""
@@ -1286,18 +1373,18 @@
         </a>
         
         <a  class="读书笔记 设计模式 "
-           href="/2019/08/28/读书笔记/设计模式/4章结构型模式/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="设计模式 -- 结构型模式">设计模式 -- 结构型模式</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class="读书笔记 设计模式 "
            href="/2019/08/28/读书笔记/设计模式/3章创建型模式/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="设计模式 -- 创建型模式">设计模式 -- 创建型模式</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 设计模式 "
+           href="/2019/08/28/读书笔记/设计模式/4章结构型模式/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="设计模式 -- 结构型模式">设计模式 -- 结构型模式</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1317,19 +1404,19 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class="读书笔记 领域驱动设计 "
-           href="/2019/08/28/读书笔记/领域驱动设计/3/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="领域驱动设计 - 读笔三">领域驱动设计 - 读笔三</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
         <a  class="读书笔记 高性能js "
            href="/2019/08/28/读书笔记/高性能Javascript/2章数据存取/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="数据存取与DOM编程">数据存取与DOM编程</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 领域驱动设计 "
+           href="/2019/08/28/读书笔记/领域驱动设计/3/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="领域驱动设计 - 读笔三">领域驱动设计 - 读笔三</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1381,28 +1468,60 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class=""
-           href="/2019/07/29/前端面试/代码/基础/debounce与throttle/"
+        <a  class="算法 leetcode "
+           href="/2019/08/28/算法/刷题总览/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-29 11:53:36">2019/07/29</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/技术/其他技术/小问题总结/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="小问题总结">小问题总结</span>
+            <span class="post-title" title="刷题总览">刷题总览</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/框架以及规范/Promise/"
+           href="/2019/08/28/技术/其他技术/Github表情/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="Promise规范以及写一个Promise">Promise规范以及写一个Promise</span>
+            <span class="post-title" title="Github表情">Github表情</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端分享/微信小程序逻辑层/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="微信小程序逻辑层">微信小程序逻辑层</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/Web-Components/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Web Components">Web Components</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/前端技术/前端基础知识/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="前端基础知识">前端基础知识</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Polyfill源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Polyfill源码阅读">Polyfill源码阅读</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="算法 leetcode 动态规划 "
+           href="/2019/08/29/算法/leetcode/动态规划/"
+           data-tag="动态规划"
+           data-author="" >
+            <span class="post-title" title="动态规划">动态规划</span>
+            <span class="post-date" title="2019-08-29 17:08:55">2019/08/29</span>
         </a>
         
         <a  class="读书笔记 js高级程序设计 "
@@ -1413,19 +1532,19 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class="读书笔记 深入浅出nodejs "
-           href="/2019/08/28/读书笔记/深入浅出nodejs/node基础/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="深入浅出nodejs -- node基础">深入浅出nodejs -- node基础</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
         <a  class="读书笔记 深入React技术栈 "
            href="/2019/08/28/读书笔记/深入React技术栈/1章2章初入React世界与漫谈React/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="深入React技术栈 -- 初入 React 世界">深入React技术栈 -- 初入 React 世界</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class="读书笔记 深入浅出nodejs "
+           href="/2019/08/28/读书笔记/深入浅出nodejs/node基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="深入浅出nodejs -- node基础">深入浅出nodejs -- node基础</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1453,20 +1572,44 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
+        <a  class=""
+           href="/2019/07/29/前端面试/代码/基础/debounce与throttle/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-07-29 11:53:36">2019/07/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/其他技术/小问题总结/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="小问题总结">小问题总结</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/Promise/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Promise规范以及写一个Promise">Promise规范以及写一个Promise</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/06/前端面试/代码/基础/new/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-06 15:06:10">2019/08/06</span>
+        </a>
+        
         <a  class="前端面试 代码 "
            href="/2019/07/31/前端面试/代码/基础/打印所有对称数/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="打印对称数">打印对称数</span>
             <span class="post-date" title="2019-07-31 23:52:26">2019/07/31</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/31/前端面试/代码/基础/字符串匹配算法/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-31 13:51:59">2019/07/31</span>
         </a>
         
         <a  class=""
@@ -1478,11 +1621,27 @@
         </a>
         
         <a  class=""
-           href="/2019/08/06/前端面试/代码/基础/new/"
+           href="/2019/07/31/前端面试/代码/基础/字符串匹配算法/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-06 15:06:10">2019/08/06</span>
+            <span class="post-date" title="2019-07-31 13:51:59">2019/07/31</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/07/30/前端面试/代码/基础/数组扁平化并去重/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-07-30 20:29:42">2019/07/30</span>
+        </a>
+        
+        <a  class="前端面试 代码 "
+           href="/2019/08/06/前端面试/代码/基础/深拷贝/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="深拷贝">深拷贝</span>
+            <span class="post-date" title="2019-08-06 19:56:38">2019/08/06</span>
         </a>
         
         <a  class=""
@@ -1502,43 +1661,11 @@
         </a>
         
         <a  class="前端面试 代码 "
-           href="/2019/08/06/前端面试/代码/基础/深拷贝/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="深拷贝">深拷贝</span>
-            <span class="post-date" title="2019-08-06 19:56:38">2019/08/06</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/01/前端面试/代码/异步/sleep/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-01 11:44:01">2019/08/01</span>
-        </a>
-        
-        <a  class="前端面试 代码 "
            href="/2019/08/29/前端面试/代码/异步/promise/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="promise">promise</span>
             <span class="post-date" title="2019-08-29 11:43:55">2019/08/29</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/07/30/前端面试/代码/基础/数组扁平化并去重/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-07-30 20:29:42">2019/07/30</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/01/前端面试/代码/数组/flatten/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-01 15:40:02">2019/08/01</span>
         </a>
         
         <a  class=""
@@ -1550,11 +1677,11 @@
         </a>
         
         <a  class=""
-           href="/2019/08/01/前端面试/代码/字符串/简化路径/"
+           href="/2019/08/01/前端面试/代码/异步/sleep/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-01 22:44:24">2019/08/01</span>
+            <span class="post-date" title="2019-08-01 11:44:01">2019/08/01</span>
         </a>
         
         <a  class=""
@@ -1574,19 +1701,27 @@
         </a>
         
         <a  class=""
+           href="/2019/08/01/前端面试/代码/字符串/简化路径/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-01 22:44:24">2019/08/01</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/01/前端面试/代码/数组/flatten/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-01 15:40:02">2019/08/01</span>
+        </a>
+        
+        <a  class=""
            href="/2019/07/29/前端面试/代码/树/非递归深度遍历/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
             <span class="post-date" title="2019-07-29 11:52:23">2019/07/29</span>
-        </a>
-        
-        <a  class="前端面试 问答 "
-           href="/2019/08/01/前端面试/问答/css/基础/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="css基础">css基础</span>
-            <span class="post-date" title="2019-08-01 18:39:33">2019/08/01</span>
         </a>
         
         <a  class=""
@@ -1606,14 +1741,6 @@
         </a>
         
         <a  class=""
-           href="/2019/08/01/前端面试/问答/promise/promise/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-01 11:42:48">2019/08/01</span>
-        </a>
-        
-        <a  class=""
            href="/2019/07/31/前端面试/问答/http/https/"
            data-tag=""
            data-author="" >
@@ -1621,12 +1748,12 @@
             <span class="post-date" title="2019-07-31 23:39:46">2019/07/31</span>
         </a>
         
-        <a  class=""
-           href="/2019/08/01/前端面试/问答/css/回流，重绘/"
+        <a  class="前端面试 问答 "
+           href="/2019/08/01/前端面试/问答/css/基础/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-01 14:24:02">2019/08/01</span>
+            <span class="post-title" title="css基础">css基础</span>
+            <span class="post-date" title="2019-08-01 18:39:33">2019/08/01</span>
         </a>
         
         <a  class=""
@@ -1638,11 +1765,19 @@
         </a>
         
         <a  class=""
-           href="/2019/08/06/前端面试/问答/promise/基础/"
+           href="/2019/08/01/前端面试/问答/css/回流，重绘/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-06 15:39:47">2019/08/06</span>
+            <span class="post-date" title="2019-08-01 14:24:02">2019/08/01</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/01/前端面试/问答/promise/promise/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-01 11:42:48">2019/08/01</span>
         </a>
         
         <a  class=""
@@ -1654,7 +1789,15 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/a/"
+           href="/2019/08/06/前端面试/问答/promise/基础/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-06 15:39:47">2019/08/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/a1c/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
@@ -1662,7 +1805,7 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/a1c/"
+           href="/2019/08/28/技术/Demo/requirejs/a/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
@@ -1702,14 +1845,6 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/d/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/Demo/requirejs/c/"
            data-tag=""
            data-author="" >
@@ -1718,23 +1853,7 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/main-built/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/main/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title=""></span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/myrequirePromise/"
+           href="/2019/08/28/技术/Demo/requirejs/d/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
@@ -1750,7 +1869,7 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/Demo/requirejs/testRequirejs/"
+           href="/2019/08/28/技术/Demo/requirejs/main-built/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
@@ -1758,10 +1877,26 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/Nodejs/Nodejs普通模块/Forever源码阅读/"
+           href="/2019/08/28/技术/Demo/requirejs/myrequirePromise/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="Forever源码阅读">Forever源码阅读</span>
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/main/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/Demo/requirejs/testRequirejs/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1782,6 +1917,14 @@
         </a>
         
         <a  class=""
+           href="/2019/08/28/技术/Nodejs/Nodejs普通模块/Forever源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Forever源码阅读">Forever源码阅读</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
            href="/2019/08/28/技术/Nodejs/Nodejs框架模块/Koa以及react空白项目搭建/"
            data-tag=""
            data-author="" >
@@ -1790,18 +1933,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/工具使用/webpack/webpack插件编写/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Webpack插件编写">Webpack插件编写</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/工具使用/webpack/webpack2/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="webpack2">webpack2</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/工具使用/webpack/webpack插件编写/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Webpack插件编写">Webpack插件编写</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1886,18 +2029,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/框架以及规范/HTML5/hashchange事件/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="hashchange事件">hashchange事件</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/框架以及规范/HTML5/history相关/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="history相关">history相关</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/HTML5/hashchange事件/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="hashchange事件">hashchange事件</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -1950,18 +2093,18 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/框架以及规范/redux/Redux源码阅读/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Redux源码阅读">Redux源码阅读</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/框架以及规范/模块引入/Requirejs源码阅读/"
            data-tag=""
            data-author="" >
             <span class="post-title" title="Requirejs源码阅读">Requirejs源码阅读</span>
+            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/redux/Redux源码阅读/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Redux源码阅读">Redux源码阅读</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -2022,14 +2165,6 @@
         </a>
         
         <a  class=""
-           href="/2019/08/28/技术/框架以及规范/redux/Redux文档阅读/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Redux文档阅读">Redux文档阅读</span>
-            <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
-        </a>
-        
-        <a  class=""
            href="/2019/08/28/技术/框架以及规范/React/React文档阅读/"
            data-tag=""
            data-author="" >
@@ -2037,11 +2172,11 @@
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
-        <a  class="算法 leetcode "
-           href="/2019/08/28/算法/刷题总览/"
+        <a  class=""
+           href="/2019/08/28/技术/框架以及规范/redux/Redux文档阅读/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="刷题总览">刷题总览</span>
+            <span class="post-title" title="Redux文档阅读">Redux文档阅读</span>
             <span class="post-date" title="2019-08-28 16:45:23">2019/08/28</span>
         </a>
         
@@ -2085,12 +2220,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-28 19:00:11'>2019-08-28 16:45</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-29 17:34:26'>2019-08-28 16:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:6.5k</span>
+        <span>字数:2.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -2120,7 +2255,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#每日学习"><span class="toc-text">每日学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法总结"><span class="toc-text">算法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#回溯法："><span class="toc-text">回溯法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉树："><span class="toc-text">二叉树：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#深度优先（DFS）"><span class="toc-text">深度优先（DFS）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#广度优先（BFS）"><span class="toc-text">广度优先（BFS）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二叉搜索树："><span class="toc-text">二叉搜索树：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态规划："><span class="toc-text">动态规划：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双指针："><span class="toc-text">双指针：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#递归："><span class="toc-text">递归：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#哈希："><span class="toc-text">哈希：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分查找"><span class="toc-text">二分查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#队列"><span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#循环队列"><span class="toc-text">循环队列</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数学"><span class="toc-text">数学</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排序"><span class="toc-text">排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#每日学习"><span class="toc-text">每日学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法总结"><span class="toc-text">算法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#递归："><span class="toc-text">递归：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#哈希："><span class="toc-text">哈希：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分查找"><span class="toc-text">二分查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#队列"><span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#循环队列"><span class="toc-text">循环队列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排序"><span class="toc-text">排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -2138,104 +2273,38 @@
         <h1 id="每日学习"><a href="#每日学习" class="headerlink" title="每日学习"></a>每日学习</h1><p><a name="RFYNM"></a></p>
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>每天刷点 LeetCode，促进自己的思路<br>1.两数之和<br>用 hash 表来减少一次遍历感觉还是蛮通常能够做到的优化方式</p>
 <p>2.<a href="https://leetcode-cn.com/problems/search-insert-position/" target="_blank" rel="noopener">搜索插入位置</a>(1 个小时)<br>自己真是蠢爆了，自己写个二分法找数竟然写了 1 个小时</p>
-<p>3.<a href="https://leetcode-cn.com/problems/permutations/" target="_blank" rel="noopener">全排列</a>(30 分钟)<br>全排列用的递归，写了 30 分钟过关<br>字典法的 4 步搞完之后，需要运行 n 的阶乘次才行，实在是很糟啊，不过也能得到答案，就是每次找比这次大的最小的，然后运行答案次就可以。挺有意思的，但是很难想出来的方法。<br>用回溯法重写了一遍<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566632578887-741eb225-41fb-4704-bbf0-573af85145ca.png#align=left&display=inline&height=103&name=image.png&originHeight=340&originWidth=882&size=95332&status=done&width=267" alt="image.png"><br>蠢了，全排列只用保存几个了就行！</p>
-<p>4.<a href="https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/" target="_blank" rel="noopener">电话号码的字母组合</a>(27 分钟)<br>自己还是用了递归，找 fn 与 fn-1 的关系<br>用了 switch，换成了数组查找来省去一次遍历还是很好使的，自己又忘了<br>这里学习了回溯法</p>
-<p>5.<a href="https://leetcode-cn.com/problems/generate-parentheses/" target="_blank" rel="noopener">括号生成</a>(53 分钟)<br>用了回溯法，一直超时！！<br>我的回溯法用的很蠢，属于暴力推演，持续优化才过关，其实可以根据题目的特点，不用暴力 for 循环的，特点判断就好了。</p>
-<p>6.<a href="https://leetcode-cn.com/problems/combination-sum/" target="_blank" rel="noopener">组合总和</a>(20 分钟)<br>回溯法非常合适，可是剪枝的方式需要提前才能速度更快。最主要的是要看清题目，看是否回头匹配决定了是否传 index。</p>
-<p>7.<a href="https://leetcode-cn.com/problems/container-with-most-water/" target="_blank" rel="noopener">盛最多水的容器</a>(20 分钟)<br>双指针法挺好的，从两边逼近，短的那个去尝试，找到所有的可能的大的</p>
 <p>8.<a href="https://leetcode-cn.com/problems/spiral-matrix/" target="_blank" rel="noopener">螺旋矩阵</a>(15 分钟)<br>我就很简单的递归着转了几圈</p>
 <p>9.<a href="https://leetcode-cn.com/problems/longest-palindromic-substring/" target="_blank" rel="noopener">最长回文子串</a>(40 分钟)<br>我就是全遍历，两种可能不断遍历做的。<br>还有些其他方法：<br>其他方法待总结</p>
 <p>10.<a href="https://leetcode-cn.com/problems/roman-to-integer/submissions/" target="_blank" rel="noopener">罗马数字转整数</a>（20 分钟）<br>我是递归，两位可以确定当前位是加还是减，是加就加上当前位，是减就减去当前两位。<br>其他的方式是逆序，遇到大的就+，遇到小的就减。</p>
 <p>11.<a href="https://leetcode-cn.com/problems/n-queens/comments/" target="_blank" rel="noopener">N 皇后</a>（2 个小时）<br>题目理解错了，而且用的也是非常傻逼的递归后再剪枝的方法。<br>这道题应该用回溯法。</p>
 <p>12.<a href="https://leetcode-cn.com/problems/valid-square/" target="_blank" rel="noopener">有效的正方形</a>(1 个小时)—-中等<br>我是遍历，拿 3 个出来看是不是等腰直角三角形，然后看第四个点的距离。<br>优秀做法是看节点之间的举例，4 条边，2 条对角线，好吧。服气，还是要找到真正的规律啊。<br>也可以先排序出来节点分布。</p>
-<p>13.<a href="https://leetcode-cn.com/problems/combinations/" target="_blank" rel="noopener">组合</a>(1 个小时)—-中等<br>回溯法，方法很简单，但是剪枝剪了半小时，完全不会剪枝啊，但是回溯法补习了一下，就是根据当前的结果以及剩下的选项算再下一步的结果。</p>
-<p>这么神奇的写法吗：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>(n)</span><br><span class="line">  .fill()</span><br><span class="line">  .map(<span class="function">(<span class="params">_, index</span>) =&gt;</span> index + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-
-<p>卧槽，看了一个 nice 的答案，只传 index，然后遍历完了之后数据 pop 一下，再继续遍历。大赞！！<br>内存优化到了极限！完全没占用其他的位置。</p>
-<p>14.<a href="https://leetcode-cn.com/problems/beautiful-arrangement/" target="_blank" rel="noopener">优美的排列</a>(20 分钟)—-中等—–回溯<br>回溯法，这次没需要剪枝，还是很快，但是我写的执行效率太低了。<br>换了解题思路，感觉蛮不错的，要看清楚什么是变量！<br>这一题是可以向回追溯的，所以每次都要全部遍历，然后用一个数组标记谁被遍历过了即可。</p>
-<p>15.<a href="https://leetcode-cn.com/problems/subsets/" target="_blank" rel="noopener">子集</a>(15 分钟)—–中等—–回溯<br>回溯法，用的组合那把的回溯法<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562728974934-3ea6d987-8ee7-428d-be8f-fef803111aa6.png#align=left&display=inline&height=70&name=image.png&originHeight=206&originWidth=914&size=90530&status=done&width=310" alt="image.png"><br>优秀答案，哈哈</p>
-<p>16.<a href="https://leetcode-cn.com/problems/combination-sum-ii/" target="_blank" rel="noopener">组合总和 II</a>(20 分钟)—-中等—–回溯<br>其实 10 分钟差不多就写出来了，一直在想为什么会出问题，结果只是重复了而已，气死我了<br>这种回溯法我感觉我差不多了，执行效率也差不多<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562731029399-07f38ff0-38d2-445f-90fd-31b5fa696826.png#align=left&display=inline&height=99&name=image.png&originHeight=214&originWidth=894&size=95102&status=done&width=413" alt="image.png"></p>
-<p>17.<a href="https://leetcode-cn.com/problems/restore-ip-addresses/" target="_blank" rel="noopener">复原 IP 地址</a>(25 分钟)—-中等—–回溯<br>写花了 10 分钟，调试花了很久，随便剪个枝就很容易了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562779838841-259da2d6-e4c4-4ae4-a8dc-c36a0b4280e4.png#align=left&display=inline&height=132&name=image.png&originHeight=406&originWidth=1010&size=111426&status=done&width=328" alt="image.png"></p>
-<p>18.<a href="https://leetcode-cn.com/problems/palindrome-partitioning/" target="_blank" rel="noopener">分割回文串</a>(15 分钟)—-中等—–回溯<br>回文串有点意思，即使前面校验失败了，后面也能的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562811834696-c8fffe48-4ff5-41b0-9368-5e890e5d49bb.png#align=left&display=inline&height=102&name=image.png&originHeight=384&originWidth=892&size=117539&status=done&width=238" alt="image.png"><br>优化个两分钟，效率提高了不少<br>把回文重写了下，从数组 reverse 改成了 while 判断，更快了。</p>
-<p>19.<a href="https://leetcode-cn.com/problems/subsets-ii/" target="_blank" rel="noopener">子集 II</a>（20 分钟）—-中等—–回溯<br>子集的话就是直接添加，不需要判断，不难<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562826073197-9935aa94-bb2f-40c3-abec-769dfa26b263.png#align=left&display=inline&height=99&name=image.png&originHeight=256&originWidth=896&size=93584&status=done&width=348" alt="image.png"></p>
-<p>20.<a href="https://leetcode-cn.com/problems/letter-case-permutation/" target="_blank" rel="noopener">字母大小写全排列</a>（15 分钟）—-简单—–回溯<br>这个全排列需要一直 push，所以也需要一直 pop，还是有点小难的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562833683348-57b1becb-750f-4542-a2e9-a6f6677ff4f8.png#align=left&display=inline&height=125&name=image.png&originHeight=344&originWidth=934&size=106622&status=done&width=340" alt="image.png"></p>
-<p>21.<a href="https://leetcode-cn.com/problems/3sum/" target="_blank" rel="noopener">三数之和</a>(1 个小时)—-中等—–双指针<br>最开始用的回溯法，被测例搞死了，313 个通过了 311 个，一直超时。<br>感觉是很多题其实很多解法，for 循环，回溯，多指针，哪个合适其实很难说。回溯法效率不算很高，毕竟是一种全排列算法。<br>顺便学习下双指针。<br>双指针逼近算法写了也超时了。</p>
-<blockquote>
-<p>nums.sort((a, b) =&gt; a-b);</p>
-</blockquote>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562861194376-9e56377c-ba53-4fa3-8a30-53df6bce07d9.png#align=left&display=inline&height=142&name=image.png&originHeight=398&originWidth=966&size=101931&status=done&width=344" alt="image.png"><br>这一题双指针简直过分！！取值和遍历分开计算。最大化减少遍历了。</p>
-<p>22.<a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener">无重复字符的最长子串</a>(40 分钟)—-中等—–双指针<br>天啊，就因为多重复了一步，就过不了！！我的算法都对了啊！！<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562897793955-7de502ad-5bad-4b90-931f-6aa8b43ab71d.png#align=left&display=inline&height=109&name=image.png&originHeight=358&originWidth=906&size=108613&status=done&width=277" alt="image.png"></p>
-<p>23.<a href="https://leetcode-cn.com/problems/permutations-ii/" target="_blank" rel="noopener">全排列 II</a>(50 分钟)—-中等—-回溯法<br>没想到回溯法也要写 forEach，因为要完全回头，所以要 forEach<br>通过先排序，再相同跳过的方式可以剪枝<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562914161736-52e0f0ca-0294-434f-9043-19d5c838e506.png#align=left&display=inline&height=124&name=image.png&originHeight=366&originWidth=936&size=122950&status=done&width=318" alt="image.png"></p>
-<p>24.<a href="https://leetcode-cn.com/problems/permutation-sequence/" target="_blank" rel="noopener">第 k 个排列</a>(12 分钟)—-中等—-回溯法<br>全排列一样的回溯法，但是效率较低<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1562932029768-808fbbf0-148e-4104-b0e5-afc4cff9522f.png#align=left&display=inline&height=133&name=image.png&originHeight=324&originWidth=848&size=96953&status=done&width=348" alt="image.png"><br>换了思路，不再遍历，直接根据值算出来<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563019415698-27b6bd99-8f37-4566-8183-ca28e5e8b889.png#align=left&display=inline&height=125&name=image.png&originHeight=332&originWidth=918&size=48881&status=done&width=346" alt="image.png"></p>
-<p>25.<a href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener">二叉搜索树中第 K 小的元素</a>(20 分钟) —-中等—二叉树<br>01 推荐的题，学习了下二叉树，知道了中序遍历是有顺序的，很棒。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563021414181-c86ea8e1-dbee-4466-b5f3-973716564111.png#align=left&display=inline&height=115&name=image.png&originHeight=310&originWidth=916&size=47848&status=done&width=341" alt="image.png"><br>换了下写法，其实差别不大<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563039021420-a5905294-0d55-4fec-8a8c-d0fb5fffff82.png#align=left&display=inline&height=106&name=image.png&originHeight=264&originWidth=870&size=42484&status=done&width=350" alt="image.png"><br>！！！！</p>
-<p>26.<a href="https://leetcode-cn.com/problems/3sum-closest/" target="_blank" rel="noopener">最接近的三数之和</a>(40 分钟) —-中等—双指针<br>先用了 3 层 for 循环，能过就是很惨<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563077585280-3147f798-3373-4002-bad4-2ebd07a60da1.png#align=left&display=inline&height=133&name=image.png&originHeight=382&originWidth=936&size=52870&status=done&width=325" alt="image.png"><br>后来改成了双指针，好多了</p>
-<p>27.<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/" target="_blank" rel="noopener">删除排序数组中的重复项</a>(5 分钟)—简单—双指针<br>最简单的用 splice 写，5 分钟很快，不过这一题用双指针也不错的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563114079020-a88bef65-0e1f-4da0-bc28-f23c76a6e942.png#align=left&display=inline&height=102&name=image.png&originHeight=318&originWidth=870&size=48528&status=done&width=279" alt="image.png"><br>看了答案的思想之后，换成双指针答案好像更好了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563114540178-756bcb5c-401a-4f27-904f-6fa48ba12c08.png#align=left&display=inline&height=103&name=image.png&originHeight=330&originWidth=898&size=48671&status=done&width=281" alt="image.png"></p>
-<p>28.<a href="https://leetcode-cn.com/problems/remove-element/" target="_blank" rel="noopener">移除元素</a>(2 分钟)—简单—双指针<br>直接用双指针来做<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563114815462-28c93687-6ac4-4a03-95b6-ed09de6c01f3.png#align=left&display=inline&height=106&name=image.png&originHeight=316&originWidth=880&size=48210&status=done&width=296" alt="image.png"><br>题目还是很重要的，说是顺序可以不管，于是第二个指针改成数组 length，每次跟最后的换位置，<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563115445992-6014a392-ada9-4b80-8749-c79ca700b5c9.png#align=left&display=inline&height=109&name=image.png&originHeight=344&originWidth=904&size=50258&status=done&width=287" alt="image.png"><br>挺有意思的。</p>
 <p>29.<a href="https://leetcode-cn.com/problems/next-permutation/" target="_blank" rel="noopener">下一个排列</a>(60 分钟)—中等—找规律<br>字典序<br>从右向左，找到第一个比左侧小的，然后换位置，然后右侧排序<br>真的好难，一直在试，感觉这样不行的，一定要想清楚了再动才好！<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563158931495-c2430631-cfbd-43ed-89e3-5f6aef2f3cbc.png#align=left&display=inline&height=109&name=image.png&originHeight=346&originWidth=954&size=111959&status=done&width=301" alt="image.png"><br>字典序算法。<br>学习了怎么写 reverse。</p>
 <blockquote>
 <p>function reverse(nums, a, b) {<br>while (a &lt; b) {<br>const temp = nums[a];<br>nums[a] = nums[b];<br>nums[b] = temp;<br>a++;<br>b–;<br>}<br>}</p>
 </blockquote>
-<p>30.<a href="https://leetcode-cn.com/problems/word-search/" target="_blank" rel="noopener">单词搜索</a>(40 分钟)—中等—回溯<br>写的太糟了，数组操作很耗时，尽量别用，<br>思路是对的，没啥问题<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563173573161-3642dd5e-0ff9-45fb-8e2c-5f7ebb80407c.png#align=left&display=inline&height=98&name=image.png&originHeight=340&originWidth=866&size=113686&status=done&width=250" alt="image.png"></p>
 <p>31.<a href="https://leetcode-cn.com/problems/rotate-image/" target="_blank" rel="noopener">旋转图像</a>(40 分钟)—中等—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563195225072-8cfb3bdb-ba57-4a1b-9648-4d136f734867.png#align=left&display=inline&height=107&name=image.png&originHeight=348&originWidth=900&size=98719&status=done&width=278" alt="image.png"><br>其实就是找规律，不难，就是写起来慢了点，可惜了</p>
-<p>32.<a href="https://leetcode-cn.com/problems/maximum-subarray/" target="_blank" rel="noopener">最大子序和</a>(30 分钟)—简单—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563211076167-fedf7604-f01b-4d33-9e5f-160166da7785.png#align=left&display=inline&height=104&name=image.png&originHeight=286&originWidth=882&size=92956&status=done&width=321" alt="image.png"><br>原来这叫做动态规划</p>
-<p>33.<a href="https://leetcode-cn.com/problems/reverse-string/" target="_blank" rel="noopener">反转字符串</a>(2 分钟)—简单—双指针<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563282449640-62c5c25d-880a-4aa2-93d5-36b8a99870f8.png#align=left&display=inline&height=101&name=image.png&originHeight=278&originWidth=906&size=88048&status=done&width=330" alt="image.png"></p>
 <p>34.<a href="https://leetcode-cn.com/problems/array-partition-i/" target="_blank" rel="noopener">数组拆分 I</a>(5 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563283252104-2f63d6a4-2743-4ded-b868-6354ad4880b5.png#align=left&display=inline&height=98&name=image.png&originHeight=288&originWidth=850&size=88056&status=done&width=289" alt="image.png"></p>
-<p>35.<a href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">两数之和 II - 输入有序数组</a>(5 分钟)—简单—双指针<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563296309856-416a6775-7756-4410-8438-3902f7c552e6.png#align=left&display=inline&height=116&name=image.png&originHeight=332&originWidth=938&size=95122&status=done&width=327" alt="image.png"></p>
-<p>36.<a href="https://leetcode-cn.com/problems/max-consecutive-ones/" target="_blank" rel="noopener">最大连续 1 的个数</a>(5 分钟)—简单—双指针<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563296817516-8bbdd2e8-65ee-4036-9e03-c4a926d9e7fb.png#align=left&display=inline&height=117&name=image.png&originHeight=322&originWidth=898&size=92584&status=done&width=326" alt="image.png"></p>
 <p>37.<a href="https://leetcode-cn.com/problems/add-binary/" target="_blank" rel="noopener">二进制求和</a>(15 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563331244730-ec95c605-ce76-4809-9ebf-6cace8478d26.png#align=left&display=inline&height=98&name=image.png&originHeight=350&originWidth=880&size=96422&status=done&width=246" alt="image.png"></p>
 <p>38.<a href="https://leetcode-cn.com/problems/implement-strstr/" target="_blank" rel="noopener">实现 strStr()</a>(10 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563334671326-185a6ac2-25ef-4250-b86f-a8f86e28277d.png#align=left&display=inline&height=108&name=image.png&originHeight=350&originWidth=884&size=98971&status=done&width=273" alt="image.png"></p>
 <p>39.<a href="https://leetcode-cn.com/problems/longest-common-prefix/" target="_blank" rel="noopener">最长公共前缀</a>(10 分钟)—简单—找规律<br>注意数组排序之后对比首尾就行了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563344187890-b45f87b5-d061-4708-bfc4-fd8afcffec06.png#align=left&display=inline&height=88&name=image.png&originHeight=252&originWidth=850&size=82541&status=done&width=296" alt="image.png"></p>
-<p>40.<a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/" target="_blank" rel="noopener">长度最小的子数组</a>(20 分钟)—中等—双指针<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563346268968-bf5aa8e7-ce9a-41ad-8727-8e0d20b5a565.png#align=left&display=inline&height=110&name=image.png&originHeight=324&originWidth=902&size=99234&status=done&width=305" alt="image.png"></p>
-<p>41.<a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/" target="_blank" rel="noopener">长度最小的子数组</a>(10 分钟)—中等—双指针<br>比较容易想到的双指针<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563346728183-a4d401b0-48bc-4eb4-9139-594996ce3f5c.png#align=left&display=inline&height=97&name=image.png&originHeight=326&originWidth=864&size=96909&status=done&width=258" alt="image.png"></p>
 <p>42.<a href="https://leetcode-cn.com/problems/find-pivot-index/" target="_blank" rel="noopener">寻找数组的中心索引</a>(20 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563351320426-69e903c3-ff2e-4c5e-b369-05d4d96fbe33.png#align=left&display=inline&height=71&name=image.png&originHeight=262&originWidth=894&size=92479&status=done&width=242" alt="image.png"><br>之前思路一致错了，这么简单搞了很久，其实先算 sum，然后左侧遍历就行了</p>
 <p>43.<a href="https://leetcode-cn.com/problems/largest-number-at-least-twice-of-others/" target="_blank" rel="noopener">至少是其他数字两倍的最大数</a>(2 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563351649429-68fe2081-41a9-4a7f-8cfe-3fc5430f5c4e.png#align=left&display=inline&height=83&name=image.png&originHeight=332&originWidth=874&size=99775&status=done&width=218" alt="image.png"><br>换了个思路，稍微快了一点<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563352636220-8a6d6e84-bc1d-445e-b8d1-ab3c68b8c3e2.png#align=left&display=inline&height=87&name=image.png&originHeight=324&originWidth=856&size=96926&status=done&width=229" alt="image.png"><br>直接找最小的两个值，还不错，初始化最小值可以搞成 Infinity<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563353196401-fe77fdc3-2963-4ec4-be9e-ad511f3fb644.png#align=left&display=inline&height=87&name=image.png&originHeight=332&originWidth=896&size=100429&status=done&width=236" alt="image.png"></p>
 <p>44.<a href="https://leetcode-cn.com/problems/plus-one/" target="_blank" rel="noopener">加一</a>(5 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563354040026-4c86f30d-45bf-4a43-b555-be33cf923b50.png#align=left&display=inline&height=93&name=image.png&originHeight=308&originWidth=878&size=97426&status=done&width=264" alt="image.png"></p>
 <p>45.<a href="https://leetcode-cn.com/problems/diagonal-traverse/" target="_blank" rel="noopener">对角线遍历</a>(30 分钟)—中等—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563356971738-67c335d8-7900-462a-9ce9-02d2fe193736.png#align=left&display=inline&height=85&name=image.png&originHeight=302&originWidth=894&size=99033&status=done&width=253" alt="image.png"></p>
 <p>46.<a href="https://leetcode-cn.com/problems/pascals-triangle/" target="_blank" rel="noopener">杨辉三角</a>(10 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563357929803-216aaeed-5162-4ab6-a1a6-8e86876988eb.png#align=left&display=inline&height=100&name=image.png&originHeight=346&originWidth=892&size=100110&status=done&width=259" alt="image.png"></p>
-<p>47.<a href="https://leetcode-cn.com/problems/climbing-stairs/" target="_blank" rel="noopener">爬楼梯</a>(30 分钟)—简单—动态规划<br>第一遍选择了回溯，数字超过 30 直接超时。<br>其实是一条找规律的题，不过可能得看数字规律比较好一些。<br>斐波那契数列原来有公式啊。可以直接通过公式算也行。不过效率不高<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563418742457-4e917313-19be-48b6-9068-52c99304ca5f.png#align=left&display=inline&height=104&name=image.png&originHeight=310&originWidth=864&size=97708&status=done&width=291" alt="image.png"><br>问题抽象的过分了。<br>斐波那契数列直接的写法原来很差劲，因为每次都要重复计算，动态规划就是记住了之前的路径，好棒啊。<br>两种方式，一种直接记住上两次的，一个是递归写法，算过的就记住。前一种好一些。</p>
-<p>48.<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener">买卖股票的最佳时机</a>(5 分钟)—简单—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563420304948-5326ad23-0de4-42b8-b000-a9bfffba7619.png#align=left&display=inline&height=77&name=image.png&originHeight=280&originWidth=870&size=94956&status=done&width=238" alt="image.png"><br>这一题做第一遍还是比较简单的。</p>
-<p>49.<a href="https://leetcode-cn.com/problems/house-robber/" target="_blank" rel="noopener">打家劫舍</a>(8 分钟)—简单—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563422341327-101977c4-4e82-4146-ada3-16b74e55bf47.png#align=left&display=inline&height=97&name=image.png&originHeight=316&originWidth=868&size=97216&status=done&width=267" alt="image.png"><br>不难，知道是动态规划的话，其实就是找当前跟之前结果的关系。原来这就是动态规划。<br>换成奇偶的法子，如果添加了比较小，就取另一种的最大值更快更强。</p>
-<p>50.<a href="https://leetcode-cn.com/problems/unique-paths/" target="_blank" rel="noopener">不同路径</a>(20 分钟)—中等—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563441848148-8de8813d-2bfd-4aad-b676-ffa2ba1cd2b7.png#align=left&display=inline&height=105&name=image.png&originHeight=304&originWidth=836&size=92002&status=done&width=289" alt="image.png"><br>用的自顶向下的规划方法，存了中间计算结果，速度会快一些。<br>看清楚了题目就是个斐波那契数列而已<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563442848229-5ca10371-500a-47d0-bc92-78eca76b9cb3.png#align=left&display=inline&height=108&name=image.png&originHeight=324&originWidth=868&size=99237&status=done&width=288" alt="image.png"><br>换成从底向上的好像更简单了一些。</p>
-<p>51.<a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">最小路径和</a>(15 分钟)—中等—动态规划<br>方法差不多，趁热打铁还是蛮简单的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563443839699-5216a259-459b-4c58-9aa0-2a596f6d164a.png#align=left&display=inline&height=109&name=image.png&originHeight=334&originWidth=862&size=94344&status=done&width=282" alt="image.png"><br>其实可以原数组直接存的</p>
-<p>52.<a href="https://leetcode-cn.com/problems/decode-ways/" target="_blank" rel="noopener">解码方法</a>(15 分钟)—中等—动态规划<br>逻辑判断有点难，不过还好<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563450497484-f032e9e2-8228-4a36-8082-e8a360b167b4.png#align=left&display=inline&height=96&name=image.png&originHeight=282&originWidth=868&size=91767&status=done&width=296" alt="image.png"></p>
-<p>53.<a href="https://leetcode-cn.com/problems/triangle/" target="_blank" rel="noopener">三角形最小路径和</a>(15 分钟)—中等—动态规划<br>简单的，10 分钟<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563516489547-a819294c-2ea5-4f6e-92e7-c2d103ab3fa3.png#align=left&display=inline&height=96&name=image.png&originHeight=308&originWidth=864&size=99488&status=done&width=270" alt="image.png"></p>
-<p>54.<a href="https://leetcode-cn.com/problems/word-break/" target="_blank" rel="noopener">单词拆分</a>(20 分钟)—中等—动态规划<br>第一遍超时了。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563518517018-84d0c125-a6fc-4e0f-8b00-bdb7685338c2.png#align=left&display=inline&height=86&name=image.png&originHeight=300&originWidth=880&size=99833&status=done&width=251" alt="image.png"><br>换成自顶向下的动态规划简单了一些。</p>
-<p>55.<a href="https://leetcode-cn.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">乘积最大子序列</a>(30 分钟)—中等—动态规划<br>是比较复杂的动态规划了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563521512332-6eb98d07-3198-48c2-98b3-e2b5feb8f955.png#align=left&display=inline&height=92&name=image.png&originHeight=312&originWidth=896&size=100201&status=done&width=264" alt="image.png"><br>写死我了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563522792223-01917b46-79ec-4964-b9b8-9b27fddc140e.png#align=left&display=inline&height=83&name=image.png&originHeight=302&originWidth=834&size=96405&status=done&width=228" alt="image.png"><br>其实换个思路，少了很多的判断了，就是找到当前位置的最大最小值，遇到负数翻转</p>
 <p>56.<a href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/" target="_blank" rel="noopener">两两交换链表中的节点</a>(10 分钟)—中等—递归<br>很简答的递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563523841969-bb78bd89-7fe7-4560-90b1-35435cba0a2d.png#align=left&display=inline&height=81&name=image.png&originHeight=318&originWidth=866&size=99406&status=done&width=220" alt="image.png"></p>
 <p>57.<a href="https://leetcode-cn.com/problems/pascals-triangle-ii/" target="_blank" rel="noopener">杨辉三角 II</a>(10 分钟)—简单—找规律<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563524996717-2d268ffd-fe91-4ef7-8983-5048f5052fe9.png#align=left&display=inline&height=76&name=image.png&originHeight=308&originWidth=852&size=93342&status=done&width=209" alt="image.png"></p>
 <p>58.<a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">反转链表</a>(10 分钟)—简单—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563526271735-ca972992-94e7-4af8-9e78-6d2fb5ba9582.png#align=left&display=inline&height=73&name=image.png&originHeight=288&originWidth=866&size=97289&status=done&width=219" alt="image.png"><br>比想象的难一点，没注意应该每次都返回末位，包括最后也是返回末位。<br>其实直接 for 循环也很简单的，每次把 cur 的 next 设置成 pre。然后重设 cur 和 pre</p>
 <p>59.<a href="https://leetcode-cn.com/problems/fibonacci-number/" target="_blank" rel="noopener">斐波那契数</a>(10 分钟)—简单—递归</p>
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563587086350-ede431ba-9dd9-43ab-b2ba-e0dac1380f09.png#align=left&display=inline&height=88&name=image.png&originHeight=296&originWidth=798&size=98393&status=done&width=238" alt="image.png"></p>
-<p>60.<a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener">二叉树的最大深度</a>(10 分钟)—简单—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563587126278-17d39427-7bc8-4e49-abcc-5e8cce980b94.png#align=left&display=inline&height=103&name=image.png&originHeight=308&originWidth=792&size=100108&status=done&width=266" alt="image.png"></p>
 <p>61.<a href="https://leetcode-cn.com/problems/powx-n/" target="_blank" rel="noopener">Pow(x, n)</a>(25 分钟)—中等—递归<br>主要要找个规律，把 n 的复杂度变成 logN，还不错的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563588731510-f55ca7b6-9982-4b4e-bc11-26a0a5f4d3a1.png#align=left&display=inline&height=102&name=image.png&originHeight=326&originWidth=836&size=98572&status=done&width=261" alt="image.png"><br>遇到 n&lt;0 的，把 x 换成 1/x，n 就变成 -n 了，绝了！！<br>我想到的是递归快速幂方案，迭代快速幂就是里面不断的乘以自己。不错，另一种思路。</p>
 <p>62.<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/" target="_blank" rel="noopener">合并两个有序链表</a>(10 分钟)—简单—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563590656902-2ec3b7df-ffc1-4dae-8982-a6769765c2d3.png#align=left&display=inline&height=95&name=image.png&originHeight=320&originWidth=860&size=97087&status=done&width=255" alt="image.png"></p>
 <p>63.<a href="https://leetcode-cn.com/problems/k-th-symbol-in-grammar/" target="_blank" rel="noopener">第 K 个语法符号</a>(50 分钟)—中等—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563700216062-64229b97-2291-4707-81aa-b04d7c4b0b04.png#align=left&display=inline&height=98&name=image.png&originHeight=326&originWidth=892&size=99111&status=done&width=267" alt="image.png"><br>就是规律不是很好找，难度不难</p>
-<p>64.<a href="https://leetcode-cn.com/problems/unique-binary-search-trees/" target="_blank" rel="noopener">不同的二叉搜索树</a>(30 分钟)—中等—递归<br>主要是学习了什么是二叉搜索树<br>而且第一次遇到这种动态规划是需要递归的，不太敢写，其实会了就很简单<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563702577074-bce131b9-be4c-4e8c-9a9f-c73b70255272.png#align=left&display=inline&height=90&name=image.png&originHeight=282&originWidth=854&size=96087&status=done&width=272" alt="image.png"></p>
-<blockquote>
-<p>fn = f0<em>fn-1+f1</em>fn-2+…+fn-1*f0;</p>
-</blockquote>
-<p>这一题有公式，叫卡塔尔数，直接公式也可以的。</p>
-<p>65.<a href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/" target="_blank" rel="noopener">不同的二叉搜索树 II</a>(30 分钟)—中等—递归<br>算法是同一个算法，还行吧<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563722260206-4cb5ed53-20be-4092-8721-b660041866d8.png#align=left&display=inline&height=92&name=image.png&originHeight=290&originWidth=860&size=97971&status=done&width=273" alt="image.png"></p>
-<p>66.<a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener">二叉树的前序遍历</a>(5 分钟)—中等—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563723013862-9941b1a6-0be5-4330-a601-9a6d7c79c2fd.png#align=left&display=inline&height=80&name=image.png&originHeight=244&originWidth=836&size=80926&status=done&width=275" alt="image.png"></p>
-<p>67.<a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener">二叉树的中序遍历</a>(3 分钟)—中等—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563723236773-daa28f09-e0d0-4c58-946b-3803e8979411.png#align=left&display=inline&height=101&name=image.png&originHeight=306&originWidth=880&size=96351&status=done&width=290" alt="image.png"></p>
-<p>68.<a href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener">二叉树的后序遍历</a>(1 分钟)—困难—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563723397855-d5955420-8096-4d44-b5a2-232887255484.png#align=left&display=inline&height=79&name=image.png&originHeight=244&originWidth=858&size=85697&status=done&width=277" alt="image.png"></p>
-<p>69.<a href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener">二叉树的层次遍历</a>(5 分钟)—中等—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563723787216-257e60a1-7353-40ff-bee7-91c85a8816c0.png#align=left&display=inline&height=68&name=image.png&originHeight=294&originWidth=878&size=93957&status=done&width=202" alt="image.png"><br>其实 BFS 可以用 DFS 来做的，就是加一个 level 的标记，我自己想到的。<br>当然也可以直接就 BFS 来做，多层数组，然后将下一层推入新的数组，迭代做。</p>
-<p>70.<a href="https://leetcode-cn.com/problems/symmetric-tree/" target="_blank" rel="noopener">对称二叉树</a>(10 分钟)—简单—递归<br>用的层次遍历加上字符串比对，感觉效率确实不高<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563764225644-eec4cdf8-4827-4fe2-86b5-2124d87dc81c.png#align=left&display=inline&height=64&name=image.png&originHeight=258&originWidth=888&size=83827&status=done&width=221" alt="image.png"><br>看了答案，思路很好，就是对于左右子树对称，就是左子树的右子树等于右子树的左子树以及左子树的左子树等于右子树的右子树。很棒。</p>
 <p>71.<a href="https://leetcode-cn.com/problems/path-sum/" target="_blank" rel="noopener">路径总和</a>(10 分钟)—简单—递归<br>才开始想错了，一定是根节点到叶子节点才行的。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563766159028-f65e9641-0ee0-43a0-b46a-6fe46fd09b84.png#align=left&display=inline&height=93&name=image.png&originHeight=314&originWidth=846&size=92442&status=done&width=251" alt="image.png"></p>
-<p>72.<a href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="noopener">从中序与后序遍历序列构造二叉树</a>(20 分钟)—中等—递归<br>这道题直接放弃看答案的，有意思，就是根据中序后序的特点来做的，很经典的题目<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563767910319-ee6a1b5f-27c2-4114-83ee-bf514aa01a73.png#align=left&display=inline&height=70&name=image.png&originHeight=258&originWidth=872&size=90624&status=done&width=235" alt="image.png"></p>
-<p>73.<a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" target="_blank" rel="noopener">从前序与中序遍历序列构造二叉树</a>(15 分钟)—中等—递归<br>和前一道一模一样，没啥好说的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563775826251-59097151-9f5a-493d-8f00-d773fa217786.png#align=left&display=inline&height=70&name=image.png&originHeight=268&originWidth=860&size=89760&status=done&width=225" alt="image.png"></p>
 <p>74.<a href="https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/" target="_blank" rel="noopener">填充每个节点的下一个右侧节点指针</a>(30 分钟)—中等—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563778822182-1b483708-64c0-4f5c-8d48-3689a0521a17.png#align=left&display=inline&height=80&name=image.png&originHeight=326&originWidth=864&size=94911&status=done&width=211" alt="image.png"><br>只考虑了两层，没考虑全，可惜了，居然在递归内部还得有个循环才行，这种得死记了<br>用了下一题的思路，感觉简单多了，就是注意永远从右侧开始。</p>
 <p>75.<a href="https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/" target="_blank" rel="noopener">填充每个节点的下一个右侧节点指针 II</a>(60 分钟)—中等—递归<br>放弃直接看的答案，感觉有点难了，其实好像不难，就是题目怎么要求，怎么写答案，很正统的解法<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563786962801-8c8687eb-b72c-4ca2-b9af-45a041582b86.png#align=left&display=inline&height=85&name=image.png&originHeight=348&originWidth=862&size=101952&status=done&width=211" alt="image.png"><br>注意得从右侧开始遍历，因此是设置 next。</p>
-<p>76.<a href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener">二叉树的最近公共祖先</a>(30 分钟)—中等—递归<br>第一遍思路很简单，果然超时了。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563795596088-a28d56b1-0480-4b43-9075-313d4ede33be.png#align=left&display=inline&height=71&name=image.png&originHeight=330&originWidth=862&size=95649&status=done&width=186" alt="image.png"><br>看了答案，其实还是深度遍历，找到了就返回 1，当左中右第一次到 2 的时候就是结果，想明白了好简单</p>
-<p>77.<a href="https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/" target="_blank" rel="noopener">二叉树的序列化与反序列化</a>(30 分钟)—困难—递归<br>原来完整的前序就可以恢复这颗树了，只要把空余的信息填好了。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563800275168-a468223c-a73d-4706-8b1f-7ec087b0899d.png#align=left&display=inline&height=96&name=image.png&originHeight=296&originWidth=884&size=97007&status=done&width=287" alt="image.png"><br>看了答案，不看答案做不出来的。太变态了</p>
 <p>78.<a href="https://leetcode-cn.com/problems/design-hashset/" target="_blank" rel="noopener">设计哈希集合</a>(20 分钟)—简单—哈希<br> <img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563816012798-19c3f196-9a13-46f6-abc3-9c819e62a4c6.png#align=left&display=inline&height=88&name=image.png&originHeight=268&originWidth=808&size=97317&status=done&width=265" alt="image.png"></p>
 <p>79.<a href="https://leetcode-cn.com/problems/contains-duplicate/" target="_blank" rel="noopener">存在重复元素</a>(5 分钟)—简单—for 循环<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563815959260-7f82b0d2-f1b8-4881-b70d-7a9c486af760.png#align=left&display=inline&height=96&name=image.png&originHeight=318&originWidth=866&size=98777&status=done&width=262" alt="image.png"><br>换了思路，还是很慢<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563816367185-be86845a-f3f8-4ee8-af51-ae381e405447.png#align=left&display=inline&height=90&name=image.png&originHeight=300&originWidth=882&size=96125&status=done&width=265" alt="image.png"><br>哇哦，换成 hash 之后果然快了太多了…<br>居然还有 Set 和 map 解法，酷炫哦。<br>Set 会自动去重，然后比较长度。</p>
-<p>80.<a href="https://leetcode-cn.com/problems/validate-binary-search-tree/" target="_blank" rel="noopener">验证二叉搜索树</a>(15 分钟)—简单—递归<br>简直惨，用的是中序是有顺序的，过是过了，跟没过没区别<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563849246647-a0310ea2-3855-4f2a-8f8a-551694f3fce5.png#align=left&display=inline&height=85&name=image.png&originHeight=296&originWidth=864&size=98024&status=done&width=249" alt="image.png"><br>在原答案上不断优化，其实就是中序有顺序，非常优秀啊<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563850496802-4c9b6773-cb13-4c5e-bff1-31ccc1671d30.png#align=left&display=inline&height=76&name=image.png&originHeight=250&originWidth=834&size=84044&status=done&width=252" alt="image.png"><br>其实递归也不错，就是得保存上边界和下边届。好难理解，再写一遍也要写好久啊，太难了。</p>
-<p>81.<a href="https://leetcode-cn.com/problems/binary-search-tree-iterator/" target="_blank" rel="noopener">二叉搜索树迭代器</a>(5 分钟)—中等—递归<br>这道题有点难度的，我没满足空间的要求，莫里斯循环可能可以解<br>得再看下了，暂时绕过了。</p>
-<p>82.<a href="https://leetcode-cn.com/problems/search-in-a-binary-search-tree/" target="_blank" rel="noopener">二叉搜索树中的搜索</a>(2 分钟)—简单—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563862440454-6aee895a-ccf9-46c0-b4b4-d3f2011c7823.png#align=left&display=inline&height=76&name=image.png&originHeight=270&originWidth=844&size=88441&status=done&width=239" alt="image.png"><br>可以不用递归全的，虽然我做了保护，但还是多了些，直接判断然后选择走左树还是右树就好了。</p>
-<p>83.<a href="https://leetcode-cn.com/problems/insert-into-a-binary-search-tree/" target="_blank" rel="noopener">二叉搜索树中的插入操作</a>(5 分钟)—中等—递归<br>非常简单的题目，二叉搜索树感觉没啥了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563863998877-e44bbdd8-d537-405f-be56-6db40499c9b4.png#align=left&display=inline&height=67&name=image.png&originHeight=228&originWidth=892&size=85338&status=done&width=264" alt="image.png"></p>
-<p>84.<a href="https://leetcode-cn.com/problems/delete-node-in-a-bst/" target="_blank" rel="noopener">删除二叉搜索树中的节点</a>(30 分钟)—中等—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563867224573-7d6d6b51-02f6-46c9-80bd-8c3a713e1d11.png#align=left&display=inline&height=84&name=image.png&originHeight=274&originWidth=852&size=90112&status=done&width=261" alt="image.png"><br>有点难的，就是只有左或者右的时候用左或者右替换，没有子就直接删。都有的话，选择右子树的最左边或者左子树的最右边。这个得记住了这种方案。</p>
 <p>85.<a href="https://leetcode-cn.com/problems/binary-search/" target="_blank" rel="noopener">二分查找</a>(15 分钟)—简单—递归<br>其实思路很简单，就是写起来 bug 多<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563871506192-825eaa1d-3650-4d39-a147-ee519fd911f5.png#align=left&display=inline&height=92&name=image.png&originHeight=298&originWidth=844&size=96555&status=done&width=260" alt="image.png"></p>
 <p>86.<a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">x 的平方根</a>(20 分钟)—简单—递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563875204582-05705c4a-a4b8-444e-868a-c6a0736afc3d.png#align=left&display=inline&height=100&name=image.png&originHeight=322&originWidth=894&size=97525&status=done&width=278" alt="image.png"><br>牛顿法很神奇的，需要再研究一下</p>
 <p>87.<a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener">搜索旋转排序数组</a>(40 分钟)—中等—递归<br>文中要求 logN 的时间，非常优秀，用两次二分法，第一次找到在哪里旋转的，第二次找到位置，边界太多了！<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563883533322-78443c04-b3d5-47bc-90cb-a70e47ec2fd9.png#align=left&display=inline&height=82&name=image.png&originHeight=310&originWidth=858&size=97311&status=done&width=228" alt="image.png"></p>
@@ -2244,24 +2313,8 @@
 <p>90.<a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" rel="noopener">寻找旋转排序数组中的最小值</a>(10 分钟)—中等—递归<br>和第 87 题一样，甚至更简单<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563899205157-8f159821-9a0e-40e7-b4e4-b326ed13360f.png#align=left&display=inline&height=88&name=image.png&originHeight=270&originWidth=850&size=89571&status=done&width=276" alt="image.png"></p>
 <p>91.<a href="https://leetcode-cn.com/problems/design-circular-queue/" target="_blank" rel="noopener">设计循环队列</a>(30 分钟)—中等—循环队列<br>非常重要的一点是要存一下数组的长度<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563940764015-7d017936-4dda-4417-96ef-4d9e451844ef.png#align=left&display=inline&height=89&name=image.png&originHeight=264&originWidth=858&size=90346&status=done&width=289" alt="image.png"></p>
 <p>92.<a href="https://leetcode-cn.com/problems/moving-average-from-data-stream/" target="_blank" rel="noopener">数据流中的移动平均值</a>(5 分钟)—简单—循环队列<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563941398426-d84e2a83-2c8b-41ec-a557-254715fc1aab.png#align=left&display=inline&height=72&name=image.png&originHeight=220&originWidth=894&size=84590&status=done&width=293" alt="image.png"></p>
-<p>93.<a href="https://leetcode-cn.com/problems/single-number/" target="_blank" rel="noopener">只出现一次的数字</a>(15 分钟)—简单—异或操作<br>果然想要 O1 的复杂度，hash 表都不能用。<br>还是只能用一些黑方法，同样的数异或操作等于 0，跟 0 异或等于自己。太牛了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563950075875-14ab7e7c-c0bb-489f-aab2-ef0ca86d3d28.png#align=left&display=inline&height=76&name=image.png&originHeight=262&originWidth=860&size=88296&status=done&width=248" alt="image.png"></p>
 <p>94.<a href="https://leetcode-cn.com/problems/fraction-to-recurring-decimal/" target="_blank" rel="noopener">分数到小数</a>(50 分钟)—中等—递归<br>思路就没想到，总是不相信很复杂….调了半天，真的是难啊<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563956299612-da2224f5-ed85-478e-b1ed-d7af42c914c0.png#align=left&display=inline&height=79&name=image.png&originHeight=264&originWidth=846&size=89509&status=done&width=253" alt="image.png"></p>
-<p>95.<a href="https://leetcode-cn.com/problems/factorial-trailing-zeroes/" target="_blank" rel="noopener">阶乘后的零</a>(10 分钟)—简单—数学<br>其实非常简单，但是规律不好找，得死记了！！25 里面有 2 个 5，真的是会就会了，不会就打死都不会。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563958230415-d20f8146-27b3-4589-8a4e-7aefb2957f67.png#align=left&display=inline&height=69&name=image.png&originHeight=262&originWidth=836&size=90868&status=done&width=220" alt="image.png"></p>
-<p>96.<a href="https://leetcode-cn.com/problems/perfect-squares/" target="_blank" rel="noopener">完全平方数</a>(30 分钟)—中等—动态规划<br>告知了是动态规划，还是不会做，妈的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1563987933422-dcdb5c30-45bb-4560-83e0-02ae0f01a5fa.png#align=left&display=inline&height=69&name=image.png&originHeight=250&originWidth=866&size=89287&status=done&width=238" alt="image.png"><br>看下图怎么解！！</p>
-<p>97.<a href="https://leetcode-cn.com/problems/count-primes/" target="_blank" rel="noopener">计数质数</a>(15 分钟)—简单—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564054333063-ba2b10da-b9c3-4c0f-8cce-4a364e7b5ff3.png#align=left&display=inline&height=74&name=image.png&originHeight=302&originWidth=884&size=100953&status=done&width=216" alt="image.png"><br>一直超时，做了个小优化，就是如果有约束，一定小于他的 sqrt。<br>其他算法可以看一下是什么样的。<br>厄拉多塞筛法不错，自己再写了一遍。</p>
-<p>98.<a href="https://leetcode-cn.com/problems/missing-number/" target="_blank" rel="noopener">缺失数字</a>(10 分钟)—简单—数学<br>异或又用到了，我自己用的求和<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564120623447-6f90ff61-e45a-463b-9605-885a91ab7207.png#align=left&display=inline&height=79&name=image.png&originHeight=250&originWidth=802&size=91167&status=done&width=254" alt="image.png"></p>
-<p>99.<a href="https://leetcode-cn.com/problems/power-of-three/" target="_blank" rel="noopener">3 的幂</a>(10 分钟)—简单—数学<a href="https://leetcode-cn.com/problems/power-of-three/" target="_blank" rel="noopener"></a><br>转成 3 进制然后正则匹配，想到就是真想到了，不会就是不会<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564120689314-075e731d-77f5-4b01-a381-bc22b7d73377.png#align=left&display=inline&height=69&name=image.png&originHeight=240&originWidth=808&size=86652&status=done&width=233" alt="image.png"></p>
-<p>100.<a href="https://leetcode-cn.com/problems/majority-element/" target="_blank" rel="noopener">求众数</a>(10 分钟)—简单—数学<br>题目的众数的意思是超过 n/2 的数，那就排序就可以了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564121398772-15e35af1-a0cd-4268-bd42-71d123b7e3ad.png#align=left&display=inline&height=81&name=image.png&originHeight=306&originWidth=872&size=93213&status=done&width=230" alt="image.png"><br>其实我的做法也不错的，n 的复杂度</p>
-<p>101.<a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/" target="_blank" rel="noopener">两个数组的交集</a>(5 分钟)—简单—数学<br>无聊的题目，算是学习下 set 吧，has 方法<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564128409957-5f99ed53-7c8e-4ee0-9f33-b7d700e5dfc2.png#align=left&display=inline&height=66&name=image.png&originHeight=238&originWidth=812&size=80292&status=done&width=225" alt="image.png"></p>
-<p>102.<a href="https://leetcode-cn.com/problems/happy-number/" target="_blank" rel="noopener">快乐数</a>(10 分钟)—简单—数学<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564130013404-74ecbdbf-27ab-4b07-99f4-6b48c173f877.png#align=left&display=inline&height=95&name=image.png&originHeight=320&originWidth=860&size=96463&status=done&width=255" alt="image.png"><br>我的方法效率很低，思路是对的，写的不好</p>
-<blockquote>
-<p>while(n){<br>      res += Math.pow(n%10,2);<br>      n=Math.floor(n/10);<br> }</p>
-</blockquote>
-<p>这样子写有点秀啊</p>
 <p>103.<a href="https://leetcode-cn.com/problems/same-tree/" target="_blank" rel="noopener">相同的树</a>(10 分钟)—简单—递归<br>递归或者用个栈迭代一下都可以的，easy<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564131058230-2d44f87f-f733-4fea-91c1-2fac9ee4f9c6.png#align=left&display=inline&height=92&name=image.png&originHeight=308&originWidth=882&size=100071&status=done&width=263" alt="image.png"></p>
-<p>104.<a href="https://leetcode-cn.com/problems/paint-house/" target="_blank" rel="noopener">粉刷房子</a>(5 分钟)—简单—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564381946811-acfeff70-230a-439a-a062-923fdee3fa7b.png#align=left&display=inline&height=95&name=image.png&originHeight=312&originWidth=880&size=95136&status=done&width=267" alt="image.png"></p>
-<p>105.<a href="https://leetcode-cn.com/problems/paint-fence/" target="_blank" rel="noopener">栅栏涂色</a>(10 分钟)—简单—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564383947884-bb6c705e-15e6-4cc3-8c03-19f0b27e5ce4.png#align=left&display=inline&height=87&name=image.png&originHeight=292&originWidth=886&size=90899&status=done&width=265" alt="image.png"></p>
-<p>106.<a href="https://leetcode-cn.com/problems/ugly-number-ii/" target="_blank" rel="noopener">丑数 II</a><br>(30 分钟)—中等—动态规划<br>我先用了比较容易想到的方法，果然超时了，就是一个一个遍历。<br>然后看了答案，用的算的方法，很棒的方法，我自己真的想不到，用 3 个指针，指向下次乘的最小值，太优秀了！！<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564389091585-aefea0a2-d765-4da4-9ce1-b4cb5504ed42.png#align=left&display=inline&height=91&name=image.png&originHeight=316&originWidth=880&size=98031&status=done&width=253" alt="image.png"></p>
 <p>107.<a href="https://leetcode-cn.com/problems/permutation-in-string/" target="_blank" rel="noopener">字符串的排列</a><br>10 分钟— 中等—<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564628237827-a40c3303-2ffa-48d4-abdd-c04155c25212.png#align=left&display=inline&height=84&name=image.png&originHeight=280&originWidth=812&size=95948&status=done&width=244" alt="image.png"></p>
 <p>108.<a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener">数组中的第 K 个最大元素</a><br>10 分钟— 中等—<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564628264566-70fea552-bca4-49ca-8486-30c11991a216.png#align=left&display=inline&height=93&name=image.png&originHeight=306&originWidth=794&size=101602&status=done&width=242" alt="image.png"></p>
 <p>109.<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener">翻转字符串里的单词</a><br>10 分钟— 中等—<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564662915148-93e3d86d-6bba-4652-8966-574b465c5d71.png#align=left&display=inline&height=80&name=image.png&originHeight=284&originWidth=872&size=89133&status=done&width=247" alt="image.png"></p>
@@ -2270,7 +2323,6 @@
 <p>112.<a href="https://leetcode-cn.com/problems/min-stack/" target="_blank" rel="noopener">最小栈</a><br>—简单—15 分钟<br>比想象中难一点的，想到了辅助栈，但是没想到只记下标，有点蠢的<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564727670312-ebbc3ea0-fa20-4219-bff7-6bf3d85d3cba.png#align=left&display=inline&height=84&name=image.png&originHeight=304&originWidth=886&size=94590&status=done&width=244" alt="image.png"></p>
 <p>113.<a href="https://leetcode-cn.com/problems/add-two-numbers/" target="_blank" rel="noopener">两数相加</a><br>—中等—10 分钟<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564986335768-7cd6bdda-01d2-4f19-b66f-c40f18f71d8c.png#align=left&display=inline&height=85&name=image.png&originHeight=304&originWidth=860&size=92664&status=done&width=241" alt="image.png"><br>很简单，链表方法跟数组一样的。</p>
 <p>114.<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener">买卖股票的最佳时机 II</a><br>—简单—15 分钟<br>智商被侮辱了，这么简单的题目搞了这么久<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564996490700-bd501795-262a-463e-9d2c-db4df28ba0f7.png#align=left&display=inline&height=93&name=image.png&originHeight=338&originWidth=864&size=98952&status=done&width=237" alt="image.png"></p>
-<p>115.<a href="https://leetcode-cn.com/problems/maximal-square/" target="_blank" rel="noopener">最大正方形</a><br>30 分钟—中等—动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1564998749217-4006fbb9-c06a-4fb7-9dac-483aad77743c.png#align=left&display=inline&height=94&name=image.png&originHeight=318&originWidth=856&size=93331&status=done&width=253" alt="image.png"><br>这道题目还是蛮难的，主要是规律不好找，正方形是另外 3 个的最小值+1，好玩</p>
 <p>116.<a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener">相交链表</a><br>20 分钟—简单—Map<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1565007617947-a56558ca-50d1-45c8-ac31-1d74329d40f7.png#align=left&display=inline&height=80&name=image.png&originHeight=284&originWidth=874&size=94148&status=done&width=246" alt="image.png"><br>强行环的解法太秀了！！我了个草啊</p>
 <p>117.<a href="https://leetcode-cn.com/problems/merge-intervals/" target="_blank" rel="noopener">合并区间</a><br>20 分钟—中等—数组<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1565062398994-b40ca06e-1c48-4ab8-95e0-f251c4c4e443.png#align=left&display=inline&height=76&name=image.png&originHeight=290&originWidth=866&size=96190&status=done&width=228" alt="image.png"><br>题目其实没太看懂，求并集</p>
 <p>118.<a href="https://leetcode-cn.com/problems/move-zeroes/" target="_blank" rel="noopener">移动零</a><br>5 分钟—简单—数组<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1565869837353-7bfcc727-f8a6-4025-82c8-8b27d1ab0a3a.png#align=left&display=inline&height=96&name=image.png&originHeight=372&originWidth=868&size=105062&status=done&width=223" alt="image.png"></p>
@@ -2278,35 +2330,15 @@
 <p>120.<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">反转字符串中的单词 III</a><br>2 分钟—简单—数组<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566214213958-76d73f26-c0f8-4adb-8dce-992df36e5eef.png#align=left&display=inline&height=84&name=image.png&originHeight=306&originWidth=866&size=94315&status=done&width=237" alt="image.png"></p>
 <p>121.<a href="https://leetcode-cn.com/problems/product-of-array-except-self/" target="_blank" rel="noopener">除自身以外数组的乘积</a><br>15 分钟–中等–数组<br>主要就是得想到，除自身外的乘积等于左乘积乘以右乘积。就左边一遍然后右边一遍就好了。想不到就死球了。<br>看了下别人的解，别人处理的好！我是先计算，再赋值，导致必须大于 2。别人是先赋值，再计算，不需要处理 i-1&lt;0 的情况了，优秀。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566269905948-28ff134e-4398-4276-a35a-0a95090123d0.png#align=left&display=inline&height=80&name=image.png&originHeight=292&originWidth=854&size=94493&status=done&width=235" alt="image.png"></p>
 <p>122.<a href="https://leetcode-cn.com/problems/valid-parentheses/" target="_blank" rel="noopener">有效的括号</a><br>10 分钟–简单–map<br>其实很简单，不过我用的数组，有人用的 map，map 的性能比我好多了。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566272475177-848056ca-e374-4251-8083-dfc385a8c7ff.png#align=left&display=inline&height=78&name=image.png&originHeight=292&originWidth=876&size=96034&status=done&width=234" alt="image.png"></p>
-<p>124.<a href="https://leetcode-cn.com/problems/power-of-two/" target="_blank" rel="noopener">2 的幂</a><br>3 分钟–简单–数学<br>就是转成二进制，然后看是不是 1000 这样的。<br>应该用正则比较好的。正则写的有点问题，忘了+号是 1 次或者多次，*是 0 次或者多次。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566273077540-83effa43-2e45-40c9-b046-575d43eabe1e.png#align=left&display=inline&height=83&name=image.png&originHeight=328&originWidth=920&size=102020&status=done&width=234" alt="image.png"><br>也可以位运算的！！</p>
 <p>125.<a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">合并 K 个排序链表</a><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener"></a><br>10 分钟–困难–递归<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566373633406-9926dc9d-7588-4a86-bd38-127435249a0a.png#align=left&display=inline&height=90&name=image.png&originHeight=340&originWidth=888&size=95775&status=done&width=234" alt="image.png"><br>算是二分了一下，两两合并，再最终合并。</p>
 <p>126.<a href="https://leetcode-cn.com/problems/lru-cache/" target="_blank" rel="noopener">LRU 缓存机制</a><br>30 分钟–中等–双链表<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566459692780-5493baa9-0b66-42c6-9a6e-99d380226066.png#align=left&display=inline&height=82&name=image.png&originHeight=344&originWidth=892&size=101930&status=done&width=213" alt="image.png"><br>最开始用了数组的方式，可行，但是 indexOf 并不算 O(1)吧。<br>第二种算法 Map 的有点厉害，map.keys().next().value 比较厉害。<br>第三种是双链表。。这个晚上再看一遍！！！</p>
 <p>127.<a href="https://leetcode-cn.com/problems/sort-list/" target="_blank" rel="noopener">排序链表</a><br>20 分钟–中等–归并排序<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566462265301-e80a77d1-ba8e-43fe-b075-73601a869189.png#align=left&display=inline&height=103&name=image.png&originHeight=346&originWidth=880&size=96687&status=done&width=263" alt="image.png"><br>可以和其他的排序对比一下！</p>
-<p>128.<a href="https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/" target="_blank" rel="noopener">二叉树的锯齿形层次遍历</a><br>10 分钟–中等–广度遍历<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566463253640-98d0e31d-c25f-44a2-a3ba-ec905e20fec2.png#align=left&display=inline&height=101&name=image.png&originHeight=328&originWidth=868&size=97007&status=done&width=267" alt="image.png"></p>
-<p>129.<a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">环形链表 II</a><br>30 分钟–中等–数学<br>本来直接用 map 或者 set 就可以做的，但是要求不用空间。<br>那就只能用数学了哇，不看答案绝对不会系列，太难了<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566465934029-150dcc55-3425-4246-b530-afe4b38096b7.png#align=left&display=inline&height=105&name=image.png&originHeight=338&originWidth=882&size=97728&status=done&width=275" alt="image.png"></p>
-<p>130.<a href="https://leetcode-cn.com/problems/trapping-rain-water/" target="_blank" rel="noopener">接雨水</a><br>40 分钟–困难–双指针<br>这一道直接看了答案，就是左边右边一起逼近，如果出现更高的就统计另一边。左右各维护一个最大值。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566467901225-3e2657fe-7e29-4e31-bc7e-6788d58df5b9.png#align=left&display=inline&height=99&name=image.png&originHeight=304&originWidth=844&size=95960&status=done&width=276" alt="image.png"></p>
 <p>131.<a href="https://leetcode-cn.com/problems/friend-circles/" target="_blank" rel="noopener">朋友圈</a><br>25 分钟–中等–深度遍历<br>看答案系列，就是出现了之后把所有的格式化掉<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566477890325-c160366b-c0b5-47d0-97e8-de93cc14d302.png#align=left&display=inline&height=98&name=image.png&originHeight=324&originWidth=868&size=99355&status=done&width=263" alt="image.png"><br>感觉不算难的。</p>
 <p>132.<a href="https://leetcode-cn.com/problems/max-area-of-island/" target="_blank" rel="noopener">岛屿的最大面积</a><br>10 分钟–中等–深度遍历<br>很类似，很简单<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566478882451-87bf4c3c-fa55-43a7-8cab-7f0ceef71303.png#align=left&display=inline&height=99&name=image.png&originHeight=318&originWidth=862&size=97404&status=done&width=269" alt="image.png"></p>
 <p>133.<a href="https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/" target="_blank" rel="noopener">最长连续递增序列</a><br>10 分钟–简单–数组<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566479335921-9d07db5c-4194-405d-950c-1394d6107e8a.png#align=left&display=inline&height=72&name=image.png&originHeight=296&originWidth=880&size=92418&status=done&width=214" alt="image.png"></p>
-<p>134.<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">最长上升子序列</a><br>20 分钟–中等–动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566485582618-fd4b0482-cf53-4ca0-adfd-ac3cee3262cb.png#align=left&display=inline&height=87&name=image.png&originHeight=324&originWidth=908&size=100025&status=done&width=244" alt="image.png"><br>这一题其实想到了就想到了，想不到就不会了。<br>我用的还算是有问题的解答。</p>
-<p>135.<a href="https://leetcode-cn.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener">俄罗斯套娃信封问题</a><br>15 分钟–困难–动态规划<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566486062502-5b308e13-ade9-4e70-9d55-eeac6cf452c5.png#align=left&display=inline&height=94&name=image.png&originHeight=340&originWidth=894&size=96503&status=done&width=246" alt="image.png"><br>好难啊，不过其实也能想到的，<br>先按照 x 排序，如果 x 相同，y 反排，这一步太优秀了！！<br>然后就是找最长上升子序列。</p>
 <p>136.<a href="https://leetcode-cn.com/problems/utf-8-validation/" target="_blank" rel="noopener">UTF-8 编码验证</a><br>15 分钟–中等–找规律<br>挺简单的，就是边界容易错<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566488627461-f22c3fef-e7df-4539-a625-b18ee008c5b4.png#align=left&display=inline&height=86&name=image.png&originHeight=298&originWidth=892&size=94116&status=done&width=257" alt="image.png"></p>
-<p>137.<a href="https://leetcode-cn.com/problems/multiply-strings/" target="_blank" rel="noopener">字符串相乘</a><br>15 分钟–中等–数学<br>看答案系列，其实正统的解法比较好理解，不过效率不高，就不写了，<br>看了答案，竖式乘法更好理解，而且写起来好简单。<br><img src="https://intranetproxy.alipay.com/skylark/lark/0/2019/png/27385/1566546630756-26781580-1788-460a-afda-749e87179435.png#align=left&display=inline&height=98&name=image.png&originHeight=324&originWidth=860&size=98602&status=done&width=261" alt="image.png"></p>
 <p><a name="yJXev"></a></p>
 <h2 id="算法总结"><a href="#算法总结" class="headerlink" title="算法总结"></a>算法总结</h2><p><a name="sqBQz"></a></p>
-<h4 id="回溯法："><a href="#回溯法：" class="headerlink" title="回溯法："></a>回溯法：</h4><p>就是写一个函数，将目标值或者一个指针传下去，不断构建结果。<br>如果指针到数组结束或者目标值为 0 就进行结果的判断，成功就推入结果集，否则将上一步推出来。指针下传。<br>可能需要写到 for 循环，如果是全排列的话，如果只是子集的话，不用。</p>
-<p><a name="TNsQ6"></a></p>
-<h4 id="二叉树："><a href="#二叉树：" class="headerlink" title="二叉树："></a>二叉树：</h4><p><a name="dGLSF"></a></p>
-<h5 id="深度优先（DFS）"><a href="#深度优先（DFS）" class="headerlink" title="深度优先（DFS）"></a>深度优先（DFS）</h5><p>分为中序，前序和后续，指的是中间节点的位置。</p>
-<p><a name="xEPYY"></a></p>
-<h5 id="广度优先（BFS）"><a href="#广度优先（BFS）" class="headerlink" title="广度优先（BFS）"></a>广度优先（BFS）</h5><p>就是一层一层按照层级顺序遍历的，其实好简单的</p>
-<p><a name="MhhSG"></a></p>
-<h5 id="二叉搜索树："><a href="#二叉搜索树：" class="headerlink" title="二叉搜索树："></a>二叉搜索树：</h5><p>就是中间节点会大于所有左子树，会小于全部右子树。<br>中序就是有顺序的排列。</p>
-<p><a name="Px3jD"></a></p>
-<h4 id="动态规划："><a href="#动态规划：" class="headerlink" title="动态规划："></a>动态规划：</h4><p>记住求过的解来节省时间。</p>
-<p><a name="cMCkT"></a></p>
-<h4 id="双指针："><a href="#双指针：" class="headerlink" title="双指针："></a>双指针：</h4><p>就是用两个指针，从两侧逼近就行了</p>
-<p><a name="Cwkug"></a></p>
 <h4 id="递归："><a href="#递归：" class="headerlink" title="递归："></a>递归：</h4><p>1.写下来重复的关系<br>2.只要有可能，就存中间结果<br>尾递归就是最后执行递归操作，就可以不保存之前函数的调用栈，每次都是更新函数内部的调用栈。优秀啊。尤其是斐波那契数列居然可以这么写。</p>
 <blockquote>
 <p><strong>function</strong> <strong>fTail</strong>(n, a = 0, b = 1) {<br> <strong>if</strong> (n === 0) <strong>return</strong> a<br><strong>return</strong> fTail(n - 1, b, a + b)<br>}</p>
@@ -2320,7 +2352,6 @@
 <h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p><a name="CguVH"></a></p>
 <h5 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h5><p>就是一个数组，首尾循环，有固定的长度</p>
 <p><a name="FF56V"></a></p>
-<h4 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h4><p><a name="X0L5g"></a></p>
 <h5 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h5><p><a name="4RBHD"></a></p>
 <h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p><a name="fc1KQ"></a></p>
 <h5 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h5><p>就是快慢指针找到中间，然后剪成两半，然后不断递减，然后再合并起来。</p>
@@ -2359,10 +2390,10 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>刷题总览</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">6.5k</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.4k</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="泽鹿">泽鹿</a></p>
     <p><span class="copy-title">发布时间:</span>2019-08-28, 16:45:23</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-28, 19:00:11</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-29, 17:34:26</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/28/算法/刷题总览/" title="刷题总览">http://panyifei.github.io/2019/08/28/算法/刷题总览/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
@@ -2445,7 +2476,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#冒泡排序','#快速排序',],
+            'data': ['#二叉树','#双指针','#回溯法','#二叉搜索树','#数学','#冒泡排序','#快速排序','#动态规划',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
