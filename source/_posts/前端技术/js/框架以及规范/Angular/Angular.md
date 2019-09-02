@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Angular
+categories:
+  - 前端技术
+  - js
+  - 框架以及规范
 ---
 
 # Angular

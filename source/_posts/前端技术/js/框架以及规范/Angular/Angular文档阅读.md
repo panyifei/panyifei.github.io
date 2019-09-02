@@ -1,9 +1,11 @@
 ---
 layout: default
-title: Angular教程阅读
+title: Angular 文档阅读
+categories:
+  - 前端技术
+  - js
+  - 框架以及规范
 ---
-
-# Angular 教程阅读
 
 ## 简介
 

@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Commonjs,CMD,AMD和cortex介绍
+categories:
+  - 前端技术
+  - js
+  - 框架以及规范
 ---
 
 这里只是一些入门级别的认识，深入一些的可查看我的阅读笔记[模块加载系统][1]

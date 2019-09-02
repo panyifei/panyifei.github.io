@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Requirejs源码阅读
+categories:
+  - 前端技术
+  - js
+  - 框架以及规范
 ---
 
 接着上文的[学习以及尝试实现](https://github.com/panyifei/learning/blob/master/框架以及规范/模块引入/Requirejs学习以及实现.md),准备好好看下源码的实现。
